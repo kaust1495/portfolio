@@ -65,7 +65,7 @@ export function SiteNav() {
           </span>
           <button
             onClick={() => window.dispatchEvent(new Event("open-cmd"))}
-            className="btn px-2.5 py-1.5 text-xs"
+            className="btn btn--sm"
             aria-label="Open command menu"
           >
             <span className="font-mono" style={{ color: "var(--muted)" }}>

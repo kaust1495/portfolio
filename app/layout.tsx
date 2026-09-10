@@ -1,19 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Instrument_Serif, Caveat } from "next/font/google";
+import { Bricolage_Grotesque, Space_Grotesk, Martian_Mono, Caveat } from "next/font/google";
 import { person } from "@/content/profile";
 import { CommandBar } from "@/components/CommandBar";
 import { SiteNav } from "@/components/SiteNav";
+import { AskMe } from "@/components/chat/AskMe";
 import "./globals.css";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
-  weight: "400",
-  style: ["normal", "italic"],
+/* Display — Bricolage Grotesque: variable, wonky, set very large. */
+const display = Bricolage_Grotesque({
+  variable: "--font-display",
   subsets: ["latin"],
   display: "swap",
+  axes: ["opsz", "wdth"],
 });
+/* Body — Space Grotesk: a workhorse with more character than the defaults. */
+const body = Space_Grotesk({ variable: "--font-body", subsets: ["latin"], display: "swap" });
+/* Mono — Martian Mono: labels, metadata, terminal bits. */
+const mono = Martian_Mono({ variable: "--font-mono-k", subsets: ["latin"], display: "swap", weight: ["400", "600"] });
+/* Hand — small handwritten asides only. */
 const caveat = Caveat({ variable: "--font-caveat", weight: ["400", "600", "700"], subsets: ["latin"], display: "swap" });
 
 const title = `${person.name} — engineer turned product builder`;
@@ -71,11 +75,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${caveat.variable} h-full antialiased`}
+      className={`${display.variable} ${body.variable} ${mono.variable} ${caveat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <SiteNav />
         {children}
+        <AskMe />
         <CommandBar />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </body>

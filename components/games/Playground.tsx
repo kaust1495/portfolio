@@ -4,23 +4,25 @@ import { useState } from "react";
 import Link from "next/link";
 import { ShipIt } from "./ShipIt";
 import { PipelinePanic } from "./PipelinePanic";
+import { BugSquash } from "./BugSquash";
 
-type Tab = "ship-it" | "pipeline-panic";
+type Tab = "bug-squash" | "ship-it" | "pipeline-panic";
 
 const tabs: { id: Tab; label: string; blurb: string }[] = [
+  { id: "bug-squash", label: "Bug Squash", blurb: "Thirty seconds. Bugs crawl out, you click them. No product knowledge required." },
   { id: "ship-it", label: "Ship It", blurb: "Call features ship / defer / cut before the deadline." },
   { id: "pipeline-panic", label: "Pipeline Panic", blurb: "Approve, test, or hold deploys. Keep prod alive." },
 ];
 
 export function Playground() {
-  const [tab, setTab] = useState<Tab>("ship-it");
+  const [tab, setTab] = useState<Tab>("bug-squash");
 
   return (
     <div>
       {/* Decisions deck — its own full-page thing */}
       <Link
         href="/decisions"
-        className="tile mb-6 flex-row items-center justify-between gap-4"
+        className="tile tile-row mb-6"
       >
         <div>
           <p className="font-serif text-xl" style={{ color: "var(--ink)" }}>
@@ -57,7 +59,7 @@ export function Playground() {
         {tabs.find((t) => t.id === tab)?.blurb}
       </p>
 
-      {tab === "ship-it" ? <ShipIt /> : <PipelinePanic />}
+      {tab === "bug-squash" ? <BugSquash /> : tab === "ship-it" ? <ShipIt /> : <PipelinePanic />}
     </div>
   );
 }
