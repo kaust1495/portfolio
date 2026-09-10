@@ -49,6 +49,7 @@ export type Destination = {
 export const destinations: Destination[] = [
   { id: "decisions", label: "Decisions", blurb: "Make the call. See the call I made.", kbd: "D", href: "/decisions", featured: true },
   { id: "work", label: "Work", blurb: "Four builds, four turning points.", kbd: "W", href: "/work", featured: true },
+  { id: "arcade", label: "Arcade", blurb: "Small games about deciding fast.", kbd: "G", href: "/arcade" },
   { id: "about", label: "About", blurb: "The non-linear route to here.", kbd: "A", href: "/about" },
   { id: "playbook", label: "Playbook", blurb: "How I think about building.", kbd: "P", href: "/about#playbook" },
   { id: "now", label: "Now", blurb: "What I'm actually doing this month.", kbd: "N", href: "/about#now" },

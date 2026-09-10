@@ -1,10 +1,5 @@
-import { Console } from "@/components/console/Console";
+import { Desk } from "@/components/desk/Desk";
 
 export default function HomePage() {
-  return (
-    <>
-      <div className="glow" style={{ top: "-14vw", right: "-10vw" }} aria-hidden="true" />
-      <Console />
-    </>
-  );
+  return <Desk />;
 }

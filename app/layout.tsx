@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif, Caveat } from "next/font/google";
 import { person } from "@/content/profile";
 import { CommandBar } from "@/components/CommandBar";
 import "./globals.css";
@@ -13,6 +13,7 @@ const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   display: "swap",
 });
+const caveat = Caveat({ variable: "--font-caveat", weight: ["400", "600", "700"], subsets: ["latin"], display: "swap" });
 
 const title = `${person.name} — builder, operator, investor-in-training`;
 const description =
@@ -69,10 +70,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${caveat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <div className="field" aria-hidden="true" />
         {children}
         <CommandBar />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
