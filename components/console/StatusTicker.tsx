@@ -25,13 +25,13 @@ export function StatusTicker() {
       </span>
       <span className="label shrink-0">This week</span>
       <span className="relative h-5 flex-1 overflow-hidden">
-        <AnimatePresence mode="wait">
+        <AnimatePresence initial={false}>
           <motion.span
             key={i}
-            initial={reduce ? false : { y: 12, opacity: 0 }}
+            initial={reduce ? { opacity: 1 } : { y: 14, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            exit={reduce ? { opacity: 0 } : { y: -12, opacity: 0 }}
-            transition={{ duration: 0.34, ease: [0.22, 0.61, 0.28, 1] }}
+            exit={reduce ? { opacity: 0 } : { y: -14, opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.22, 0.61, 0.28, 1] }}
             className="absolute inset-0 truncate"
             style={{ color: "var(--muted)" }}
           >
