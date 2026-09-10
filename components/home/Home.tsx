@@ -123,10 +123,10 @@ export function Home() {
                   Ship It
                 </p>
                 <p className="text-xs" style={{ color: "var(--muted)" }}>
-                  Features fly at a deadline. Ship, defer, or cut.
+                  Call features ship / defer / cut before the deadline hits.
                 </p>
-                <span className="mt-1 text-xs" style={{ color: "var(--faint)" }}>
-                  In the playground
+                <span className="mt-1 text-xs" style={{ color: "var(--accent)" }}>
+                  Play →
                 </span>
               </Link>
               <Link href="/playground" className="tile">
@@ -134,10 +134,10 @@ export function Home() {
                   Pipeline Panic
                 </p>
                 <p className="text-xs" style={{ color: "var(--muted)" }}>
-                  Approve, hold, or test incoming deploys. Keep prod alive.
+                  Approve, test, or hold incoming deploys. Keep prod alive.
                 </p>
-                <span className="mt-1 text-xs" style={{ color: "var(--faint)" }}>
-                  In the playground
+                <span className="mt-1 text-xs" style={{ color: "var(--accent)" }}>
+                  Play →
                 </span>
               </Link>
             </div>
