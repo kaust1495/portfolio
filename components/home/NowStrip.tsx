@@ -10,35 +10,38 @@ export function NowStrip() {
   const fact = techFacts[fi % techFacts.length];
 
   return (
-    <div className="grid gap-px overflow-hidden rounded-xl border sm:grid-cols-3" style={{ borderColor: "var(--line)", background: "var(--line-soft)" }}>
-      <div className="p-4" style={{ background: "var(--surface)" }}>
+    <div className="grid divide-y sm:grid-cols-3 sm:divide-x sm:divide-y-0" style={{ borderColor: "var(--line)" }}>
+      <div className="py-4 sm:pr-6">
         <p className="label flex items-center gap-2">
           <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: "var(--ok)" }} />
           Now
         </p>
-        <p className="mt-2 text-sm leading-snug" style={{ color: "var(--ink-2)" }}>
+        <p className="mt-1.5 text-[0.82rem] leading-snug" style={{ color: "var(--ink-2)" }}>
           Running a top-percentile book at the Masters&rsquo; Union Investment Fund, and shipping side projects.
         </p>
       </div>
 
-      <div className="p-4" style={{ background: "var(--surface)" }}>
+      <div className="py-4 sm:px-6">
         <p className="label">Tech pulse · live</p>
-        <p className="mt-2 line-clamp-2 text-sm leading-snug" style={{ color: "var(--ink-2)" }}>
+        <p className="mt-1.5 line-clamp-2 text-[0.82rem] leading-snug" style={{ color: "var(--ink-2)" }}>
           {pulse.loading ? "Checking what tech is arguing about…" : pulse.headline}
         </p>
         {pulse.url && !pulse.loading && (
-          <a href={pulse.url} target="_blank" rel="noopener noreferrer" className="link mt-1.5 inline-flex text-xs" style={{ color: "var(--accent)" }}>
+          <a href={pulse.url} target="_blank" rel="noopener noreferrer" className="link mt-1 inline-flex text-[0.7rem]" style={{ color: "var(--accent)" }}>
             top of Hacker News, right now ↗
           </a>
         )}
       </div>
 
-      <button onClick={() => setFi((i) => i + 1)} className="p-4 text-left transition-colors hover:bg-[var(--surface-hi)]" style={{ background: "var(--surface)" }}>
+      <button
+        onClick={() => setFi((i) => i + 1)}
+        className="py-4 text-left transition-colors hover:bg-[var(--bg)] sm:pl-6"
+      >
         <p className="label flex items-center justify-between">
           <span>Tech fun fact</span>
           <span aria-hidden="true">↻</span>
         </p>
-        <p className="mt-2 line-clamp-3 text-sm leading-snug" style={{ color: "var(--ink-2)" }}>
+        <p className="mt-1.5 line-clamp-3 text-[0.82rem] leading-snug" style={{ color: "var(--ink-2)" }}>
           {fact.fact}
         </p>
       </button>

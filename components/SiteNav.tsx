@@ -5,12 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { person } from "@/content/profile";
 
-const links = [
-  { label: "Work", href: "/work" },
-  { label: "Playground", href: "/playground" },
-  { label: "About", href: "/about" },
-];
-
 export function SiteNav() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
@@ -22,11 +16,15 @@ export function SiteNav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const linkStyle = (href: string) => ({
+    color: pathname.startsWith(href) ? "var(--ink)" : "var(--muted)",
+  });
+
   return (
     <header
       className="sticky top-0 z-50 transition-colors duration-300"
       style={{
-        background: scrolled ? "color-mix(in srgb, var(--bg) 88%, transparent)" : "transparent",
+        background: scrolled ? "color-mix(in srgb, var(--bg) 90%, transparent)" : "transparent",
         borderBottom: `1px solid ${scrolled ? "var(--line-soft)" : "transparent"}`,
         backdropFilter: scrolled ? "blur(8px)" : "none",
       }}
@@ -45,33 +43,34 @@ export function SiteNav() {
         </Link>
 
         <div className="flex items-center gap-4 text-sm sm:gap-6">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="link"
-              style={{ color: pathname.startsWith(l.href) ? "var(--ink)" : "var(--muted)" }}
-            >
-              {l.label}
+          <Link href="/work" className="link" style={linkStyle("/work")}>
+            Work
+          </Link>
+          <span className="hidden items-center gap-4 sm:flex sm:gap-6">
+            <Link href="/playground" className="link" style={linkStyle("/playground")}>
+              Playground
             </Link>
-          ))}
-          <a
-            href={person.resumeHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="link hidden sm:inline-flex"
-            style={{ color: "var(--muted)" }}
-          >
-            Résumé<span aria-hidden="true"> ↗</span>
-          </a>
+            <Link href="/about" className="link" style={linkStyle("/about")}>
+              About
+            </Link>
+            <a
+              href={person.resumeHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link"
+              style={{ color: "var(--muted)" }}
+            >
+              Résumé<span aria-hidden="true"> ↗</span>
+            </a>
+          </span>
           <button
             onClick={() => window.dispatchEvent(new Event("open-cmd"))}
             className="btn px-2.5 py-1.5 text-xs"
             aria-label="Open command menu"
           >
-            <kbd className="kbd" style={{ borderColor: "transparent", background: "transparent", padding: 0 }}>
+            <span className="font-mono" style={{ color: "var(--muted)" }}>
               ⌘K
-            </kbd>
+            </span>
           </button>
         </div>
       </nav>
