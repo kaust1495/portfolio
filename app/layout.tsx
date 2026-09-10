@@ -1,22 +1,18 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Space_Grotesk, Martian_Mono, Caveat } from "next/font/google";
+import { Gabarito, Plus_Jakarta_Sans, DM_Mono, Caveat } from "next/font/google";
 import { person } from "@/content/profile";
 import { CommandBar } from "@/components/CommandBar";
 import { SiteNav } from "@/components/SiteNav";
 import { AskMe } from "@/components/chat/AskMe";
+import { Buddy } from "@/components/Buddy";
 import "./globals.css";
 
-/* Display — Bricolage Grotesque: variable, wonky, set very large. */
-const display = Bricolage_Grotesque({
-  variable: "--font-display",
-  subsets: ["latin"],
-  display: "swap",
-  axes: ["opsz", "wdth"],
-});
-/* Body — Space Grotesk: a workhorse with more character than the defaults. */
-const body = Space_Grotesk({ variable: "--font-body", subsets: ["latin"], display: "swap" });
-/* Mono — Martian Mono: labels, metadata, terminal bits. */
-const mono = Martian_Mono({ variable: "--font-mono-k", subsets: ["latin"], display: "swap", weight: ["400", "600"] });
+/* Display — Gabarito: friendly geometric with real character. Never shouty. */
+const display = Gabarito({ variable: "--font-display", subsets: ["latin"], display: "swap" });
+/* Body — Plus Jakarta Sans: warm, soft-edged, very readable. */
+const body = Plus_Jakarta_Sans({ variable: "--font-body", subsets: ["latin"], display: "swap" });
+/* Mono — DM Mono: gentler than the usual terminal faces. Labels only. */
+const mono = DM_Mono({ variable: "--font-mono-k", subsets: ["latin"], display: "swap", weight: ["400", "500"] });
 /* Hand — small handwritten asides only. */
 const caveat = Caveat({ variable: "--font-caveat", weight: ["400", "600", "700"], subsets: ["latin"], display: "swap" });
 
@@ -78,8 +74,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${display.variable} ${body.variable} ${mono.variable} ${caveat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <div className="ambient" aria-hidden="true">
+          <span className="blob blob-a" />
+          <span className="blob blob-b" />
+          <span className="blob blob-c" />
+        </div>
         <SiteNav />
         {children}
+        <Buddy />
         <AskMe />
         <CommandBar />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
