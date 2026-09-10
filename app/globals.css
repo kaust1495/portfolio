@@ -1,25 +1,37 @@
 @import "tailwindcss";
 
-/* ------------------------------------------------------------------ *
- * Design tokens
- * ------------------------------------------------------------------ */
+/* ================================================================== *
+ * Tokens
+ * ================================================================== */
 :root {
-  --bg: #0b0b0c;
-  --surface: #141416;
-  --surface-2: #1a1a1d;
-  --line: #2a2a2e;
-  --line-soft: #1c1c20;
-  --ink: #ecebe5;
-  --muted: #a4a19a;
-  --faint: #6d6a63;
+  --bg: #0a0a0b;
+  --bg-2: #0e0e10;
+  --surface: #151518;
+  --surface-hi: #1c1c20;
+  --line: #2a2a2f;
+  --line-soft: #1e1e22;
+  --ink: #ededea;
+  --muted: #a2a09a;
+  --faint: #6a6862;
+
   --accent: #ff6a3d;
-  --accent-2: #f4a259;
+  --accent-2: #ffa14a;
+
+  /* decision semantics */
+  --ok: #64d4a0;
+  --no: #ff6a6a;
+  --wait: #f2b53b;
+
+  --radius: 16px;
+  --ease: cubic-bezier(0.22, 0.61, 0.28, 1);
+  --spring: linear(0, 0.006, 0.025, 0.101, 0.539, 0.826, 0.99, 1.09, 1.13, 1.12, 1.06, 1.017, 0.995, 0.991, 0.998, 1.001, 1);
 }
 
 @theme inline {
   --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
   --color-surface: var(--surface);
-  --color-surface-2: var(--surface-2);
+  --color-surface-hi: var(--surface-hi);
   --color-line: var(--line);
   --color-line-soft: var(--line-soft);
   --color-ink: var(--ink);
@@ -27,23 +39,28 @@
   --color-faint: var(--faint);
   --color-accent: var(--accent);
   --color-accent-2: var(--accent-2);
+  --color-ok: var(--ok);
+  --color-no: var(--no);
+  --color-wait: var(--wait);
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
   --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
 }
 
-/* ------------------------------------------------------------------ *
+/* ================================================================== *
  * Base
- * ------------------------------------------------------------------ */
+ * ================================================================== */
 @layer base {
+  * {
+    min-width: 0;
+  }
   html {
     color-scheme: dark;
-    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     overflow-x: clip;
+    scroll-behavior: smooth;
   }
-
   body {
     background: var(--bg);
     color: var(--ink);
@@ -53,39 +70,22 @@
     text-rendering: optimizeLegibility;
     overflow-x: clip;
   }
-
-  h1,
-  h2,
-  h3,
-  h4 {
+  h1, h2, h3, h4 {
     font-weight: 400;
     line-height: 1.08;
     letter-spacing: -0.02em;
   }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  ::selection {
-    background: var(--accent);
-    color: #0b0b0c;
-  }
-
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; cursor: pointer; background: none; border: none; }
+  ::selection { background: var(--accent); color: #0a0a0b; }
   :focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: 4px;
   }
-
   @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-    *,
-    *::before,
-    *::after {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
       animation-duration: 0.001ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.001ms !important;
@@ -93,17 +93,15 @@
   }
 }
 
-/* ------------------------------------------------------------------ *
- * Typography helpers
- * ------------------------------------------------------------------ */
-.font-serif {
-  font-family: var(--font-serif);
-  letter-spacing: 0;
-}
+/* ================================================================== *
+ * Type helpers
+ * ================================================================== */
+.font-serif { font-family: var(--font-serif); letter-spacing: 0; }
+.font-mono { font-family: var(--font-mono); }
 
 .label {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
@@ -111,221 +109,286 @@
 
 .display {
   font-family: var(--font-serif);
-  font-weight: 400;
-  line-height: 1.02;
+  line-height: 1.0;
   letter-spacing: -0.015em;
-  font-size: clamp(2.6rem, 7vw, 5.75rem);
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
 }
 
 .h2 {
   font-family: var(--font-serif);
-  font-size: clamp(1.9rem, 4vw, 3rem);
-  line-height: 1.06;
+  font-size: clamp(1.8rem, 4vw, 2.9rem);
+  line-height: 1.05;
 }
 
-.lede {
-  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+.kbd {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  line-height: 1;
+  padding: 0.28em 0.42em;
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  background: var(--surface);
   color: var(--muted);
-  line-height: 1.62;
-  max-width: 46ch;
 }
 
-/* ------------------------------------------------------------------ *
+/* ================================================================== *
  * Layout
- * ------------------------------------------------------------------ */
-.shell {
+ * ================================================================== */
+.wrap {
   width: 100%;
-  max-width: 1180px;
+  max-width: 1240px;
   margin-inline: auto;
-  padding-inline: clamp(1.25rem, 5vw, 4rem);
+  padding-inline: clamp(1.15rem, 4vw, 3rem);
 }
-
-.section {
-  padding-block: clamp(4.5rem, 12vw, 9rem);
-  border-top: 1px solid var(--line-soft);
-}
-
-.rule {
-  height: 1px;
-  background: var(--line);
+.wrap-tight {
   width: 100%;
+  max-width: 780px;
+  margin-inline: auto;
+  padding-inline: clamp(1.15rem, 4vw, 2rem);
 }
 
-/* ------------------------------------------------------------------ *
- * Links with animated underline
- * ------------------------------------------------------------------ */
+.rule { height: 1px; background: var(--line); width: 100%; }
+
+/* ================================================================== *
+ * Surfaces / cards
+ * ================================================================== */
+.panel {
+  background: linear-gradient(180deg, var(--surface) 0%, var(--bg-2) 130%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.panel-hi {
+  background: var(--surface-hi);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.15rem 1.25rem 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  transition:
+    border-color 0.25s var(--ease),
+    background 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+.tile:hover,
+.tile:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  background: var(--surface-hi);
+}
+.tile:active { transform: scale(0.985); }
+
+/* ================================================================== *
+ * Links
+ * ================================================================== */
 .link {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.4em;
-  color: var(--ink);
+  gap: 0.35em;
   padding-bottom: 2px;
 }
 .link::after {
   content: "";
   position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 1px;
-  width: 100%;
+  left: 0; bottom: 0;
+  height: 1px; width: 100%;
   background: currentColor;
   transform: scaleX(0);
   transform-origin: right;
-  transition: transform 0.4s cubic-bezier(0.2, 0.6, 0.2, 1);
+  transition: transform 0.4s var(--ease);
 }
 .link:hover::after,
 .link:focus-visible::after {
   transform: scaleX(1);
   transform-origin: left;
 }
-.link--accent {
-  color: var(--accent);
-}
+.link--accent { color: var(--accent); }
 
-/* ------------------------------------------------------------------ *
- * Hero entrance
- * ------------------------------------------------------------------ */
-.hero-fade {
-  animation: hero-fade 0.8s cubic-bezier(0.2, 0.6, 0.2, 1) both;
-}
-@keyframes hero-fade {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-fade {
-    animation: none;
-  }
-}
-
-/* ------------------------------------------------------------------ *
- * Hero lattice
- * ------------------------------------------------------------------ */
-.lattice {
-  position: absolute;
-  inset: -20% -10% auto -10%;
-  height: 130%;
-  pointer-events: none;
-  background-image: radial-gradient(
-    circle at center,
-    color-mix(in srgb, var(--ink) 22%, transparent) 0.9px,
-    transparent 1.1px
-  );
-  background-size: 26px 26px;
-  -webkit-mask-image: radial-gradient(
-    ellipse 60% 55% at 70% 35%,
-    #000 0%,
-    transparent 72%
-  );
-  mask-image: radial-gradient(
-    ellipse 60% 55% at 70% 35%,
-    #000 0%,
-    transparent 72%
-  );
-  animation: lattice-drift 26s ease-in-out infinite alternate;
-}
-@keyframes lattice-drift {
-  from {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.55;
-  }
-  to {
-    transform: translate3d(-14px, -22px, 0) scale(1.06);
-    opacity: 0.85;
-  }
-}
-
-.aperture {
-  position: absolute;
-  right: clamp(-6rem, -4vw, -2rem);
-  top: 12%;
-  width: clamp(16rem, 34vw, 34rem);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  pointer-events: none;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    color-mix(in srgb, var(--accent) 55%, transparent) 40deg,
-    transparent 130deg,
-    color-mix(in srgb, var(--accent-2) 30%, transparent) 220deg,
-    transparent 300deg
-  );
-  filter: blur(46px);
-  opacity: 0.5;
-  animation: aperture-spin 40s linear infinite;
-}
-@keyframes aperture-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* ------------------------------------------------------------------ *
- * Marquee
- * ------------------------------------------------------------------ */
-.marquee {
-  display: flex;
-  gap: 0;
-  width: max-content;
-  animation: marquee 46s linear infinite;
-}
-.marquee-track:hover .marquee {
-  animation-play-state: paused;
-}
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .marquee {
-    animation: none;
-    flex-wrap: wrap;
-    width: auto;
-  }
-}
-
-/* ------------------------------------------------------------------ *
- * Misc
- * ------------------------------------------------------------------ */
-.card {
-  border: 1px solid var(--line);
-  background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 120%);
-  border-radius: 14px;
-}
-
+/* ================================================================== *
+ * Chips / tags
+ * ================================================================== */
 .tag {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.06em;
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--muted);
   border: 1px solid var(--line);
   border-radius: 999px;
-  padding: 0.28rem 0.7rem;
+  padding: 0.26rem 0.66rem;
   white-space: nowrap;
 }
 
 .index-num {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   letter-spacing: 0.1em;
   color: var(--accent);
 }
 
-.grain {
+/* ================================================================== *
+ * Background field (subtle, cheap, GPU-light)
+ * ================================================================== */
+.field {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.028;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: radial-gradient(
+    circle at center,
+    color-mix(in srgb, var(--ink) 16%, transparent) 0.7px,
+    transparent 1px
+  );
+  background-size: 30px 30px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 0%, transparent 75%);
+  opacity: 0.5;
+}
+.glow {
+  position: fixed;
+  z-index: 0;
+  pointer-events: none;
+  width: 46vw;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 26%, transparent), transparent 66%);
+  filter: blur(70px);
+  opacity: 0.4;
+}
+
+/* ================================================================== *
+ * Hero entrance (no-JS-safe)
+ * ================================================================== */
+.rise {
+  animation: rise 0.75s var(--ease) both;
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise { animation: none; }
+}
+
+/* ================================================================== *
+ * Decision deck bits
+ * ================================================================== */
+.card-face {
+  background: linear-gradient(180deg, var(--surface-hi) 0%, var(--surface) 100%);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 30px 60px -30px rgba(0, 0, 0, 0.7);
+}
+.choice-btn {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  background: var(--surface);
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease), transform 0.15s var(--ease);
+  text-align: left;
+}
+.choice-btn:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
+  background: var(--surface-hi);
+}
+.choice-btn:active:not(:disabled) { transform: scale(0.98); }
+.choice-btn[data-picked="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
+.choice-btn[data-actual="true"] { border-color: var(--ok); }
+.choice-btn:disabled { cursor: default; opacity: 0.7; }
+.choice-btn[data-picked="true"]:disabled,
+.choice-btn[data-actual="true"]:disabled { opacity: 1; }
+
+/* progress dots */
+.pip { width: 6px; height: 6px; border-radius: 999px; background: var(--line); transition: background 0.3s var(--ease), transform 0.3s var(--ease); }
+.pip[data-on="true"] { background: var(--accent); }
+.pip[data-cur="true"] { transform: scale(1.6); background: var(--ink); }
+
+/* scrollbars inside overlays */
+.scroll-area { scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+.scroll-area::-webkit-scrollbar { width: 8px; }
+.scroll-area::-webkit-scrollbar-thumb { background: var(--line); border-radius: 999px; }
+
+/* ================================================================== *
+ * cmdk
+ * ================================================================== */
+[cmdk-overlay] {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 5, 6, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 90;
+}
+[cmdk-dialog] {
+  position: fixed;
+  z-index: 91;
+  top: 14vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92vw, 560px);
+}
+[cmdk-root] {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.7);
+}
+[cmdk-input] {
+  width: 100%;
+  padding: 1rem 1.15rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--ink);
+  font-size: 0.98rem;
+  outline: none;
+}
+[cmdk-input]::placeholder { color: var(--faint); }
+[cmdk-list] {
+  max-height: 340px;
+  overflow: auto;
+  padding: 0.4rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+[cmdk-item] {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 9px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  content-visibility: auto;
+}
+[cmdk-item][data-selected="true"] {
+  background: var(--surface-hi);
+  color: var(--ink);
+}
+[cmdk-item] svg { width: 15px; height: 15px; opacity: 0.7; }
+[cmdk-group-heading] {
+  padding: 0.7rem 0.75rem 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+[cmdk-empty] {
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--faint);
+  font-size: 0.88rem;
 }

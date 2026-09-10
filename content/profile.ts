@@ -19,11 +19,41 @@ export const person = {
 } as const;
 
 export const hero = {
-  eyebrow: "Product · Systems · 0→1",
-  statement: "I make complex systems feel simple.",
+  eyebrow: "Builder · Operator · Investor-in-training",
+  statement: "I build things — and I decide what's worth building.",
   sub:
-    "Three years building enterprise banking infrastructure at Bank of America — .NET modernization, release automation, a governed agentic-AI prototype for CI/CD. Lately, shipping my own products and running money for the Masters' Union Investment Fund. I'm moving from building systems toward deciding what gets built: product, venture, and founder's-office work where technical depth meets business judgment.",
+    "Three years an engineer at Bank of America: .NET modernization, release automation, a governed agentic-AI prototype. Now at Masters' Union, moving between product, venture, and starting something of my own.",
 };
+
+// Short, first-person, meant to be edited often. Shown as a ticker on the console.
+export const status = {
+  updated: "September 2026",
+  items: [
+    "shipping v2 of this site, in public",
+    "running a top-percentile book in the Masters' Union Investment Fund",
+    "prototyping in the agentic-AI + legal space",
+    "in case competitions — Galderma, and others via Unstop",
+  ],
+};
+
+export type Destination = {
+  id: string;
+  label: string;
+  blurb: string;
+  kbd: string;
+  href: string;
+  featured?: boolean;
+};
+
+// The workbench. Order = visual order on the console.
+export const destinations: Destination[] = [
+  { id: "decisions", label: "Decisions", blurb: "Make the call. See the call I made.", kbd: "D", href: "/decisions", featured: true },
+  { id: "work", label: "Work", blurb: "Four builds, four turning points.", kbd: "W", href: "/work", featured: true },
+  { id: "about", label: "About", blurb: "The non-linear route to here.", kbd: "A", href: "/about" },
+  { id: "playbook", label: "Playbook", blurb: "How I think about building.", kbd: "P", href: "/about#playbook" },
+  { id: "now", label: "Now", blurb: "What I'm actually doing this month.", kbd: "N", href: "/about#now" },
+  { id: "contact", label: "Contact", blurb: "Email · LinkedIn · résumé.", kbd: "C", href: "/about#contact" },
+];
 
 export const now = {
   heading: "Where I am now",
@@ -194,32 +224,39 @@ export const beyond = {
   ],
 };
 
+export const github = "https://github.com/kaust1495";
+export const firstStep = "https://firststeplegalai.lovable.app/";
+
 export const contact = {
   heading: "Get in touch",
   line:
-    "Building something, hiring, or want to compare notes on agentic systems and product — I read everything that comes in.",
+    "Hiring for product, building a fund, starting something, or just want to compare notes on agentic systems — I read everything that comes in and reply to most of it.",
   links: [
     { label: "Email", value: person.email, href: `mailto:${person.email}` },
     { label: "LinkedIn", value: "in/kaustubh-jain", href: person.linkedin },
+    { label: "GitHub", value: "@kaust1495", href: github },
     { label: "Résumé", value: "PDF ↗", href: person.resumeHref },
   ],
 };
 
-export const nav = [
-  { label: "Work", href: "#work" },
-  { label: "Thinking", href: "#thinking" },
-  { label: "Contact", href: "#contact" },
+// External links surfaced in the command bar.
+export const externalLinks = [
+  { label: "LinkedIn", href: person.linkedin },
+  { label: "GitHub", href: github },
+  { label: "FirstStep Legal AI (live project)", href: firstStep },
+  { label: "Email Kaustubh", href: `mailto:${person.email}` },
+  { label: "Download résumé (PDF)", href: person.resumeHref },
 ];
 
 export const marqueeWords = [
-  "agentic systems",
-  "release engineering",
-  "developer experience",
-  "platform migration",
-  "0→1",
-  "governance & guardrails",
-  "capital markets",
   "product judgment",
+  "0→1",
+  "agentic systems + governance",
+  "release engineering",
   "technical diligence",
-  "internal tools as products",
+  "capital allocation",
+  "developer experience",
+  "founder's office",
+  "platform migration",
+  "shipping in public",
 ];
