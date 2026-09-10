@@ -19,10 +19,12 @@ export const person = {
 } as const;
 
 export const hero = {
-  eyebrow: "Builder · Operator · Investor-in-training",
-  statement: "I build things — and I decide what's worth building.",
+  eyebrow: "Product · Venture · Building",
+  name: "Kaustubh Jain",
+  statement: "Engineer turned product builder.",
   sub:
-    "Three years an engineer at Bank of America: .NET modernization, release automation, a governed agentic-AI prototype. Now at Masters' Union, moving between product, venture, and starting something of my own.",
+    "Three years at Bank of America shipping banking infrastructure — .NET modernization, release automation, and a governed agentic-AI prototype. Now at Masters' Union, working toward product, venture, or a company of my own.",
+  location: "Gurugram, India · open to relocate",
 };
 
 // Short, first-person, meant to be edited often. Shown as a ticker on the console.
@@ -47,12 +49,11 @@ export type Destination = {
 
 // The workbench. Order = visual order on the console.
 export const destinations: Destination[] = [
-  { id: "decisions", label: "Decisions", blurb: "Make the call. See the call I made.", kbd: "D", href: "/decisions", featured: true },
   { id: "work", label: "Work", blurb: "Four builds, four turning points.", kbd: "W", href: "/work", featured: true },
-  { id: "arcade", label: "Arcade", blurb: "Small games about deciding fast.", kbd: "G", href: "/arcade" },
+  { id: "playground", label: "Playground", blurb: "A decision deck and two small games.", kbd: "G", href: "/playground" },
+  { id: "decisions", label: "Decisions deck", blurb: "Make the call, see the call I made.", kbd: "D", href: "/decisions" },
   { id: "about", label: "About", blurb: "The non-linear route to here.", kbd: "A", href: "/about" },
   { id: "playbook", label: "Playbook", blurb: "How I think about building.", kbd: "P", href: "/about#playbook" },
-  { id: "now", label: "Now", blurb: "What I'm actually doing this month.", kbd: "N", href: "/about#now" },
   { id: "contact", label: "Contact", blurb: "Email · LinkedIn · résumé.", kbd: "C", href: "/about#contact" },
 ];
 

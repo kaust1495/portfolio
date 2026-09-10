@@ -116,7 +116,7 @@ export function Deck() {
   if (done) return <Summary score={score} total={decisions.length} onReplay={restart} />;
 
   return (
-    <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[720px] flex-col px-4 pb-16 pt-20">
+    <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[720px] flex-col px-4 pb-16 pt-10">
       <div className="mb-6">
         <div className="flex items-center justify-between">
           <h1 className="font-serif text-3xl">{deckIntro.title}</h1>

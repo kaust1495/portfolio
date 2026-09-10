@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Instrument_Serif, Caveat } from "next/font/google";
 import { person } from "@/content/profile";
 import { CommandBar } from "@/components/CommandBar";
+import { SiteNav } from "@/components/SiteNav";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
@@ -15,9 +16,9 @@ const instrumentSerif = Instrument_Serif({
 });
 const caveat = Caveat({ variable: "--font-caveat", weight: ["400", "600", "700"], subsets: ["latin"], display: "swap" });
 
-const title = `${person.name} — builder, operator, investor-in-training`;
+const title = `${person.name} — engineer turned product builder`;
 const description =
-  "Kaustubh Jain builds products and decides what's worth building. Three years an engineer at Bank of America, now at Masters' Union — working across product, venture, and starting something. An interactive portfolio built around real decisions.";
+  "Kaustubh Jain — engineer turned product builder. Three years at Bank of America shipping banking infrastructure and a governed agentic-AI prototype. Now at Masters' Union, working toward product, venture, or a company of his own.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(person.siteUrl),
@@ -73,6 +74,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${caveat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <SiteNav />
         {children}
         <CommandBar />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />

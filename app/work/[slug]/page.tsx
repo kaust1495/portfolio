@@ -32,8 +32,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
   const nextCase = caseStudies[(idx + 1) % caseStudies.length];
 
   return (
-    <main className="relative z-10 mx-auto w-full max-w-[720px] px-4 pb-24 pt-24">
-      <div className="glow" style={{ top: "-24vw", right: "-16vw" }} aria-hidden="true" />
+    <main className="relative z-10 mx-auto w-full max-w-[720px] px-4 pb-24 pt-10">
 
       <FadeIn>
         <Link href="/work" className="label link">

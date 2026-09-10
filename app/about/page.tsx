@@ -11,8 +11,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="relative z-10 mx-auto w-full max-w-[760px] px-4 pb-24 pt-24">
-      <div className="glow" style={{ top: "-24vw", left: "-16vw" }} aria-hidden="true" />
+    <main className="relative z-10 mx-auto w-full max-w-[760px] px-4 pb-24 pt-10">
 
       {/* Intro */}
       <FadeIn>
@@ -154,7 +153,7 @@ export default function AboutPage() {
 
       <footer className="mt-20 flex flex-wrap items-center justify-between gap-3 border-t pt-6 text-xs" style={{ borderColor: "var(--line-soft)", color: "var(--faint)" }}>
         <Link href="/" className="link">
-          ← Console
+          ← Home
         </Link>
         <span className="font-mono">© {new Date().getFullYear()} {person.fullName}</span>
       </footer>
