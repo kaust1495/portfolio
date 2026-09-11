@@ -83,13 +83,14 @@ export function AskMe() {
         data-doodle={open ? "go on, ask it something" : "ask me anything ↓"}
         aria-label={open ? "Close the ask-me panel" : "Open the ask-me panel"}
         aria-expanded={open}
-        className="fixed bottom-4 right-4 z-[70] flex items-center gap-2 border px-3.5 py-2.5 text-xs transition-colors"
+        className="fixed bottom-5 right-5 z-[70] flex items-center gap-2 rounded-full px-4 py-2.5 text-xs font-medium"
         style={{
-          borderColor: "var(--ink)",
-          borderWidth: 1.5,
-          background: open ? "var(--ink)" : "var(--accent)",
+          background: open ? "var(--ink)" : "var(--coral-ink)",
           color: "#fff",
-          fontFamily: "var(--font-mono-k), monospace",
+          boxShadow: "var(--puff)",
+          transitionProperty: "background, box-shadow, transform",
+          transitionDuration: "0.25s",
+          transitionTimingFunction: "var(--ease)",
         }}
       >
         {open ? "close ✕" : "ask me anything"}
@@ -97,11 +98,12 @@ export function AskMe() {
 
       {open && (
         <div
-          className="fixed bottom-[4.4rem] right-4 z-[70] flex w-[min(92vw,360px)] flex-col border"
+          className="fixed bottom-[4.6rem] right-5 z-[70] flex w-[min(92vw,360px)] flex-col overflow-hidden border"
           style={{
-            borderColor: "var(--ink)",
-            borderWidth: 1.5,
+            borderColor: "var(--line)",
+            borderRadius: "var(--r-lg)",
             background: "var(--surface)",
+            boxShadow: "var(--shadow-lg)",
             maxHeight: "min(70vh, 520px)",
           }}
           role="dialog"
@@ -118,11 +120,11 @@ export function AskMe() {
             {msgs.map((m, i) => (
               <div key={i} className={m.role === "you" ? "flex justify-end" : ""}>
                 <div
-                  className="max-w-[86%] border px-2.5 py-2 text-[0.83rem] leading-snug"
+                  className="max-w-[86%] px-3 py-2 text-[0.85rem] leading-snug"
                   style={{
-                    borderColor: m.role === "you" ? "var(--accent)" : "var(--line)",
-                    background: m.role === "you" ? "color-mix(in srgb, var(--accent) 8%, var(--surface))" : "var(--bg-2)",
+                    background: m.role === "you" ? "var(--coral-soft)" : "var(--bg-2)",
                     color: "var(--ink-2)",
+                    borderRadius: m.role === "you" ? "14px 14px 4px 14px" : "14px 14px 14px 4px",
                   }}
                 >
                   {m.text}
@@ -150,8 +152,8 @@ export function AskMe() {
 
             {thinking && (
               <div
-                className="w-fit border px-2.5 py-2 text-[0.83rem]"
-                style={{ borderColor: "var(--line)", background: "var(--bg-2)", color: "var(--faint)" }}
+                className="w-fit px-3 py-2 text-[0.85rem]"
+                style={{ background: "var(--bg-2)", color: "var(--faint)", borderRadius: "14px 14px 14px 4px" }}
               >
                 <span className="dots">···</span>
               </div>
@@ -164,8 +166,8 @@ export function AskMe() {
                   <button
                     key={s.id}
                     onClick={() => ask(s.question)}
-                    className="border px-2 py-1 text-[0.7rem] transition-colors hover:bg-[var(--ink)] hover:text-[var(--bg)]"
-                    style={{ borderColor: "var(--line)", color: "var(--muted)" }}
+                    className="rounded-full border px-2.5 py-1 text-[0.72rem] transition-colors hover:border-[var(--coral-ink)] hover:bg-[var(--coral-soft)] hover:text-[var(--ink)]"
+                    style={{ borderColor: "var(--line-2)", color: "var(--muted)" }}
                   >
                     {s.question}
                   </button>
@@ -194,24 +196,24 @@ export function AskMe() {
               e.preventDefault();
               ask(input);
             }}
-            className="flex border-t"
+            className="flex items-center gap-2 border-t p-2"
             style={{ borderColor: "var(--line)" }}
           >
             <input
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="type a question…"
+              placeholder="Type a question…"
               aria-label="Ask a question"
-              className="flex-1 bg-transparent px-3 py-2.5 text-[0.83rem] outline-none"
-              style={{ fontFamily: "var(--font-mono-k), monospace" }}
+              className="flex-1 rounded-full bg-transparent px-3 py-2 text-[0.85rem] outline-none focus-visible:bg-[var(--bg-2)]"
             />
             <button
               type="submit"
-              className="px-3 text-xs"
-              style={{ background: "var(--ink)", color: "var(--bg)", fontFamily: "var(--font-mono-k), monospace" }}
+              aria-label="Send question"
+              className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-sm"
+              style={{ background: "var(--coral-ink)", color: "#fff", boxShadow: "var(--shadow-sm)" }}
             >
-              ↵
+              ↑
             </button>
           </form>
         </div>
