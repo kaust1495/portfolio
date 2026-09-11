@@ -12,19 +12,20 @@
   /* warm near-black. never #000 — it hurts */
   --ink: #2b2621;
   --ink-2: #4b4239;
-  /* both checked against --bg: muted 5.85:1, faint 4.59:1 — AA for body text */
+  /* checked against the DARKEST tint (--sky-soft), not just --bg, since text
+     sits on tinted cards: muted 5.40:1, faint 4.85:1 — AA everywhere */
   --muted: #6b6054;
-  --faint: #7d7062;
+  --faint: #736759;
 
   --line: #ece3d8;
   --line-2: #ddd1c2;
 
   /* one dominant, three supporting */
   /* --coral is 3.1:1 on cream — decoration and very large type ONLY.
-     --coral-ink is the one for text and for filled buttons (4.7:1 on cream,
-     5:1 with white text on top). */
+     --coral-ink is the one for text and for filled buttons: 4.74:1 on the
+     darkest tint, 5.13:1 on cream, 5.38:1 with white text on top. */
   --coral: #ef5f3c;
-  --coral-ink: #c94020;
+  --coral-ink: #bf3d1e;
   --coral-soft: #ffeee8;
   --peach: #f4a58c;
   --peach-soft: #fdefe8;
