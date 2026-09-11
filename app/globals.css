@@ -1,48 +1,65 @@
 @import "tailwindcss";
 
 /* ================================================================== *
- * Soft Studio — warm paper, pastel gradients, rounded, low contrast.
- * Nothing shouts. Everything breathes.
+ * Warm Ink — cream paper, warm ink, one loud coral.
+ * Serif display doing the shouting so the colours don't have to.
  * ================================================================== */
 :root {
-  --bg: #fdfcfa;
-  --bg-2: #f7f5f1;
-  --surface: #ffffff;
+  --bg: #fdf9f4;
+  --bg-2: #f6f0e8;
+  --surface: #fffdfa;
 
-  /* soft near-black with a violet cast — easier on the eye than #000 */
-  --ink: #262336;
-  --ink-2: #454158;
-  --muted: #6d6883;
-  --faint: #a09bb2;
+  /* warm near-black. never #000 — it hurts */
+  --ink: #2b2621;
+  --ink-2: #4b4239;
+  /* both checked against --bg: muted 5.85:1, faint 4.59:1 — AA for body text */
+  --muted: #6b6054;
+  --faint: #7d7062;
 
-  --line: #ebe7f0;
-  --line-2: #ded9e8;
+  --line: #ece3d8;
+  --line-2: #ddd1c2;
 
-  /* the pastel family */
-  --lav: #7c6bf5;
-  --lav-soft: #efecff;
-  --peach: #ff9a76;
-  --peach-soft: #fff0e9;
-  --mint: #4fc9ab;
-  --mint-soft: #e6f7f2;
-  --butter: #f5c451;
-  --butter-soft: #fff6e2;
+  /* one dominant, three supporting */
+  /* --coral is 3.1:1 on cream — decoration and very large type ONLY.
+     --coral-ink is the one for text and for filled buttons (4.7:1 on cream,
+     5:1 with white text on top). */
+  --coral: #ef5f3c;
+  --coral-ink: #c94020;
+  --coral-soft: #ffeee8;
+  --peach: #f4a58c;
+  --peach-soft: #fdefe8;
+  --sky: #4a93c9;
+  --sky-soft: #e8f2f9;
+  --sage: #5aa383;
+  --sage-soft: #e9f4ee;
+  --butter: #e8ab3c;
+  --butter-soft: #fdf3e0;
 
-  --accent: var(--lav);
-  --accent-soft: var(--lav-soft);
+  --accent: var(--coral-ink);
+  --accent-soft: var(--coral-soft);
 
-  --ok: #3aa981;
-  --no: #e8735f;
-  --wait: #d9a13a;
+  /* aliases — older markup still says "lav"; it now means the accent */
+  --lav: var(--coral-ink);
+  --lav-soft: var(--coral-soft);
+  --mint: var(--sage);
+  --mint-soft: var(--sage-soft);
 
-  --r-sm: 10px;
-  --r: 16px;
-  --r-lg: 24px;
+  --ok: #4d9b78;
+  --no: #e0573a;
+  --wait: #d2962f;
+
+  --r-sm: 8px;
+  --r: 14px;
+  --r-lg: 22px;
   --r-pill: 999px;
 
-  --shadow-sm: 0 2px 8px -3px rgba(60, 50, 90, 0.1);
-  --shadow: 0 10px 30px -14px rgba(60, 50, 90, 0.16);
-  --shadow-lg: 0 24px 60px -28px rgba(60, 50, 90, 0.24);
+  /* the "puffy" treatment: a long soft drop + a 1px white highlight inside
+     the top edge. It's what makes a flat button read as an object. */
+  --shadow-sm: 0 2px 8px -3px rgba(60, 44, 30, 0.12);
+  --shadow: 0 12px 30px -16px rgba(60, 44, 30, 0.24);
+  --shadow-lg: 0 28px 60px -30px rgba(60, 44, 30, 0.3);
+  --puff: 0 10px 22px -12px rgba(60, 44, 30, 0.32), inset 0 1.5px 0 0 rgba(255, 255, 255, 0.6);
+  --puff-lift: 0 18px 34px -14px rgba(60, 44, 30, 0.34), inset 0 1.5px 0 0 rgba(255, 255, 255, 0.6);
 
   --ease: cubic-bezier(0.22, 0.68, 0.28, 1);
 }
@@ -58,8 +75,11 @@
   --color-muted: var(--muted);
   --color-faint: var(--faint);
   --color-accent: var(--accent);
+  --color-coral: var(--coral);
   --color-lav: var(--lav);
   --color-peach: var(--peach);
+  --color-sky: var(--sky);
+  --color-sage: var(--sage);
   --color-mint: var(--mint);
   --color-butter: var(--butter);
   --color-ok: var(--ok);
@@ -91,10 +111,13 @@
     overflow-x: clip;
   }
   h1, h2, h3, h4 {
-    font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-display), ui-serif, Georgia, serif;
     font-weight: 600;
-    line-height: 1.06;
-    letter-spacing: -0.028em;
+    line-height: 1.08;
+    letter-spacing: -0.018em;
+    /* SOFT rounds the terminals, WONK tilts the round letters. This is the
+       whole personality of the face — leaving them at 0 wastes the font. */
+    font-variation-settings: "opsz" 40, "SOFT" 40, "WONK" 1;
   }
   a { color: inherit; text-decoration: none; }
   button { font: inherit; color: inherit; cursor: pointer; background: none; border: none; }
@@ -128,9 +151,9 @@
   opacity: 0.5;
   will-change: transform;
 }
-.blob-a { width: 46vw; height: 46vw; left: -10vw; top: -12vw; background: var(--lav-soft); animation: drift-a 26s var(--ease) infinite alternate; }
-.blob-b { width: 40vw; height: 40vw; right: -8vw; top: 8vh; background: var(--peach-soft); animation: drift-b 32s var(--ease) infinite alternate; }
-.blob-c { width: 38vw; height: 38vw; left: 30vw; bottom: -14vw; background: var(--mint-soft); animation: drift-c 30s var(--ease) infinite alternate; }
+.blob-a { width: 46vw; height: 46vw; left: -10vw; top: -12vw; background: var(--peach-soft); animation: drift-a 26s var(--ease) infinite alternate; }
+.blob-b { width: 40vw; height: 40vw; right: -8vw; top: 8vh; background: var(--butter-soft); animation: drift-b 32s var(--ease) infinite alternate; }
+.blob-c { width: 38vw; height: 38vw; left: 30vw; bottom: -14vw; background: var(--sky-soft); animation: drift-c 30s var(--ease) infinite alternate; }
 @keyframes drift-a { to { transform: translate(6vw, 5vh) scale(1.12); } }
 @keyframes drift-b { to { transform: translate(-5vw, 7vh) scale(1.08); } }
 @keyframes drift-c { to { transform: translate(4vw, -6vh) scale(1.14); } }
@@ -141,9 +164,10 @@
  * ================================================================== */
 .font-display,
 .font-serif { /* alias kept for existing markup */
-  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-display), ui-serif, Georgia, serif;
   font-weight: 600;
-  letter-spacing: -0.028em;
+  letter-spacing: -0.018em;
+  font-variation-settings: "opsz" 36, "SOFT" 45, "WONK" 1;
 }
 .font-mono { font-family: var(--font-mono-k), ui-monospace, monospace; }
 .font-hand { font-family: var(--font-caveat), cursive; }
@@ -157,19 +181,28 @@
   color: var(--muted);
 }
 
+/* The one genuinely large element on the page. Optical size cranked right
+   up so Fraunces switches to its display cut — tighter, more contrast. */
 .display {
-  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-display), ui-serif, Georgia, serif;
   font-weight: 600;
-  line-height: 0.98;
-  letter-spacing: -0.04em;
-  font-size: clamp(2.6rem, 7.5vw, 5.6rem);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  font-size: clamp(3rem, 9vw, 6.4rem);
+  font-variation-settings: "opsz" 144, "SOFT" 55, "WONK" 1;
+}
+.display em {
+  font-style: italic;
+  font-variation-settings: "opsz" 144, "SOFT" 80, "WONK" 1;
+  color: var(--coral);
 }
 .h2 {
-  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-display), ui-serif, Georgia, serif;
   font-weight: 600;
-  font-size: clamp(1.7rem, 4vw, 2.6rem);
-  line-height: 1.04;
-  letter-spacing: -0.03em;
+  font-size: clamp(1.75rem, 4vw, 2.7rem);
+  line-height: 1.05;
+  letter-spacing: -0.018em;
+  font-variation-settings: "opsz" 60, "SOFT" 45, "WONK" 1;
 }
 .kbd {
   font-family: var(--font-mono-k), ui-monospace, monospace;
@@ -222,10 +255,13 @@
   .tile-row { flex-direction: row; align-items: center; justify-content: space-between; gap: 2rem; padding: 1.7rem 1.9rem; }
 }
 
-/* pastel tints */
-.tint-lav { background: var(--lav-soft); }
+/* tints */
+.tint-lav { background: var(--coral-soft); }
+.tint-coral { background: var(--coral-soft); }
 .tint-peach { background: var(--peach-soft); }
-.tint-mint { background: var(--mint-soft); }
+.tint-sky { background: var(--sky-soft); }
+.tint-sage { background: var(--sage-soft); }
+.tint-mint { background: var(--sage-soft); }
 .tint-butter { background: var(--butter-soft); }
 
 /* links */
@@ -255,18 +291,23 @@
   border: 1px solid var(--line-2);
   background: var(--surface);
   color: var(--ink);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--puff);
   transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), background 0.2s var(--ease);
 }
-.btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
-.btn:active { transform: translateY(0); }
+.btn:hover { transform: translateY(-2px); box-shadow: var(--puff-lift); }
+.btn:active { transform: translateY(1px); box-shadow: var(--shadow-sm); }
 .btn--primary {
-  background: linear-gradient(135deg, var(--lav) 0%, #9a8bff 100%);
+  background: var(--coral-ink);
   border-color: transparent;
   color: #fff;
+  box-shadow: 0 10px 22px -10px rgba(239, 95, 60, 0.65), inset 0 1.5px 0 0 rgba(255, 255, 255, 0.32);
 }
-.btn--primary:hover { background: linear-gradient(135deg, #6d5bf0 0%, #8f7fff 100%); }
-.btn--sm { padding: 0.4rem 0.75rem; font-size: 0.78rem; }
+.btn--primary:hover {
+  background: #b8391b;
+  box-shadow: 0 18px 32px -12px rgba(239, 95, 60, 0.7), inset 0 1.5px 0 0 rgba(255, 255, 255, 0.32);
+}
+.btn--sm { padding: 0.4rem 0.75rem; font-size: 0.78rem; box-shadow: var(--shadow-sm); }
+.btn--sm:hover { box-shadow: var(--puff); }
 
 .tag {
   font-family: var(--font-mono-k), ui-monospace, monospace;

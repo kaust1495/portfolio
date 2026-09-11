@@ -25,7 +25,7 @@ export function SiteNav() {
       className="sticky top-0 z-50 transition-colors duration-300"
       style={{
         background: scrolled ? "color-mix(in srgb, var(--bg) 90%, transparent)" : "transparent",
-        borderBottom: `1px solid ${scrolled ? "var(--line-soft)" : "transparent"}`,
+        borderBottom: `1px solid ${scrolled ? "var(--line)" : "transparent"}`,
         backdropFilter: scrolled ? "blur(8px)" : "none",
       }}
     >
@@ -47,6 +47,9 @@ export function SiteNav() {
             Work
           </Link>
           <span className="hidden items-center gap-4 sm:flex sm:gap-6">
+            <Link href="/lab" className="link" style={linkStyle("/lab")}>
+              Lab
+            </Link>
             <Link href="/playground" className="link" style={linkStyle("/playground")}>
               Playground
             </Link>

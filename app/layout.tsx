@@ -1,18 +1,27 @@
 import type { Metadata } from "next";
-import { Gabarito, Plus_Jakarta_Sans, DM_Mono, Caveat } from "next/font/google";
+import { Fraunces, Manrope, IBM_Plex_Mono, Caveat } from "next/font/google";
 import { person } from "@/content/profile";
 import { CommandBar } from "@/components/CommandBar";
 import { SiteNav } from "@/components/SiteNav";
 import { AskMe } from "@/components/chat/AskMe";
 import { Buddy } from "@/components/Buddy";
+import { Hum } from "@/components/Hum";
 import "./globals.css";
 
-/* Display — Gabarito: friendly geometric with real character. Never shouty. */
-const display = Gabarito({ variable: "--font-display", subsets: ["latin"], display: "swap" });
-/* Body — Plus Jakarta Sans: warm, soft-edged, very readable. */
-const body = Plus_Jakarta_Sans({ variable: "--font-body", subsets: ["latin"], display: "swap" });
-/* Mono — DM Mono: gentler than the usual terminal faces. Labels only. */
-const mono = DM_Mono({ variable: "--font-mono-k", subsets: ["latin"], display: "swap", weight: ["400", "500"] });
+/* Display — Fraunces. A "wonky" old-style serif; the SOFT and WONK axes are
+   what make it look drawn rather than set. Nothing else on Google Fonts
+   looks like it, which is the entire point. */
+const display = Fraunces({
+  variable: "--font-display",
+  subsets: ["latin"],
+  display: "swap",
+  style: ["normal", "italic"],
+  axes: ["SOFT", "WONK", "opsz"],
+});
+/* Body — Manrope: geometric with warmth. Inter's job, more personality. */
+const body = Manrope({ variable: "--font-body", subsets: ["latin"], display: "swap" });
+/* Mono — IBM Plex Mono. Labels and numbers only. */
+const mono = IBM_Plex_Mono({ variable: "--font-mono-k", subsets: ["latin"], display: "swap", weight: ["400", "500"] });
 /* Hand — small handwritten asides only. */
 const caveat = Caveat({ variable: "--font-caveat", weight: ["400", "600", "700"], subsets: ["latin"], display: "swap" });
 
@@ -82,6 +91,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteNav />
         {children}
         <Buddy />
+        <Hum />
         <AskMe />
         <CommandBar />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />

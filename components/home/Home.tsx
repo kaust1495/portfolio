@@ -3,7 +3,7 @@ import { hero, person, caseStudies, marqueeWords } from "@/content/profile";
 import { FadeIn } from "@/components/FadeIn";
 import { NowStrip } from "./NowStrip";
 
-const tints = ["tint-peach", "tint-mint", "tint-butter"];
+const tints = ["tint-peach", "tint-sky", "tint-butter"];
 
 export function Home() {
   const [lead, ...rest] = caseStudies;
@@ -16,9 +16,9 @@ export function Home() {
         <div>
           <span
             className="rise inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium"
-            style={{ background: "var(--lav-soft)", color: "var(--lav)" }}
+            style={{ background: "var(--coral-soft)", color: "var(--coral-ink)" }}
           >
-            <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: "var(--lav)" }} />
+            <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: "var(--coral)" }} />
             {hero.eyebrow}
           </span>
 
@@ -27,8 +27,12 @@ export function Home() {
           </h1>
 
           <p
-            className="rise mt-3 font-display text-[clamp(1.4rem,3vw,2.05rem)] leading-tight"
-            style={{ color: "var(--lav)", animationDelay: "70ms" }}
+            className="rise mt-3 font-display text-[clamp(1.45rem,3.1vw,2.2rem)] italic leading-tight"
+            style={{
+              color: "var(--coral-ink)",
+              animationDelay: "70ms",
+              fontVariationSettings: '"opsz" 72, "SOFT" 80, "WONK" 1',
+            }}
           >
             {hero.statement}
           </p>
@@ -133,7 +137,7 @@ export function Home() {
         <FadeIn delay={0.04}>
           <Link
             href={`/work/${lead.id}`}
-            className="tile tile-row tint-lav mt-6"
+            className="tile tile-row tint-coral mt-6"
             data-doodle="my own product. it's live."
           >
             <div className="max-w-[48ch]">
@@ -149,7 +153,7 @@ export function Home() {
                 {lead.insight}
               </p>
             </div>
-            <span className="shrink-0 text-sm font-medium" style={{ color: "var(--lav)" }}>
+            <span className="shrink-0 text-sm font-medium" style={{ color: "var(--coral-ink)" }}>
               Read →
             </span>
           </Link>
@@ -167,7 +171,7 @@ export function Home() {
                 <p className="text-sm" style={{ color: "var(--ink-2)" }}>
                   {c.kicker}
                 </p>
-                <span className="mt-3 text-sm font-medium" style={{ color: "var(--lav)" }}>
+                <span className="mt-3 text-sm font-medium" style={{ color: "var(--coral-ink)" }}>
                   Read →
                 </span>
               </Link>
@@ -176,26 +180,43 @@ export function Home() {
         </div>
       </section>
 
-      {/* ── Playground ───────────────────────────────────────── */}
-      <section className="wrap mt-16">
+      {/* ── Playground + Lab ─────────────────────────────────── */}
+      <section className="wrap mt-16 grid gap-4 lg:grid-cols-2">
         <FadeIn>
-          <div className="card flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
-            <div className="max-w-[42ch]">
-              <p className="label">Playground</p>
-              <h2 className="mt-1.5 text-2xl">Three things to actually play with.</h2>
-              <p className="mt-2 text-sm" style={{ color: "var(--muted)" }}>
-                A bug-squashing arcade round, a prioritisation game, and a deck of real calls I&rsquo;ve made.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-2.5">
-              <Link href="/playground" className="btn" data-doodle="30 seconds. go.">
-                🐞 Bug Squash
+          <div className="card h-full p-6 sm:p-7">
+            <p className="label">Playground</p>
+            <h2 className="mt-1.5 text-2xl">Three things to actually play with.</h2>
+            <p className="mt-2 max-w-[40ch] text-sm" style={{ color: "var(--muted)" }}>
+              A bug-squashing arcade round, a prioritisation game, and a deck of real calls
+              I&rsquo;ve made.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2.5">
+              <Link href="/playground" className="btn btn--sm" data-doodle="30 seconds. go.">
+                Bug Squash
               </Link>
-              <Link href="/playground" className="btn" data-doodle="ship / defer / cut">
+              <Link href="/playground" className="btn btn--sm" data-doodle="ship / defer / cut">
                 Ship It
               </Link>
-              <Link href="/decisions" className="btn" data-doodle="you choose, then I show you mine">
+              <Link href="/decisions" className="btn btn--sm" data-doodle="you choose, then I show you mine">
                 Decisions
+              </Link>
+            </div>
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={0.05}>
+          <div className="card h-full p-6 sm:p-7" style={{ background: "var(--coral-soft)" }}>
+            <p className="label">Lab</p>
+            <h2 className="mt-1.5 text-2xl">
+              The site <em style={{ color: "var(--coral-ink)" }}>is</em> the portfolio.
+            </h2>
+            <p className="mt-2 max-w-[40ch] text-sm" style={{ color: "var(--muted)" }}>
+              The soundtrack composes itself as it plays. The little guy following your cursor
+              runs at 60fps without a library. Seven builds, each with notes on how it works.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2.5">
+              <Link href="/lab" className="btn btn--primary btn--sm" data-doodle="how it's all made">
+                Open the Lab →
               </Link>
             </div>
           </div>
