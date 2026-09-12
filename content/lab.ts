@@ -40,16 +40,15 @@ export const labItems: LabItem[] = [
   },
   {
     id: "buddy",
-    name: "The little guy",
+    name: "The little guy (retired)",
     blurb:
-      "A character that follows your cursor around the whole site, blinks, turns to face where it's going, and tells you what a thing is when you hover it.",
+      "A character that followed your cursor across the whole site and explained things on hover. Removed in the register rebuild — it pulled attention away from the argument, and ambient motion is now against the rules of this site.",
     how:
-      "A requestAnimationFrame loop easing toward the pointer with a lazy spring. Position lives on a ref and writes straight to a transform — never React state — so it holds 60fps without re-rendering the page. Any element anywhere can give it a line to say by adding one data attribute. Click it to park it. Off on touch devices and for anyone who asks for reduced motion.",
-    stack: ["rAF", "SVG", "no library"],
+      "A requestAnimationFrame loop easing toward the pointer with a lazy spring. Position lived on a ref and wrote straight to a transform — never React state — so it held 60fps without re-rendering the page. Any element could give it a line to say with one data attribute. It worked; it just stopped earning its place.",
+    stack: ["rAF", "SVG", "superseded"],
     tint: "tint-sky",
     glyph: "◕",
-    cta: "It's already following you",
-    ambient: true,
+    cta: "Retired — kept here because removals are records too",
   },
   {
     id: "askme",
@@ -73,7 +72,7 @@ export const labItems: LabItem[] = [
     stack: ["React", "localStorage"],
     tint: "tint-sage",
     glyph: "◆",
-    href: "/playground",
+    href: "/lab",
     cta: "Play",
   },
   {
@@ -86,7 +85,7 @@ export const labItems: LabItem[] = [
     stack: ["Keyboard-first", "26 real calls"],
     tint: "tint-peach",
     glyph: "▲",
-    href: "/playground",
+    href: "/lab",
     cta: "Play",
   },
   {
@@ -111,7 +110,6 @@ export const labItems: LabItem[] = [
     stack: ["HN Firebase API", "client fetch"],
     tint: "tint-sky",
     glyph: "◈",
-    href: "/",
-    cta: "On the homepage",
+    cta: "Running below",
   },
 ];

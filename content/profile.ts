@@ -50,8 +50,7 @@ export type Destination = {
 // The workbench. Order = visual order on the console.
 export const destinations: Destination[] = [
   { id: "work", label: "Work", blurb: "Four builds, four turning points.", kbd: "W", href: "/work", featured: true },
-  { id: "lab", label: "Lab", blurb: "Seven things I built for this site.", kbd: "L", href: "/lab" },
-  { id: "playground", label: "Playground", blurb: "A decision deck and two small games.", kbd: "G", href: "/playground" },
+  { id: "lab", label: "Lab", blurb: "Seven builds, plus the games.", kbd: "L", href: "/lab" },
   { id: "decisions", label: "Decisions deck", blurb: "Make the call, see the call I made.", kbd: "D", href: "/decisions" },
   { id: "about", label: "About", blurb: "The non-linear route to here.", kbd: "A", href: "/about" },
   { id: "playbook", label: "Playbook", blurb: "How I think about building.", kbd: "P", href: "/about#playbook" },

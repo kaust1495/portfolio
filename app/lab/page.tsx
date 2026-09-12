@@ -3,6 +3,8 @@ import { routeMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
 import { labIntro, labItems } from "@/content/lab";
+import { Playground } from "@/components/games/Playground";
+import { NowStrip } from "@/components/home/NowStrip";
 
 export const metadata: Metadata = routeMetadata({
   path: "/lab",
@@ -75,6 +77,20 @@ export default function LabPage() {
           </FadeIn>
         ))}
       </div>
+
+      <FadeIn delay={0.2}>
+        <section className="mt-16">
+          <p className="rec-label">Tech pulse — live right now</p>
+          <NowStrip />
+        </section>
+      </FadeIn>
+
+      <FadeIn delay={0.25}>
+        <section className="mt-16">
+          <p className="rec-label">Play them</p>
+          <Playground />
+        </section>
+      </FadeIn>
 
       <FadeIn delay={0.3}>
         <p className="mt-10 max-w-[58ch] text-sm" style={{ color: "var(--faint)" }}>

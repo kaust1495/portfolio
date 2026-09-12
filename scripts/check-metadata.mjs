@@ -17,7 +17,6 @@ const routes = [
   ["/work", "work.html"],
   ["/about", "about.html"],
   ["/lab", "lab.html"],
-  ["/playground", "playground.html"],
   ["/decisions", "decisions.html"],
   ["/work/firststep", "work/firststep.html"],
   ["/work/helix", "work/helix.html"],

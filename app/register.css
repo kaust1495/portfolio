@@ -496,3 +496,192 @@
   color: var(--muted);
   margin-top: 6px;
 }
+
+/* ==================================================================== *
+ * Homepage — the front page of the register
+ * ==================================================================== */
+.home {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding: var(--s-48) var(--s-24) var(--s-96);
+}
+.home__masthead { display: grid; gap: var(--s-24); }
+@media (min-width: 64rem) {
+  .home__masthead { grid-template-columns: var(--apparatus) minmax(0, var(--measure)); gap: var(--gutter); }
+}
+.home__apparatus { display: grid; gap: 4px; align-content: start; }
+.home__name {
+  font-family: var(--font-apparatus), ui-sans-serif, system-ui, sans-serif;
+  font-size: var(--t-40);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--ink);
+}
+.home__thesis {
+  font-family: var(--font-argument), ui-serif, Georgia, serif;
+  font-size: var(--t-26);
+  line-height: 1.35;
+  color: var(--ink);
+  margin-top: var(--t-19);
+  max-width: var(--measure);
+}
+.home__sub {
+  font-family: var(--font-apparatus), ui-sans-serif, system-ui, sans-serif;
+  font-size: var(--t-17);
+  color: var(--muted);
+  margin-top: var(--t-12);
+}
+.home__actions { display: flex; flex-wrap: wrap; gap: var(--t-12); margin-top: var(--s-24); }
+
+/* ---- DEC-01 inline --------------------------------------------------- */
+.dec {
+  margin-top: var(--s-160);
+  padding: var(--s-24);
+  border: var(--stroke) solid var(--rule);
+  background: var(--sheet);
+  max-width: var(--page-max);
+}
+.dec__head { display: flex; justify-content: space-between; align-items: center; gap: var(--t-12); flex-wrap: wrap; }
+.dec__skip { min-height: var(--tap); display: inline-flex; align-items: center; }
+.dec__prompt {
+  font-family: var(--font-argument), ui-serif, Georgia, serif;
+  font-size: var(--t-26);
+  line-height: 1.3;
+  color: var(--ink);
+  margin-top: var(--t-12);
+  max-width: var(--measure);
+}
+.dec__context {
+  font-family: var(--font-apparatus), ui-sans-serif, system-ui, sans-serif;
+  font-size: var(--t-14);
+  line-height: 1.55;
+  color: var(--muted);
+  margin-top: var(--t-12);
+  max-width: var(--measure);
+}
+.dec__choices { list-style: none; display: grid; gap: var(--t-12); margin-top: var(--t-19); max-width: var(--measure); }
+.dec__choice {
+  display: flex;
+  align-items: center;
+  gap: var(--t-12);
+  width: 100%;
+  min-height: var(--tap);
+  padding: var(--t-12) var(--t-14);
+  border: var(--stroke) solid var(--rule);
+  background: var(--paper);
+  text-align: left;
+  font-family: var(--font-apparatus), ui-sans-serif, system-ui, sans-serif;
+  font-size: var(--t-17);
+  color: var(--ink);
+}
+.dec__choice:hover:not(:disabled) { border-color: var(--ink); }
+.dec__choice[data-picked="true"] { border-color: var(--ref); }
+.dec__choice[data-mine="true"] { border-color: var(--live); }
+.dec__choiceN { font-family: var(--font-id), ui-monospace, monospace; font-size: var(--t-12); color: var(--muted); }
+.dec__choiceLabel { flex: 1; }
+.dec__tag {
+  font-family: var(--font-apparatus), ui-sans-serif, system-ui, sans-serif;
+  font-size: var(--t-12);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.dec__tag--mine { color: var(--live); }
+.dec__reveal { margin-top: var(--s-24); border-top: var(--stroke) solid var(--rule); padding-top: var(--t-19); max-width: var(--measure); }
+.dec__verdict {
+  font-family: var(--font-argument), ui-serif, Georgia, serif;
+  font-size: var(--t-19);
+  line-height: 1.6;
+  color: var(--ink);
+  margin-top: 6px;
+}
+.dec__outcomeLabel { margin-top: var(--t-19); }
+.dec__outcome {
+  font-family: var(--font-argument), ui-serif, Georgia, serif;
+  font-size: var(--t-17);
+  line-height: 1.6;
+  color: var(--ink-2);
+  margin-top: 6px;
+  margin-bottom: var(--t-12);
+}
+
+/* ---- Home sections --------------------------------------------------- */
+.home__section { margin-top: var(--s-96); }
+.home__lead {
+  display: grid;
+  gap: 6px;
+  margin-top: var(--t-19);
+  padding: var(--s-24);
+  border: var(--stroke) solid var(--rule);
+  background: var(--sheet);
+}
+.home__lead:hover .home__leadTitle { color: var(--ref); }
+.home__leadHead { display: flex; align-items: center; gap: var(--t-12); }
+.home__leadTitle {
+  font-family: var(--font-apparatus), ui-sans-serif, system-ui, sans-serif;
+  font-size: var(--t-26);
+  font-weight: 600;
+  color: var(--ink);
+}
+.home__leadProblem {
+  font-family: var(--font-argument), ui-serif, Georgia, serif;
+  font-size: var(--t-17);
+  line-height: 1.55;
+  color: var(--ink-2);
+  max-width: var(--measure);
+}
+.home__leadNote {
+  font-family: var(--font-apparatus), ui-sans-serif, system-ui, sans-serif;
+  font-size: var(--t-12);
+  color: var(--muted);
+  margin-top: 6px;
+}
+.home__grid { list-style: none; display: grid; gap: var(--t-12); margin-top: var(--t-12); }
+@media (min-width: 48rem) { .home__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.home__card {
+  display: grid;
+  gap: 6px;
+  height: 100%;
+  padding: var(--t-19);
+  border: var(--stroke) solid var(--rule-soft);
+}
+.home__card:hover { border-color: var(--rule); }
+.home__card:hover .home__cardTitle { color: var(--ref); }
+.home__cardHead { display: flex; align-items: center; justify-content: space-between; gap: var(--t-12); }
+.home__cardTitle {
+  font-family: var(--font-apparatus), ui-sans-serif, system-ui, sans-serif;
+  font-size: var(--t-17);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
+}
+.home__cardFact {
+  font-family: var(--font-id), ui-monospace, monospace;
+  font-size: var(--t-12);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.home__labLine, .home__askLine {
+  font-family: var(--font-argument), ui-serif, Georgia, serif;
+  font-size: var(--t-19);
+  line-height: 1.6;
+  color: var(--ink-2);
+  max-width: var(--measure);
+  margin-block: var(--t-12);
+}
+.home__contact { list-style: none; display: flex; flex-wrap: wrap; gap: var(--s-24); margin-top: var(--t-19); }
+.home__contact a { min-height: var(--tap); display: inline-flex; align-items: center; }
+.home__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--t-12);
+  margin-top: var(--s-96);
+  padding-top: var(--t-19);
+  border-top: var(--stroke) solid var(--rule);
+  font-family: var(--font-id), ui-monospace, monospace;
+  font-size: var(--t-12);
+  color: var(--muted);
+}
