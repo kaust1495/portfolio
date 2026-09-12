@@ -95,20 +95,24 @@ export function SiteNav() {
             Résumé<span aria-hidden="true"> ↗</span>
           </a>
 
-          {/* ⌘K is desktop-only: phones have no ⌘ key */}
-          <button
-            onClick={() => window.dispatchEvent(new Event("open-cmd"))}
-            className="btn btn--sm tap-sq hidden md:inline-flex"
-            aria-label="Open command menu"
-          >
-            <span style={{ color: "var(--muted)", fontFamily: "var(--mono)" }}>⌘K</span>
-          </button>
+          {/* ⌘K is desktop-only: phones have no ⌘ key. The wrapper carries the
+              responsive display — .btn is unlayered CSS and beats `hidden`. */}
+          <span className="hidden md:block">
+            <button
+              onClick={() => window.dispatchEvent(new Event("open-cmd"))}
+              className="btn btn--sm tap-sq"
+              aria-label="Open command menu"
+            >
+              <span style={{ color: "var(--muted)", fontFamily: "var(--mono)" }}>⌘K</span>
+            </button>
+          </span>
 
           {/* Menu button below the tablet tier */}
+          <span className="block md:hidden">
           <button
             ref={menuButtonRef}
             onClick={() => setOpen((o) => !o)}
-            className="tap tap-sq md:hidden"
+            className="tap tap-sq"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="nav-sheet"
@@ -121,6 +125,7 @@ export function SiteNav() {
               )}
             </svg>
           </button>
+          </span>
         </div>
       </nav>
 

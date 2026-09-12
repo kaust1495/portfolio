@@ -128,7 +128,7 @@ export function Home() {
               <p className="label">Selected work</p>
               <h2 className="h2 mt-1.5">Four builds worth talking about.</h2>
             </div>
-            <Link href="/work" className="tap link text-sm" style={{ color: "var(--muted)" }}>
+            <Link href="/work" className="tap link px-2 text-sm" style={{ color: "var(--muted)" }}>
               All four →
             </Link>
           </div>
