@@ -19,9 +19,9 @@ function shuffle<T>(a: T[]) {
 }
 
 const calls: { id: Call; label: string; key: string; color: string }[] = [
-  { id: "ship", label: "Ship", key: "S", color: "var(--ok)" },
-  { id: "defer", label: "Defer", key: "D", color: "var(--wait)" },
-  { id: "cut", label: "Cut", key: "C", color: "var(--no)" },
+  { id: "ship", label: "Ship", key: "S", color: "var(--live)" },
+  { id: "defer", label: "Defer", key: "D", color: "var(--review)" },
+  { id: "cut", label: "Cut", key: "C", color: "var(--void)" },
 ];
 
 export function ShipIt() {
@@ -183,24 +183,24 @@ export function ShipIt() {
                 <span
                   key={n}
                   className="h-2 w-2 rounded-full"
-                  style={{ background: n < lives ? "var(--accent)" : "var(--line)" }}
+                  style={{ background: n < lives ? "var(--coral-ink)" : "var(--rule-soft)" }}
                 />
               ))}
             </div>
             {combo > 1 && (
-              <span className="font-mono text-xs" style={{ color: "var(--accent)" }}>
+              <span className="font-mono text-xs" style={{ color: "var(--coral-ink)" }}>
                 {combo}× combo
               </span>
             )}
           </div>
 
           {/* timer bar */}
-          <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full" style={{ background: "var(--line)" }}>
+          <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full" style={{ background: "var(--rule-soft)" }}>
             <div
               className="h-full rounded-full"
               style={{
                 width: `${pct * 100}%`,
-                background: pct > 0.4 ? "var(--accent)" : "var(--no)",
+                background: pct > 0.4 ? "var(--coral-ink)" : "var(--void)",
                 transition: "width 0.08s linear",
               }}
             />
@@ -212,18 +212,19 @@ export function ShipIt() {
               key={idx}
               className="w-full rounded-xl border p-5 text-center rise"
               style={{
-                borderColor: feedback ? (feedback.ok ? "var(--ok)" : "var(--no)") : "var(--line)",
-                background: "var(--surface-hi)",
+                borderColor: feedback ? (feedback.ok ? "var(--live)" : "var(--void)") : "var(--rule-soft)",
+                background: "var(--sheet)",
               }}
             >
               <p className="label mb-2" style={{ color: "var(--faint)" }}>
                 incoming
               </p>
-              <p className="font-serif text-lg leading-snug sm:text-xl">{card.text}</p>
+              <p className="font-display text-lg leading-snug sm:text-xl">{card.text}</p>
 
+              <div aria-live="polite">
               {feedback && (
                 <div className="mt-3">
-                  <p className="text-sm" style={{ color: feedback.ok ? "var(--ok)" : "var(--no)" }}>
+                  <p className="text-sm" style={{ color: feedback.ok ? "var(--live)" : "var(--void)" }}>
                     {feedback.ok ? "Good call." : `Should've been ${feedback.correct}.`}
                   </p>
                   <p className="mt-1 text-xs leading-relaxed" style={{ color: "var(--muted)" }}>
@@ -231,6 +232,7 @@ export function ShipIt() {
                   </p>
                 </div>
               )}
+              </div>
             </div>
           </div>
 
@@ -241,7 +243,7 @@ export function ShipIt() {
                 key={c.id}
                 onClick={() => resolve(c.id)}
                 disabled={!!feedback}
-                className="rounded-lg border py-2.5 text-sm font-medium transition-colors disabled:opacity-40"
+                className="min-h-11 rounded-lg border py-2.5 text-sm font-medium transition-colors disabled:opacity-40"
                 style={{ borderColor: c.color, color: c.color }}
               >
                 {c.label} <span className="ml-1 opacity-50">{c.key}</span>

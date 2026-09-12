@@ -150,22 +150,22 @@ export function BugSquash() {
       onStart={start}
     >
       {status === "playing" && (
-        <div className="relative h-full select-none" style={{ background: "var(--bg-2)" }}>
+        <div className="relative h-full select-none" style={{ background: "var(--paper-2)" }}>
           {/* HUD */}
           <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-4 py-3">
-            <span className="label">
+            <span className="label" aria-live="off">
               {time}s
             </span>
             {combo > 2 && (
-              <span className="font-mono text-xs" style={{ color: "var(--accent)" }}>
+              <span className="font-mono text-xs" style={{ color: "var(--coral-ink)" }}>
                 {combo}× combo
               </span>
             )}
           </div>
-          <div className="absolute inset-x-0 top-9 z-10 mx-4 h-1" style={{ background: "var(--line)" }}>
+          <div className="absolute inset-x-0 top-9 z-10 mx-4 h-1" style={{ background: "var(--rule-soft)" }}>
             <div
               className="h-full"
-              style={{ width: `${(time / ROUND) * 100}%`, background: time <= 5 ? "var(--no)" : "var(--accent)", transition: "width 1s linear" }}
+              style={{ width: `${(time / ROUND) * 100}%`, background: time <= 5 ? "var(--void)" : "var(--coral-ink)", transition: "width 1s linear" }}
             />
           </div>
 
@@ -176,7 +176,7 @@ export function BugSquash() {
               onPointerDown={() => squash(b)}
               aria-label="Squash the bug"
               className="absolute"
-              style={{ left: `${b.x}%`, top: `${b.y}%`, width: 42, height: 42, transform: `rotate(${b.rot}deg)` }}
+              style={{ left: `${b.x}%`, top: `${b.y}%`, width: 44, height: 44, transform: `rotate(${b.rot}deg)` }}
             >
               <BugArt golden={b.golden} />
             </button>
@@ -190,7 +190,7 @@ export function BugSquash() {
               style={{
                 left: `${s.x}%`,
                 top: `${s.y}%`,
-                color: "var(--accent)",
+                color: "var(--coral-ink)",
                 animation: "kj-splat .65s var(--ease) forwards",
               }}
             >
@@ -222,10 +222,10 @@ function BugArt({ golden }: { golden: boolean }) {
       {/* antennae */}
       <path d="M17 6l-3-4M23 6l3-4" stroke={body} strokeWidth="2" strokeLinecap="round" />
       {/* eyes */}
-      <circle cx="17.6" cy="9.5" r="1.5" fill="var(--surface)" />
-      <circle cx="22.4" cy="9.5" r="1.5" fill="var(--surface)" />
+      <circle cx="17.6" cy="9.5" r="1.5" fill="var(--sheet)" />
+      <circle cx="22.4" cy="9.5" r="1.5" fill="var(--sheet)" />
       {/* shell line */}
-      <path d="M20 12v20" stroke="var(--surface)" strokeWidth="1.2" opacity="0.6" />
+      <path d="M20 12v20" stroke="var(--sheet)" strokeWidth="1.2" opacity="0.6" />
     </svg>
   );
 }

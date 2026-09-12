@@ -151,11 +151,11 @@ export function Buddy() {
       <div
         className="pointer-events-none absolute bottom-full left-1/2 mb-1.5 w-max max-w-[190px] -translate-x-1/2 px-2.5 py-1 text-center"
         style={{
-          background: "var(--surface)",
-          border: "1px solid var(--line-2)",
+          background: "var(--sheet)",
+          border: "1px solid var(--rule)",
           borderRadius: 14,
           boxShadow: "var(--shadow-sm)",
-          fontFamily: "var(--font-caveat), cursive",
+          fontFamily: "var(--font-body), ui-sans-serif, system-ui, sans-serif",
           fontSize: "1rem",
           lineHeight: 1.15,
           color: "var(--ink-2)",

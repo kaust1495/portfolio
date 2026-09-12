@@ -10,9 +10,9 @@ export function Home() {
   const ticker = [...marqueeWords, ...marqueeWords];
 
   return (
-    <main className="pb-24">
+    <div className="pb-24">
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="wrap grid items-center gap-10 pt-10 sm:pt-16 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
+      <section className="wrap grid items-center gap-10 pt-10 sm:pt-16 md:grid-cols-[1.15fr_0.85fr] md:gap-12 lg:gap-16">
         <div>
           <span
             className="rise inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium"
@@ -72,10 +72,10 @@ export function Home() {
           <div
             className="relative mx-auto w-[220px] p-2.5 sm:w-[260px] lg:w-[300px]"
             style={{
-              background: "var(--surface)",
+              background: "var(--sheet)",
               borderRadius: "var(--r-lg)",
               boxShadow: "var(--shadow)",
-              border: "1px solid var(--line)",
+              border: "1px solid var(--rule-soft)",
             }}
             data-doodle="that's him"
           >
@@ -128,7 +128,7 @@ export function Home() {
               <p className="label">Selected work</p>
               <h2 className="h2 mt-1.5">Four builds worth talking about.</h2>
             </div>
-            <Link href="/work" className="link text-sm" style={{ color: "var(--muted)" }}>
+            <Link href="/work" className="tap link text-sm" style={{ color: "var(--muted)" }}>
               All four →
             </Link>
           </div>
@@ -181,7 +181,7 @@ export function Home() {
       </section>
 
       {/* ── Playground + Lab ─────────────────────────────────── */}
-      <section className="wrap mt-16 grid gap-4 lg:grid-cols-2">
+      <section className="wrap mt-16 grid gap-4 md:grid-cols-2">
         <FadeIn>
           <div className="card h-full p-6 sm:p-7">
             <p className="label">Playground</p>
@@ -225,14 +225,14 @@ export function Home() {
 
       <footer
         className="wrap mt-16 flex flex-wrap items-center justify-between gap-3 pt-6 text-xs"
-        style={{ borderTop: "1px solid var(--line)", color: "var(--faint)" }}
+        style={{ borderTop: "1px solid var(--rule-soft)", color: "var(--faint)" }}
       >
         <span>{person.location}</span>
         <span>
           © {new Date().getFullYear()} {person.fullName}
         </span>
       </footer>
-    </main>
+    </div>
   );
 }
 

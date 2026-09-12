@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
+import { routeMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { caseStudies } from "@/content/profile";
 import { FadeIn } from "@/components/FadeIn";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = routeMetadata({
+  path: "/work",
   title: "Work",
   description:
     "Four builds from Kaustubh Jain — a live legal-AI product, a governed agentic-AI framework, a platform migration, and release automation. Each one where an engineering task became a product decision.",
-};
+});
 
 export default function WorkPage() {
   return (
-    <main className="relative z-10 mx-auto w-full max-w-[1000px] px-4 pb-24 pt-10">
+    <div className="relative z-10 mx-auto w-full max-w-[1000px] px-4 pb-24 pt-10">
       <FadeIn>
         <p className="label">Work</p>
         <h1 className="h2 mt-3 max-w-[20ch]">Four builds, four turning points.</h1>
@@ -31,7 +33,7 @@ export default function WorkPage() {
                   {c.timeframe}
                 </span>
               </div>
-              <h2 className="mt-3 font-serif text-2xl" style={{ color: "var(--ink)" }}>
+              <h2 className="mt-3 font-display text-2xl" style={{ color: "var(--ink)" }}>
                 {c.title}
               </h2>
               <p className="mt-1 text-sm" style={{ color: "var(--muted)" }}>
@@ -40,7 +42,7 @@ export default function WorkPage() {
               <p className="mt-4 line-clamp-3 text-[0.86rem] leading-relaxed" style={{ color: "var(--faint)" }}>
                 {c.insight}
               </p>
-              <span className="mt-4 text-sm" style={{ color: "var(--accent)" }}>
+              <span className="mt-4 text-sm" style={{ color: "var(--coral-ink)" }}>
                 Read <span aria-hidden="true">→</span>
               </span>
             </Link>
@@ -49,15 +51,15 @@ export default function WorkPage() {
       </div>
 
       <FadeIn delay={0.1}>
-        <div className="mt-12 rounded-xl border p-6 text-center" style={{ borderColor: "var(--line)" }}>
+        <div className="mt-12 rounded-xl border p-6 text-center" style={{ borderColor: "var(--rule-soft)" }}>
           <p className="text-sm" style={{ color: "var(--muted)" }}>
             Prefer to see the decisions behind these, one at a time?
           </p>
-          <Link href="/decisions" className="link link--accent mt-2 inline-flex text-sm">
+          <Link href="/decisions" className="tap link link--accent mt-2 inline-flex text-sm">
             Play the Decisions deck →
           </Link>
         </div>
       </FadeIn>
-    </main>
+    </div>
   );
 }

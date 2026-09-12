@@ -83,7 +83,7 @@ export function AskMe() {
         data-doodle={open ? "go on, ask it something" : "ask me anything ↓"}
         aria-label={open ? "Close the ask-me panel" : "Open the ask-me panel"}
         aria-expanded={open}
-        className="fixed bottom-5 right-5 z-[70] flex items-center gap-2 rounded-full px-4 py-2.5 text-xs font-medium"
+        className="tap fixed bottom-5 right-5 z-[70] flex items-center gap-2 rounded-full px-4 py-2.5 text-xs font-medium"
         style={{
           background: open ? "var(--ink)" : "var(--coral-ink)",
           color: "#fff",
@@ -100,16 +100,16 @@ export function AskMe() {
         <div
           className="fixed bottom-[4.6rem] right-5 z-[70] flex w-[min(92vw,360px)] flex-col overflow-hidden border"
           style={{
-            borderColor: "var(--line)",
+            borderColor: "var(--rule-soft)",
             borderRadius: "var(--r-lg)",
-            background: "var(--surface)",
+            background: "var(--sheet)",
             boxShadow: "var(--shadow-lg)",
             maxHeight: "min(70vh, 520px)",
           }}
           role="dialog"
           aria-label="Ask me anything about Kaustubh"
         >
-          <div className="flex items-center justify-between border-b px-3 py-2" style={{ borderColor: "var(--line)" }}>
+          <div className="flex items-center justify-between border-b px-3 py-2" style={{ borderColor: "var(--rule-soft)" }}>
             <span className="label">Ask about {person.name.split(" ")[0]}</span>
             <span className="label" style={{ color: "var(--faint)" }}>
               not an LLM · a lookup
@@ -122,7 +122,7 @@ export function AskMe() {
                 <div
                   className="max-w-[86%] px-3 py-2 text-[0.85rem] leading-snug"
                   style={{
-                    background: m.role === "you" ? "var(--coral-soft)" : "var(--bg-2)",
+                    background: m.role === "you" ? "var(--coral-soft)" : "var(--paper-2)",
                     color: "var(--ink-2)",
                     borderRadius: m.role === "you" ? "14px 14px 4px 14px" : "14px 14px 14px 4px",
                   }}
@@ -153,7 +153,7 @@ export function AskMe() {
             {thinking && (
               <div
                 className="w-fit px-3 py-2 text-[0.85rem]"
-                style={{ background: "var(--bg-2)", color: "var(--faint)", borderRadius: "14px 14px 14px 4px" }}
+                style={{ background: "var(--paper-2)", color: "var(--faint)", borderRadius: "14px 14px 14px 4px" }}
               >
                 <span className="dots">···</span>
               </div>
@@ -167,7 +167,7 @@ export function AskMe() {
                     key={s.id}
                     onClick={() => ask(s.question)}
                     className="rounded-full border px-2.5 py-1 text-[0.72rem] transition-colors hover:border-[var(--coral-ink)] hover:bg-[var(--coral-soft)] hover:text-[var(--ink)]"
-                    style={{ borderColor: "var(--line-2)", color: "var(--muted)" }}
+                    style={{ borderColor: "var(--rule)", color: "var(--muted)" }}
                   >
                     {s.question}
                   </button>
@@ -177,7 +177,7 @@ export function AskMe() {
 
             {/* suggestion box after a few questions */}
             {asked >= 3 && !thinking && (
-              <div className="border-t pt-3" style={{ borderColor: "var(--line)" }}>
+              <div className="border-t pt-3" style={{ borderColor: "var(--rule-soft)" }}>
                 <p className="text-[0.78rem]" style={{ color: "var(--muted)" }}>
                   Didn&rsquo;t find what you came for?
                 </p>
@@ -197,7 +197,7 @@ export function AskMe() {
               ask(input);
             }}
             className="flex items-center gap-2 border-t p-2"
-            style={{ borderColor: "var(--line)" }}
+            style={{ borderColor: "var(--rule-soft)" }}
           >
             <input
               ref={inputRef}
@@ -205,7 +205,7 @@ export function AskMe() {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type a question…"
               aria-label="Ask a question"
-              className="flex-1 rounded-full bg-transparent px-3 py-2 text-[0.85rem] outline-none focus-visible:bg-[var(--bg-2)]"
+              className="flex-1 rounded-full bg-transparent px-3 py-2 text-[0.85rem] outline-none focus-visible:bg-[var(--paper-2)]"
             />
             <button
               type="submit"

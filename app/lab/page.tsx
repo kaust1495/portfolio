@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
+import { routeMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
 import { labIntro, labItems } from "@/content/lab";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = routeMetadata({
+  path: "/lab",
   title: "Lab",
   description:
     "Seven small things Kaustubh Jain built for this site — a generative Web Audio soundtrack, a cursor-following character, a zero-backend chat lookup, three games and a live Hacker News feed — with notes on how each one works.",
-};
+});
 
 export default function LabPage() {
   return (
-    <main className="wrap pb-24 pt-10">
+    <div className="wrap pb-24 pt-10">
       <FadeIn>
         <p className="label">Lab</p>
         <h1 className="h2 mt-3 max-w-[20ch]">
@@ -61,7 +63,7 @@ export default function LabPage() {
               </div>
 
               {item.href ? (
-                <Link href={item.href} className="link mt-3 text-sm font-medium" style={{ color: "var(--coral-ink)" }}>
+                <Link href={item.href} className="tap link mt-3 text-sm font-medium" style={{ color: "var(--coral-ink)" }}>
                   {item.cta} →
                 </Link>
               ) : (
@@ -83,6 +85,6 @@ export default function LabPage() {
           . This is what I do when nobody assigns it.
         </p>
       </FadeIn>
-    </main>
+    </div>
   );
 }
