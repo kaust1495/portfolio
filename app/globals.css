@@ -1,45 +1,66 @@
 @import "tailwindcss";
 
-/* ==================================================================== *
- * Legacy bridge — components not yet rebuilt for the register.
- * Every decorative token now resolves to a register token, so the old
- * pages inherit the new system instead of fighting it. Phase 4 removes
- * these along with the components that use them.
- * ==================================================================== */
-:root {
-  --coral: var(--ref);
-  --coral-ink: var(--ref);
-  --coral-soft: var(--sheet);
-  --peach: var(--muted);
-  --peach-soft: var(--sheet);
-  --sky: var(--muted);
-  --sky-soft: var(--sheet);
-  --sage: var(--muted);
-  --sage-soft: var(--sheet);
-  --butter: var(--muted);
-  --butter-soft: var(--sheet);
-  --paper-2: var(--sheet);
-
-  /* The register is square and unshadowed. */
-  --r-sm: 0px;
-  --r: 0px;
-  --r-lg: 0px;
-  --r-pill: 0px;
-  --shadow-sm: none;
-  --shadow: none;
-  --shadow-lg: none;
-  --puff: none;
-  --puff-lift: none;
-
-  --font-display: var(--font-apparatus);
-  --font-body: var(--font-argument);
-  --mono: var(--font-id);
-}
-
 /* ================================================================== *
  * Warm Ink — cream paper, warm ink, one loud coral.
  * Serif display doing the shouting so the colours don't have to.
  * ================================================================== */
+:root {
+  /* Surfaces */
+  --paper: #fdf9f4;
+  --paper-2: #f6f0e8;
+  --sheet: #fffdfa;
+
+  /* Ink. Never #000 — it hurts. muted/faint are checked against the darkest
+     tint (--sky-soft), not just --paper: 5.40:1 and 4.85:1. */
+  --ink: #2b2621;
+  --ink-2: #4b4239;
+  --muted: #6b6054;
+  --faint: #736759;
+
+  --rule-soft: #ece3d8;
+  --rule: #ddd1c2;
+
+  /* --coral is 3.1:1 on paper — decoration and very large type ONLY.
+     --coral-ink is for text and filled buttons: 4.74:1 on the darkest tint,
+     5.13:1 on paper, 5.38:1 under white. */
+  --coral: #ef5f3c;
+  --coral-ink: #bf3d1e;
+  --coral-soft: #ffeee8;
+  --peach: #f4a58c;
+  --peach-soft: #fdefe8;
+  --sky: #4a93c9;
+  --sky-soft: #e8f2f9;
+  --sage: #5aa383;
+  --sage-soft: #e9f4ee;
+  --butter: #e8ab3c;
+  --butter-soft: #fdf3e0;
+
+  /* Status */
+  --live: #4d9b78;
+  --review: #d2962f;
+  --void: #e0573a;
+
+  /* System monospace — no font download (BUILD-PLAN 0.7) */
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --r-sm: 8px;
+  --r: 14px;
+  --r-lg: 22px;
+  --r-pill: 999px;
+
+  /* the "puffy" treatment: a long soft drop + a 1px white highlight inside
+     the top edge. It's what makes a flat button read as an object. */
+  --shadow-sm: 0 2px 8px -3px rgba(60, 44, 30, 0.12);
+  --shadow: 0 12px 30px -16px rgba(60, 44, 30, 0.24);
+  --shadow-lg: 0 28px 60px -30px rgba(60, 44, 30, 0.3);
+  --puff: 0 10px 22px -12px rgba(60, 44, 30, 0.32), inset 0 1.5px 0 0 rgba(255, 255, 255, 0.6);
+  --puff-lift: 0 18px 34px -14px rgba(60, 44, 30, 0.34), inset 0 1.5px 0 0 rgba(255, 255, 255, 0.6);
+
+  /* Minimum interactive target (WCAG 2.2 SC 2.5.8) */
+  --tap: 44px;
+
+  --ease: cubic-bezier(0.22, 0.68, 0.28, 1);
+}
 
 @theme inline {
   --color-paper: var(--paper);
@@ -78,7 +99,7 @@
     background: var(--paper);
     color: var(--ink);
     font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
-    font-size: var(--t-17);
+    font-size: 1rem;
     line-height: 1.62;
     letter-spacing: -0.006em;
     -webkit-font-smoothing: antialiased;

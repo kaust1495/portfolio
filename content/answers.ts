@@ -121,7 +121,7 @@ export const answers: Answer[] = [
     suggest: true,
     answer:
       "There's a Playground: Ship It (call features ship/defer/cut before the clock runs out), Bug Squash (thirty seconds, click the bugs), and a Decisions deck of twelve real calls I've made where you choose first and then see what I actually did.",
-    link: { label: "Go to the Lab", href: "/lab" },
+    link: { label: "Go to the Playground", href: "/playground" },
   },
   {
     id: "decisions",

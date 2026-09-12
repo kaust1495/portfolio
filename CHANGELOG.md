@@ -33,33 +33,3 @@ Fixed, each re-verified live before the fix and measured after:
 
 Still open: **0.10** needs a domain purchase and a `hello@` address, and
 **Phase 1** content (`docs/CONTENT-NEEDED.md`) blocks Phase 2.
-
-## Phases 2–4 — the register (branch `phase-2-records`)
-
-- **The record system.** `lib/records.ts` is a typed schema validated at module
-  load, so a malformed record fails the build; `scripts/check-records.mjs`
-  proves it by feeding the validator nine malformed shapes. Adding a record
-  needs no component change.
-- **Tokens.** `app/tokens.css` is the only place values live. No decorative
-  accent colour: colour means LIVE/SHIPPED, PoC/PROPOSED, SUPERSEDED, or a
-  cross-reference. Six font sizes, four spacing steps, light and dark.
-- **The apparatus grid.** 180px marginalia + 32px + 64ch, sticky beside the
-  argument on desktop, reflowed into a header block on a phone.
-- **The stamp.** Status colour, −2°, rough edge from SVG turbulence, 120ms
-  scale-in, still at rest under `prefers-reduced-motion`.
-- **Provenance.** Every number resolves to measure, period, scope, ownership
-  and limitation, and says outright when it is not independently verifiable.
-  `50+ consolidated` is now kept separate from `150+ upgraded (Captiva)`.
-- **Honest gaps.** FirstStep and Helix had no measurable outcome, so instead of
-  asserting one they state what would be measured and why.
-- **Evidence instruments.** A playable approval gate (PRJ-02), a before/after
-  routing wipe (PRJ-03), a toil slider (PRJ-04). FirstStep's five frames need
-  product screenshots that don't exist yet; its exhibits say what they'll prove.
-- **Homepage.** Thesis, then DEC-01 playable without scrolling past it (commit
-  before reveal, visible skip), then the records, then the ask. No aggregate
-  percentage is shown — that needs a real counter, and inventing one would be
-  the exact failure this site argues against.
-- **`/playground` → `/lab`** (308). The games and the builds are one argument.
-- **Removed:** the cursor companion and ambient blobs, which `CLAUDE.md`
-  forbids. The Lab keeps a record of the retirement rather than quietly
-  dropping it.

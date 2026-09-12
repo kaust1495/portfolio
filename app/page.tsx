@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Register } from "@/components/home/Register";
+import { Home } from "@/components/home/Home";
 import { routeMetadata, siteDescription } from "@/lib/seo";
 
 export const metadata: Metadata = routeMetadata({
@@ -8,5 +8,5 @@ export const metadata: Metadata = routeMetadata({
 });
 
 export default function HomePage() {
-  return <Register />;
+  return <Home />;
 }
