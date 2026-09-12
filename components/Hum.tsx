@@ -178,11 +178,11 @@ export function Hum() {
         if (on) setLevel(Array(BARS).fill(0.2));
         setOn(!on);
       }}
-      className="fixed bottom-5 left-5 z-[60] flex items-center gap-2.5 rounded-full px-3 py-2"
+      className="tap fixed bottom-5 left-5 z-[60] flex items-center gap-2.5 rounded-full px-3 py-2"
       style={{
-        background: on ? "var(--coral-ink)" : "var(--surface)",
+        background: on ? "var(--coral-ink)" : "var(--sheet)",
         color: on ? "#fff" : "var(--muted)",
-        border: `1px solid ${on ? "transparent" : "var(--line-2)"}`,
+        border: `1px solid ${on ? "transparent" : "var(--rule)"}`,
         boxShadow: "var(--puff)",
         transitionProperty: "background, color, box-shadow",
         transitionDuration: "0.3s",

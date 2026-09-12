@@ -10,10 +10,10 @@ export function NowStrip() {
   const fact = techFacts[fi % techFacts.length];
 
   return (
-    <div className="grid divide-y sm:grid-cols-3 sm:divide-x sm:divide-y-0" style={{ borderColor: "var(--line)" }}>
+    <div className="grid divide-y sm:grid-cols-3 sm:divide-x sm:divide-y-0" style={{ borderColor: "var(--rule-soft)" }}>
       <div className="py-4 sm:pr-6">
         <p className="label flex items-center gap-2">
-          <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: "var(--ok)" }} />
+          <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: "var(--live)" }} />
           Now
         </p>
         <p className="mt-1.5 text-[0.82rem] leading-snug" style={{ color: "var(--ink-2)" }}>
@@ -27,7 +27,7 @@ export function NowStrip() {
           {pulse.loading ? "Checking what tech is arguing about…" : pulse.headline}
         </p>
         {pulse.url && !pulse.loading && (
-          <a href={pulse.url} target="_blank" rel="noopener noreferrer" className="link mt-1 inline-flex text-[0.7rem]" style={{ color: "var(--accent)" }}>
+          <a href={pulse.url} target="_blank" rel="noopener noreferrer" className="tap link mt-1 inline-flex text-[0.7rem]" style={{ color: "var(--coral-ink)" }}>
             top of Hacker News, right now ↗
           </a>
         )}
@@ -35,7 +35,7 @@ export function NowStrip() {
 
       <button
         onClick={() => setFi((i) => i + 1)}
-        className="py-4 text-left transition-colors hover:bg-[var(--bg)] sm:pl-6"
+        className="py-4 text-left transition-colors hover:bg-[var(--paper)] sm:pl-6"
       >
         <p className="label flex items-center justify-between">
           <span>Tech fun fact</span>

@@ -5,25 +5,24 @@
  * Serif display doing the shouting so the colours don't have to.
  * ================================================================== */
 :root {
-  --bg: #fdf9f4;
-  --bg-2: #f6f0e8;
-  --surface: #fffdfa;
+  /* Surfaces */
+  --paper: #fdf9f4;
+  --paper-2: #f6f0e8;
+  --sheet: #fffdfa;
 
-  /* warm near-black. never #000 — it hurts */
+  /* Ink. Never #000 — it hurts. muted/faint are checked against the darkest
+     tint (--sky-soft), not just --paper: 5.40:1 and 4.85:1. */
   --ink: #2b2621;
   --ink-2: #4b4239;
-  /* checked against the DARKEST tint (--sky-soft), not just --bg, since text
-     sits on tinted cards: muted 5.40:1, faint 4.85:1 — AA everywhere */
   --muted: #6b6054;
   --faint: #736759;
 
-  --line: #ece3d8;
-  --line-2: #ddd1c2;
+  --rule-soft: #ece3d8;
+  --rule: #ddd1c2;
 
-  /* one dominant, three supporting */
-  /* --coral is 3.1:1 on cream — decoration and very large type ONLY.
-     --coral-ink is the one for text and for filled buttons: 4.74:1 on the
-     darkest tint, 5.13:1 on cream, 5.38:1 with white text on top. */
+  /* --coral is 3.1:1 on paper — decoration and very large type ONLY.
+     --coral-ink is for text and filled buttons: 4.74:1 on the darkest tint,
+     5.13:1 on paper, 5.38:1 under white. */
   --coral: #ef5f3c;
   --coral-ink: #bf3d1e;
   --coral-soft: #ffeee8;
@@ -36,18 +35,13 @@
   --butter: #e8ab3c;
   --butter-soft: #fdf3e0;
 
-  --accent: var(--coral-ink);
-  --accent-soft: var(--coral-soft);
+  /* Status */
+  --live: #4d9b78;
+  --review: #d2962f;
+  --void: #e0573a;
 
-  /* aliases — older markup still says "lav"; it now means the accent */
-  --lav: var(--coral-ink);
-  --lav-soft: var(--coral-soft);
-  --mint: var(--sage);
-  --mint-soft: var(--sage-soft);
-
-  --ok: #4d9b78;
-  --no: #e0573a;
-  --wait: #d2962f;
+  /* System monospace — no font download (BUILD-PLAN 0.7) */
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   --r-sm: 8px;
   --r: 14px;
@@ -62,33 +56,34 @@
   --puff: 0 10px 22px -12px rgba(60, 44, 30, 0.32), inset 0 1.5px 0 0 rgba(255, 255, 255, 0.6);
   --puff-lift: 0 18px 34px -14px rgba(60, 44, 30, 0.34), inset 0 1.5px 0 0 rgba(255, 255, 255, 0.6);
 
+  /* Minimum interactive target (WCAG 2.2 SC 2.5.8) */
+  --tap: 44px;
+
   --ease: cubic-bezier(0.22, 0.68, 0.28, 1);
 }
 
 @theme inline {
-  --color-bg: var(--bg);
-  --color-bg-2: var(--bg-2);
-  --color-surface: var(--surface);
-  --color-line: var(--line);
-  --color-line-2: var(--line-2);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-sheet: var(--sheet);
+  --color-rule-soft: var(--rule-soft);
+  --color-rule: var(--rule);
   --color-ink: var(--ink);
   --color-ink-2: var(--ink-2);
   --color-muted: var(--muted);
   --color-faint: var(--faint);
-  --color-accent: var(--accent);
   --color-coral: var(--coral);
-  --color-lav: var(--lav);
+  --color-coral-ink: var(--coral-ink);
   --color-peach: var(--peach);
   --color-sky: var(--sky);
   --color-sage: var(--sage);
-  --color-mint: var(--mint);
   --color-butter: var(--butter);
-  --color-ok: var(--ok);
-  --color-no: var(--no);
-  --color-wait: var(--wait);
+  --color-live: var(--live);
+  --color-void: var(--void);
+  --color-review: var(--review);
 
   --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-mono-k), ui-monospace, monospace;
+  --font-mono: var(--mono);
   --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -101,7 +96,7 @@
     scroll-behavior: smooth;
   }
   body {
-    background: var(--bg);
+    background: var(--paper);
     color: var(--ink);
     font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
     font-size: 1rem;
@@ -118,12 +113,12 @@
     letter-spacing: -0.018em;
     /* SOFT rounds the terminals, WONK tilts the round letters. This is the
        whole personality of the face — leaving them at 0 wastes the font. */
-    font-variation-settings: "opsz" 40, "SOFT" 40, "WONK" 1;
+    font-variation-settings: "SOFT" 40, "WONK" 1;
   }
   a { color: inherit; text-decoration: none; }
   button { font: inherit; color: inherit; cursor: pointer; background: none; border: none; }
-  ::selection { background: var(--lav-soft); color: var(--ink); }
-  :focus-visible { outline: 2.5px solid var(--lav); outline-offset: 3px; border-radius: 6px; }
+  ::selection { background: var(--coral-soft); color: var(--ink); }
+  :focus-visible { outline: 2.5px solid var(--coral-ink); outline-offset: 3px; border-radius: 6px; }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -163,18 +158,17 @@
 /* ================================================================== *
  * Type
  * ================================================================== */
-.font-display,
-.font-serif { /* alias kept for existing markup */
+.font-display {
   font-family: var(--font-display), ui-serif, Georgia, serif;
   font-weight: 600;
   letter-spacing: -0.018em;
-  font-variation-settings: "opsz" 36, "SOFT" 45, "WONK" 1;
+  font-variation-settings: "SOFT" 45, "WONK" 1;
 }
-.font-mono { font-family: var(--font-mono-k), ui-monospace, monospace; }
-.font-hand { font-family: var(--font-caveat), cursive; }
+.font-mono { font-family: var(--mono); }
+.font-hand { font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif; font-style: italic; }
 
 .label {
-  font-family: var(--font-mono-k), ui-monospace, monospace;
+  font-family: var(--mono);
   font-size: 0.66rem;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -190,29 +184,25 @@
   line-height: 0.95;
   letter-spacing: -0.025em;
   font-size: clamp(3rem, 9vw, 6.4rem);
-  font-variation-settings: "opsz" 144, "SOFT" 55, "WONK" 1;
+  font-variation-settings: "SOFT" 55, "WONK" 1;
 }
-.display em {
-  font-style: italic;
-  font-variation-settings: "opsz" 144, "SOFT" 80, "WONK" 1;
-  color: var(--coral);
-}
+.display em { font-style: normal; font-variation-settings: "SOFT" 90, "WONK" 1; color: var(--coral-ink); }
 .h2 {
   font-family: var(--font-display), ui-serif, Georgia, serif;
   font-weight: 600;
   font-size: clamp(1.75rem, 4vw, 2.7rem);
   line-height: 1.05;
   letter-spacing: -0.018em;
-  font-variation-settings: "opsz" 60, "SOFT" 45, "WONK" 1;
+  font-variation-settings: "SOFT" 45, "WONK" 1;
 }
 .kbd {
-  font-family: var(--font-mono-k), ui-monospace, monospace;
+  font-family: var(--mono);
   font-size: 0.64rem;
   line-height: 1;
   padding: 0.32em 0.45em;
-  border: 1px solid var(--line-2);
+  border: 1px solid var(--rule);
   border-radius: 6px;
-  background: var(--surface);
+  background: var(--sheet);
   color: var(--muted);
 }
 
@@ -221,15 +211,15 @@
  * ================================================================== */
 .wrap { width: 100%; max-width: 1140px; margin-inline: auto; padding-inline: clamp(1.1rem, 4vw, 2.5rem); }
 .wrap-tight { width: 100%; max-width: 740px; margin-inline: auto; padding-inline: clamp(1.1rem, 4vw, 2rem); }
-.rule { height: 1px; background: var(--line); width: 100%; }
-.rule-bold { height: 1px; background: var(--line-2); width: 100%; }
+.rule { height: 1px; background: var(--rule-soft); width: 100%; }
+.rule-bold { height: 1px; background: var(--rule); width: 100%; }
 
 /* ================================================================== *
  * Surfaces — rounded, soft, tinted
  * ================================================================== */
 .card {
-  background: var(--surface);
-  border: 1px solid var(--line);
+  background: var(--sheet);
+  border: 1px solid var(--rule-soft);
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-sm);
 }
@@ -239,8 +229,8 @@
   flex-direction: column;
   gap: 0.4rem;
   padding: 1.3rem 1.4rem;
-  background: var(--surface);
-  border: 1px solid var(--line);
+  background: var(--sheet);
+  border: 1px solid var(--rule-soft);
   border-radius: var(--r);
   box-shadow: var(--shadow-sm);
   transition: transform 0.28s var(--ease), box-shadow 0.28s var(--ease), border-color 0.28s var(--ease);
@@ -249,7 +239,7 @@
 .tile:focus-visible {
   transform: translateY(-3px);
   box-shadow: var(--shadow);
-  border-color: var(--line-2);
+  border-color: var(--rule);
 }
 .tile-row { flex-direction: column; }
 @media (min-width: 640px) {
@@ -257,12 +247,12 @@
 }
 
 /* tints */
-.tint-lav { background: var(--coral-soft); }
+.tint-coral { background: var(--coral-soft); }
 .tint-coral { background: var(--coral-soft); }
 .tint-peach { background: var(--peach-soft); }
 .tint-sky { background: var(--sky-soft); }
 .tint-sage { background: var(--sage-soft); }
-.tint-mint { background: var(--sage-soft); }
+.tint-sage { background: var(--sage-soft); }
 .tint-butter { background: var(--butter-soft); }
 
 /* links */
@@ -279,7 +269,7 @@
   transition: transform 0.34s var(--ease);
 }
 .link:hover::after, .link:focus-visible::after { transform: scaleX(1); transform-origin: left; }
-.link--accent { color: var(--accent); }
+.link--accent { color: var(--coral-ink); }
 
 .btn {
   display: inline-flex;
@@ -289,8 +279,8 @@
   border-radius: var(--r-pill);
   font-size: 0.9rem;
   font-weight: 500;
-  border: 1px solid var(--line-2);
-  background: var(--surface);
+  border: 1px solid var(--rule);
+  background: var(--sheet);
   color: var(--ink);
   box-shadow: var(--puff);
   transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), background 0.2s var(--ease);
@@ -311,21 +301,21 @@
 .btn--sm:hover { box-shadow: var(--puff); }
 
 .tag {
-  font-family: var(--font-mono-k), ui-monospace, monospace;
+  font-family: var(--mono);
   font-size: 0.62rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--muted);
-  background: var(--bg-2);
+  background: var(--paper-2);
   border-radius: var(--r-pill);
   padding: 0.3rem 0.66rem;
   white-space: nowrap;
 }
 .index-num {
-  font-family: var(--font-mono-k), ui-monospace, monospace;
+  font-family: var(--mono);
   font-size: 0.68rem;
   letter-spacing: 0.06em;
-  color: var(--accent);
+  color: var(--coral-ink);
 }
 
 /* ================================================================== *
@@ -344,42 +334,81 @@
  * Decision deck / games
  * ================================================================== */
 .card-face {
-  background: var(--surface);
-  border: 1px solid var(--line);
+  background: var(--sheet);
+  border: 1px solid var(--rule-soft);
   border-radius: var(--r-lg);
   box-shadow: var(--shadow);
 }
 .choice-btn {
-  border: 1px solid var(--line);
+  border: 1px solid var(--rule-soft);
   border-radius: var(--r);
   padding: 0.85rem 1.05rem;
-  background: var(--surface);
+  background: var(--sheet);
   transition: border-color 0.2s var(--ease), background 0.2s var(--ease), transform 0.18s var(--ease);
   text-align: left;
 }
-.choice-btn:hover:not(:disabled) { border-color: var(--lav); background: var(--lav-soft); }
+.choice-btn:hover:not(:disabled) { border-color: var(--coral-ink); background: var(--coral-soft); }
 .choice-btn:active:not(:disabled) { transform: scale(0.99); }
-.choice-btn[data-picked="true"] { border-color: var(--lav); background: var(--lav-soft); }
-.choice-btn[data-actual="true"] { border-color: var(--ok); background: var(--mint-soft); }
+.choice-btn[data-picked="true"] { border-color: var(--coral-ink); background: var(--coral-soft); }
+.choice-btn[data-actual="true"] { border-color: var(--live); background: var(--sage-soft); }
 .choice-btn:disabled { cursor: default; }
 
-.pip { width: 6px; height: 6px; border-radius: 999px; background: var(--line-2); transition: background 0.28s var(--ease), transform 0.28s var(--ease); }
-.pip[data-on="true"] { background: var(--lav); }
+.pip { width: 6px; height: 6px; border-radius: 999px; background: var(--rule); transition: background 0.28s var(--ease), transform 0.28s var(--ease); }
+.pip[data-on="true"] { background: var(--coral-ink); }
 .pip[data-cur="true"] { transform: scale(1.6); background: var(--ink); }
 
-.scroll-area { scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
+.scroll-area { scrollbar-width: thin; scrollbar-color: var(--rule) transparent; }
 
 /* ================================================================== *
  * cmdk
  * ================================================================== */
 [cmdk-overlay] { position: fixed; inset: 0; background: rgba(38, 35, 54, 0.28); backdrop-filter: blur(4px); z-index: 90; }
 [cmdk-dialog] { position: fixed; z-index: 91; top: 13vh; left: 50%; transform: translateX(-50%); width: min(92vw, 540px); }
-[cmdk-root] { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-lg); }
-[cmdk-input] { width: 100%; padding: 1rem 1.2rem; background: transparent; border: none; border-bottom: 1px solid var(--line); color: var(--ink); font-size: 0.95rem; outline: none; }
+[cmdk-root] { background: var(--sheet); border: 1px solid var(--rule-soft); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-lg); }
+[cmdk-input] { width: 100%; padding: 1rem 1.2rem; background: transparent; border: none; border-bottom: 1px solid var(--rule-soft); color: var(--ink); font-size: 0.95rem; outline: none; }
 [cmdk-input]::placeholder { color: var(--faint); }
 [cmdk-list] { max-height: 340px; overflow: auto; padding: 0.4rem; scrollbar-width: thin; }
 [cmdk-item] { display: flex; align-items: center; gap: 0.65rem; padding: 0.62rem 0.75rem; border-radius: 10px; color: var(--muted); font-size: 0.88rem; cursor: pointer; content-visibility: auto; }
-[cmdk-item][data-selected="true"] { background: var(--lav-soft); color: var(--ink); }
+[cmdk-item][data-selected="true"] { background: var(--coral-soft); color: var(--ink); }
 [cmdk-item] svg { width: 14px; height: 14px; opacity: 0.7; }
-[cmdk-group-heading] { padding: 0.7rem 0.75rem 0.3rem; font-family: var(--font-mono-k), monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); }
+[cmdk-group-heading] { padding: 0.7rem 0.75rem 0.3rem; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); }
 [cmdk-empty] { padding: 1.4rem; text-align: center; color: var(--faint); font-size: 0.88rem; }
+
+/* ================================================================== *
+ * Skip link — first focusable element on every page (BUILD-PLAN 0.6)
+ * ================================================================== */
+.skip {
+  position: fixed;
+  left: 16px;
+  top: -120px;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding-inline: 16px;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: var(--r-sm);
+  box-shadow: var(--shadow);
+  transition: top 0.16s var(--ease);
+}
+.skip:focus { top: 16px; }
+/* the skip target shouldn't draw a ring once focus lands in it */
+#main:focus { outline: none; }
+
+/* ================================================================== *
+ * Minimum target size, 44x44 (WCAG 2.2 SC 2.5.8). Padding, never font
+ * size. Inline links inside prose are exempt under the rule's own
+ * "inline" exception. (BUILD-PLAN 0.4)
+ * ================================================================== */
+.btn, .choice-btn { min-height: var(--tap); }
+.btn--sm { min-height: var(--tap); padding-block: 0.5rem; }
+.tap {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+}
+.tap-sq { min-width: var(--tap); min-height: var(--tap); justify-content: center; }
+
+/* Command palette rows meet the 44px minimum too (0.4) */
+[cmdk-item] { min-height: var(--tap); }

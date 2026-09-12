@@ -10,9 +10,9 @@ const MIN_TIME = 1.8;
 
 type Action = "approve" | "test" | "hold";
 const actions: { id: Action; label: string; key: string; color: string }[] = [
-  { id: "approve", label: "Approve", key: "A", color: "var(--ok)" },
-  { id: "test", label: "Test", key: "T", color: "var(--accent)" },
-  { id: "hold", label: "Hold", key: "H", color: "var(--wait)" },
+  { id: "approve", label: "Approve", key: "A", color: "var(--live)" },
+  { id: "test", label: "Test", key: "T", color: "var(--coral-ink)" },
+  { id: "hold", label: "Hold", key: "H", color: "var(--review)" },
 ];
 
 let seq = 0;
@@ -208,17 +208,17 @@ export function PipelinePanic() {
           {/* uptime */}
           <div>
             <div className="flex items-center justify-between text-xs" style={{ color: "var(--muted)" }}>
-              <span className="label" style={{ color: uptime < 35 ? "var(--no)" : "var(--muted)" }}>
+              <span className="label" style={{ color: uptime < 35 ? "var(--void)" : "var(--muted)" }}>
                 prod uptime
               </span>
               <span className="font-mono">{Math.round(uptime)}%</span>
             </div>
-            <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full" style={{ background: "var(--line)" }}>
+            <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full" style={{ background: "var(--rule-soft)" }}>
               <div
                 className="h-full rounded-full"
                 style={{
                   width: `${uptime}%`,
-                  background: uptime < 35 ? "var(--no)" : uptime < 65 ? "var(--wait)" : "var(--ok)",
+                  background: uptime < 35 ? "var(--void)" : uptime < 65 ? "var(--review)" : "var(--live)",
                   transition: "width 0.3s var(--ease)",
                 }}
               />
@@ -227,14 +227,14 @@ export function PipelinePanic() {
 
           <div className="mt-2 flex items-center justify-between text-xs" style={{ color: "var(--faint)" }}>
             <span>held: {held}/3</span>
-            {combo > 1 && <span style={{ color: "var(--accent)" }}>{combo}× clean</span>}
+            {combo > 1 && <span style={{ color: "var(--coral-ink)" }}>{combo}× clean</span>}
           </div>
 
           {/* timer */}
-          <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full" style={{ background: "var(--line)" }}>
+          <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full" style={{ background: "var(--rule-soft)" }}>
             <div
               className="h-full rounded-full"
-              style={{ width: `${pct * 100}%`, background: pct > 0.35 ? "var(--accent)" : "var(--no)", transition: "width 0.08s linear" }}
+              style={{ width: `${pct * 100}%`, background: pct > 0.35 ? "var(--coral-ink)" : "var(--void)", transition: "width 0.08s linear" }}
             />
           </div>
 
@@ -243,7 +243,7 @@ export function PipelinePanic() {
             <div
               key={deploy.id}
               className="w-full rounded-xl border p-5 text-center rise"
-              style={{ borderColor: flash ? (flash.ok ? "var(--ok)" : "var(--no)") : "var(--line)", background: "var(--surface-hi)" }}
+              style={{ borderColor: flash ? (flash.ok ? "var(--live)" : "var(--void)") : "var(--rule-soft)", background: "var(--sheet)" }}
             >
               <p className="label mb-2" style={{ color: "var(--faint)" }}>
                 deploy #{deploy.id}
@@ -252,14 +252,16 @@ export function PipelinePanic() {
               <div className="mt-3 flex flex-wrap justify-center gap-1.5">
                 <Chip on={deploy.tested} yes="tests pass" no="untested" />
                 <Chip on={deploy.touchesProd} yes="→ production" no="→ staging" invert />
-                {deploy.offHours && <span className="tag" style={{ color: "var(--wait)", borderColor: "var(--wait)" }}>off-hours</span>}
+                {deploy.offHours && <span className="tag" style={{ color: "var(--review)", borderColor: "var(--review)" }}>off-hours</span>}
               </div>
 
+              <div aria-live="polite">
               {flash && (
-                <p className="mt-3 text-sm" style={{ color: flash.ok ? "var(--ok)" : "var(--no)" }}>
+                <p className="mt-3 text-sm" style={{ color: flash.ok ? "var(--live)" : "var(--void)" }}>
                   {flash.msg}
                 </p>
               )}
+              </div>
             </div>
           </div>
 
@@ -269,7 +271,7 @@ export function PipelinePanic() {
                 key={a.id}
                 onClick={() => act(a.id)}
                 disabled={!!flash}
-                className="rounded-lg border py-2.5 text-sm font-medium transition-colors disabled:opacity-40"
+                className="min-h-11 rounded-lg border py-2.5 text-sm font-medium transition-colors disabled:opacity-40"
                 style={{ borderColor: a.color, color: a.color }}
               >
                 {a.label} <span className="ml-1 opacity-50">{a.key}</span>
@@ -287,7 +289,7 @@ function Chip({ on, yes, no, invert }: { on: boolean; yes: string; no: string; i
   return (
     <span
       className="tag"
-      style={{ color: good ? "var(--ok)" : "var(--no)", borderColor: good ? "var(--ok)" : "var(--no)" }}
+      style={{ color: good ? "var(--live)" : "var(--void)", borderColor: good ? "var(--live)" : "var(--void)" }}
     >
       {on ? yes : no}
     </span>

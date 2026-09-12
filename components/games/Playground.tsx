@@ -25,14 +25,14 @@ export function Playground() {
         className="tile tile-row mb-6"
       >
         <div>
-          <p className="font-serif text-xl" style={{ color: "var(--ink)" }}>
+          <p className="font-display text-xl" style={{ color: "var(--ink)" }}>
             Decisions deck
           </p>
           <p className="mt-1 text-sm" style={{ color: "var(--muted)" }}>
             The slow version — 12 real calls, with the reasoning. You choose, then see what I did.
           </p>
         </div>
-        <span className="shrink-0 text-sm" style={{ color: "var(--accent)" }}>
+        <span className="shrink-0 text-sm" style={{ color: "var(--coral-ink)" }}>
           Open →
         </span>
       </Link>
@@ -43,10 +43,10 @@ export function Playground() {
           <button
             key={t.id}
             onClick={() => setTab(t.id)}
-            className="rounded-lg border px-3.5 py-2 text-sm transition-colors"
+            className="min-h-11 rounded-lg border px-3.5 py-2 text-sm transition-colors"
             style={{
-              borderColor: tab === t.id ? "var(--accent)" : "var(--line)",
-              background: tab === t.id ? "color-mix(in srgb, var(--accent) 10%, var(--surface))" : "var(--surface)",
+              borderColor: tab === t.id ? "var(--coral-ink)" : "var(--rule-soft)",
+              background: tab === t.id ? "color-mix(in srgb, var(--coral-ink) 10%, var(--sheet))" : "var(--sheet)",
               color: tab === t.id ? "var(--ink)" : "var(--muted)",
             }}
           >

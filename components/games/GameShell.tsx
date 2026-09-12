@@ -29,8 +29,17 @@ export function GameShell({
 }) {
   return (
     <div className="mx-auto w-full max-w-[560px]">
+      {/* Score and the end-of-run summary are announced; the per-second
+          timer is not — that would talk over everything. (0.5) */}
+      <p className="sr-only" aria-live="polite" aria-atomic="true">
+        {status === "over"
+          ? `${endTitle ?? "Run over"}. Final score ${score}. Best ${best}.`
+          : status === "playing"
+            ? `Score ${score}`
+            : ""}
+      </p>
       <div className="mb-3 flex items-end justify-between">
-        <h2 className="font-serif text-2xl">{title}</h2>
+        <h2 className="font-display text-2xl">{title}</h2>
         <div className="flex items-center gap-4 font-mono text-xs" style={{ color: "var(--muted)" }}>
           <span>
             score <span style={{ color: "var(--ink)" }}>{score}</span>
@@ -41,14 +50,14 @@ export function GameShell({
 
       <div
         className="relative overflow-hidden rounded-2xl border"
-        style={{ borderColor: "var(--line)", background: "var(--surface)", aspectRatio: "3 / 4", maxHeight: "72vh" }}
+        style={{ borderColor: "var(--rule-soft)", background: "var(--sheet)", aspectRatio: "3 / 4", maxHeight: "72vh" }}
       >
         {children}
 
         {status !== "playing" && (
             <div
               className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 p-6 text-center"
-              style={{ background: "var(--surface)" }}
+              style={{ background: "var(--sheet)" }}
             >
               {status === "over" ? (
                 <>
@@ -57,7 +66,7 @@ export function GameShell({
                     {score}
                   </p>
                   {score >= best && score > 0 && (
-                    <p className="font-hand text-xl" style={{ color: "var(--accent)" }}>
+                    <p className="font-hand text-xl" style={{ color: "var(--coral-ink)" }}>
                       new best!
                     </p>
                   )}

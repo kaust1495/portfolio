@@ -119,7 +119,7 @@ export function Deck() {
     <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[720px] flex-col px-4 pb-16 pt-10">
       <div className="mb-6">
         <div className="flex items-center justify-between">
-          <h1 className="font-serif text-3xl">{deckIntro.title}</h1>
+          <h1 className="font-display text-3xl">{deckIntro.title}</h1>
           <span className="label">
             {i + 1} / {decisions.length}
           </span>
@@ -139,7 +139,7 @@ export function Deck() {
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
             <span
               className="tag"
-              style={{ borderColor: "color-mix(in srgb, var(--accent) 40%, var(--line))", color: "var(--accent)" }}
+              style={{ borderColor: "color-mix(in srgb, var(--coral-ink) 40%, var(--rule-soft))", color: "var(--coral-ink)" }}
             >
               {kindLabel[card.kind]}
             </span>
@@ -148,7 +148,7 @@ export function Deck() {
             </span>
           </div>
 
-          <p className="mt-5 font-serif text-[1.4rem] leading-snug sm:text-[1.65rem]">{card.prompt}</p>
+          <p className="mt-5 font-display text-[1.4rem] leading-snug sm:text-[1.65rem]">{card.prompt}</p>
           <p className="mt-3 text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
             {card.context}
           </p>
@@ -176,7 +176,7 @@ export function Deck() {
                     )}
                   </span>
                   {isActual && (
-                    <span className="label" style={{ color: "var(--ok)" }}>
+                    <span className="label" style={{ color: "var(--live)" }}>
                       my call
                     </span>
                   )}
@@ -190,13 +190,14 @@ export function Deck() {
             })}
           </div>
 
+          <div aria-live="polite">
           {phase === "consequence" && card.kind === "branch" && (
             <div className="rise mt-5">
               <div
                 className="rounded-xl border p-4 text-sm leading-relaxed"
-                style={{ borderColor: "var(--line)", background: "var(--bg-2)", color: "var(--muted)" }}
+                style={{ borderColor: "var(--rule-soft)", background: "var(--paper-2)", color: "var(--muted)" }}
               >
-                <span className="label mb-1 block" style={{ color: "var(--wait)" }}>
+                <span className="label mb-1 block" style={{ color: "var(--review)" }}>
                   What happens
                 </span>
                 {card.consequences[picked]}
@@ -204,7 +205,7 @@ export function Deck() {
               <button
                 onClick={() => setPhase("revealed")}
                 className="choice-btn mt-3 w-full text-center"
-                style={{ borderColor: "var(--accent)", color: "var(--accent)" }}
+                style={{ borderColor: "var(--coral-ink)", color: "var(--coral-ink)" }}
               >
                 So what did I actually do? →
               </button>
@@ -212,8 +213,8 @@ export function Deck() {
           )}
 
           {phase === "revealed" && (
-            <div className="rise mt-6 border-t pt-5" style={{ borderColor: "var(--line)" }}>
-              <span className="label" style={{ color: "var(--accent)" }}>
+            <div className="rise mt-6 border-t pt-5" style={{ borderColor: "var(--rule-soft)" }}>
+              <span className="label" style={{ color: "var(--coral-ink)" }}>
                 The call I made
               </span>
               <p className="mt-2 leading-relaxed">{card.verdict}</p>
@@ -225,16 +226,16 @@ export function Deck() {
               </p>
 
               <div className="mt-6 flex items-center justify-between">
-                <button onClick={prev} disabled={i === 0} className="text-sm disabled:opacity-30" style={{ color: "var(--muted)" }}>
+                <button onClick={prev} disabled={i === 0} className="tap text-sm disabled:opacity-30" style={{ color: "var(--muted)" }}>
                   ← Back
                 </button>
                 <button
                   onClick={next}
                   className="choice-btn"
                   style={{
-                    borderColor: "var(--accent)",
-                    color: "var(--accent)",
-                    background: "color-mix(in srgb, var(--accent) 12%, var(--surface))",
+                    borderColor: "var(--coral-ink)",
+                    color: "var(--coral-ink)",
+                    background: "color-mix(in srgb, var(--coral-ink) 12%, var(--sheet))",
                   }}
                 >
                   {i + 1 >= decisions.length ? "See how you did →" : "Next call →"}
@@ -242,6 +243,7 @@ export function Deck() {
               </div>
             </div>
           )}
+          </div>
         </div>
       </div>
 
@@ -272,13 +274,13 @@ function Summary({ score, total, onReplay }: { score: number; total: number; onR
       <p className="mt-2 text-sm" style={{ color: "var(--muted)" }}>
         calls where you made the same choice I did.
       </p>
-      <p className="mt-6 font-serif text-xl">{read}</p>
+      <p className="mt-6 font-display text-xl">{read}</p>
 
       <div className="mt-10 flex flex-wrap justify-center gap-3">
         <button onClick={onReplay} className="choice-btn" style={{ color: "var(--muted)" }}>
           Replay the deck
         </button>
-        <Link href="/work" className="choice-btn" style={{ borderColor: "var(--accent)", color: "var(--accent)" }}>
+        <Link href="/work" className="choice-btn" style={{ borderColor: "var(--coral-ink)", color: "var(--coral-ink)" }}>
           See the work behind these →
         </Link>
       </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Fraunces, Manrope, IBM_Plex_Mono, Caveat } from "next/font/google";
-import { person } from "@/content/profile";
+import { Fraunces, Manrope } from "next/font/google";
+import { person, github } from "@/content/profile";
+import { siteTitle, siteDescription } from "@/lib/seo";
 import { CommandBar } from "@/components/CommandBar";
 import { SiteNav } from "@/components/SiteNav";
 import { AskMe } from "@/components/chat/AskMe";
@@ -8,31 +9,22 @@ import { Buddy } from "@/components/Buddy";
 import { Hum } from "@/components/Hum";
 import "./globals.css";
 
-/* Display — Fraunces. A "wonky" old-style serif; the SOFT and WONK axes are
-   what make it look drawn rather than set. Nothing else on Google Fonts
-   looks like it, which is the entire point. */
+/* Display — Fraunces with the SOFT and WONK axes, normal style only. The
+   optical-size axis and the italic file were 270 KB between them; without
+   them Fraunces is 62 KB and keeps its drawn look. (BUILD-PLAN 0.7) */
 const display = Fraunces({
   variable: "--font-display",
   subsets: ["latin"],
   display: "swap",
-  style: ["normal", "italic"],
-  axes: ["SOFT", "WONK", "opsz"],
+  axes: ["SOFT", "WONK"],
 });
-/* Body — Manrope: geometric with warmth. Inter's job, more personality. */
+/* Body — Manrope. Monospace uses the system stack; no mono download. */
 const body = Manrope({ variable: "--font-body", subsets: ["latin"], display: "swap" });
-/* Mono — IBM Plex Mono. Labels and numbers only. */
-const mono = IBM_Plex_Mono({ variable: "--font-mono-k", subsets: ["latin"], display: "swap", weight: ["400", "500"] });
-/* Hand — small handwritten asides only. */
-const caveat = Caveat({ variable: "--font-caveat", weight: ["400", "600", "700"], subsets: ["latin"], display: "swap" });
-
-const title = `${person.name} — engineer turned product builder`;
-const description =
-  "Kaustubh Jain — engineer turned product builder. Three years at Bank of America shipping banking infrastructure and a governed agentic-AI prototype. Now at Masters' Union, working toward product, venture, or a company of his own.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(person.siteUrl),
-  title: { default: title, template: `%s — ${person.name}` },
-  description,
+  title: { default: siteTitle, template: `%s — ${person.name}` },
+  description: siteDescription,
   keywords: [
     "Kaustubh Jain",
     "Product Manager",
@@ -46,15 +38,8 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: person.name, url: person.linkedin }],
   creator: person.name,
-  alternates: { canonical: "/" },
-  openGraph: {
-    type: "profile",
-    url: person.siteUrl,
-    title,
-    description,
-    siteName: person.name,
-  },
-  twitter: { card: "summary_large_image", title, description },
+  // No `alternates` or `openGraph.url` here on purpose: every route sets its
+  // own through lib/seo.ts, so nothing can inherit the homepage's URL.
   robots: { index: true, follow: true },
 };
 
@@ -67,7 +52,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     url: person.siteUrl,
     email: person.email,
     jobTitle: "Product · Venture · Founder",
-    sameAs: [person.linkedin],
+    sameAs: [person.linkedin, github],
     address: { "@type": "PostalAddress", addressLocality: "Gurugram", addressCountry: "IN" },
     alumniOf: [
       { "@type": "Organization", name: "Masters' Union" },
@@ -78,18 +63,20 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   };
 
   return (
-    <html
-      lang="en"
-      className={`${display.variable} ${body.variable} ${mono.variable} ${caveat.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${display.variable} ${body.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
+        <a href="#main" className="skip">
+          Skip to content
+        </a>
         <div className="ambient" aria-hidden="true">
           <span className="blob blob-a" />
           <span className="blob blob-b" />
           <span className="blob blob-c" />
         </div>
         <SiteNav />
-        {children}
+        <main id="main" tabIndex={-1} className="flex-1">
+          {children}
+        </main>
         <Buddy />
         <Hum />
         <AskMe />
