@@ -7,8 +7,8 @@ import { person } from "@/content/profile";
 
 const destinations = [
   { href: "/work", label: "Work" },
+  { href: "/decisions", label: "Decisions" },
   { href: "/lab", label: "Lab" },
-  { href: "/playground", label: "Playground" },
   { href: "/about", label: "About" },
 ];
 
@@ -152,16 +152,6 @@ export function SiteNav() {
                 </Link>
               </li>
             ))}
-            <li>
-              <Link
-                href="/decisions"
-                className="flex items-center justify-between border-b text-lg"
-                style={{ minHeight: 56, borderColor: "var(--rule-soft)", color: "var(--ink)" }}
-              >
-                Decisions
-                <span aria-hidden="true" style={{ color: "var(--faint)" }}>→</span>
-              </Link>
-            </li>
             <li>
               <a
                 href={person.resumeHref}

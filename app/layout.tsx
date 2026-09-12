@@ -1,25 +1,38 @@
 import type { Metadata } from "next";
-import { Fraunces, Manrope } from "next/font/google";
+import { Spectral, Archivo, Martian_Mono } from "next/font/google";
 import { person, github } from "@/content/profile";
 import { siteTitle, siteDescription } from "@/lib/seo";
 import { CommandBar } from "@/components/CommandBar";
 import { SiteNav } from "@/components/SiteNav";
 import { AskMe } from "@/components/chat/AskMe";
-import { Buddy } from "@/components/Buddy";
 import { Hum } from "@/components/Hum";
+import "./tokens.css";
 import "./globals.css";
+import "./register.css";
 
-/* Display — Fraunces with the SOFT and WONK axes, normal style only. The
-   optical-size axis and the italic file were 270 KB between them; without
-   them Fraunces is 62 KB and keeps its drawn look. (BUILD-PLAN 0.7) */
-const display = Fraunces({
-  variable: "--font-display",
+/* Argument — Spectral. The reading face. */
+const argument = Spectral({
+  variable: "--font-argument",
   subsets: ["latin"],
   display: "swap",
-  axes: ["SOFT", "WONK"],
+  weight: ["400", "600"],
 });
-/* Body — Manrope. Monospace uses the system stack; no mono download. */
-const body = Manrope({ variable: "--font-body", subsets: ["latin"], display: "swap" });
+/* Apparatus, headings, stamps — Archivo variable.
+   Deviation from docs/BRIEF.md: weight axis only. The `wdth` axis costs
+   +56 KB (90 vs 34) for a subtle narrowing; stamps get their condensed
+   look from tracking instead. */
+const apparatus = Archivo({
+  variable: "--font-apparatus",
+  subsets: ["latin"],
+  display: "swap",
+});
+/* Identifiers — Martian Mono. Record numbers, dates, metrics, cross-refs. */
+const identifier = Martian_Mono({
+  variable: "--font-id",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(person.siteUrl),
@@ -63,21 +76,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   };
 
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} h-full antialiased`}>
+    <html
+      lang="en"
+      className={`${argument.variable} ${apparatus.variable} ${identifier.variable} h-full antialiased`}
+    >
       <body className="min-h-full flex flex-col">
         <a href="#main" className="skip">
           Skip to content
         </a>
-        <div className="ambient" aria-hidden="true">
-          <span className="blob blob-a" />
-          <span className="blob blob-b" />
-          <span className="blob blob-c" />
-        </div>
         <SiteNav />
         <main id="main" tabIndex={-1} className="flex-1">
           {children}
         </main>
-        <Buddy />
         <Hum />
         <AskMe />
         <CommandBar />
