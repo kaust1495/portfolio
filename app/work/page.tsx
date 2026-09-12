@@ -1,65 +1,52 @@
 import type { Metadata } from "next";
-import { routeMetadata } from "@/lib/seo";
 import Link from "next/link";
-import { caseStudies } from "@/content/profile";
-import { FadeIn } from "@/components/FadeIn";
+import { projectRecords } from "@/content/records";
+import { routeMetadata } from "@/lib/seo";
+import { Stamp } from "@/components/record/Stamp";
 
 export const metadata: Metadata = routeMetadata({
   path: "/work",
   title: "Work",
   description:
-    "Four builds from Kaustubh Jain — a live legal-AI product, a governed agentic-AI framework, a platform migration, and release automation. Each one where an engineering task became a product decision.",
+    "PRJ-01…04 — four project records from Kaustubh Jain, each with its problem, constraint, options, decision, the trade-off he knowingly took, and what he would measure where no number exists yet.",
 });
 
 export default function WorkPage() {
   return (
-    <div className="relative z-10 mx-auto w-full max-w-[1000px] px-4 pb-24 pt-10">
-      <FadeIn>
-        <p className="label">Work</p>
-        <h1 className="h2 mt-3 max-w-[20ch]">Four builds, four turning points.</h1>
-        <p className="mt-4 max-w-[52ch] text-sm" style={{ color: "var(--muted)" }}>
-          One product I shipped on my own, then three from inside Bank of America. Each started as an
-          engineering task and turned into a decision about what to build.
+    <div className="register-index">
+      <header className="register-index__head">
+        <p className="rec-label">The register</p>
+        <h1 className="rec-title">Project records</h1>
+        <p className="register-index__intro">
+          Four records. Each one states what was wrong, what made the obvious answer impossible, what
+          was chosen — and what was knowingly given up to choose it.
         </p>
-      </FadeIn>
+      </header>
 
-      <div className="mt-12 grid gap-4 sm:grid-cols-2">
-        {caseStudies.map((c, idx) => (
-          <FadeIn key={c.id} delay={idx * 0.05} as="article">
-            <Link href={`/work/${c.id}`} className="tile h-full">
-              <div className="flex items-center justify-between">
-                <span className="index-num">{c.index}</span>
-                <span className="label" style={{ color: "var(--faint)" }}>
-                  {c.timeframe}
+      <ol className="register-list">
+        {projectRecords.map((r) => (
+          <li key={r.id}>
+            <Link href={`/work/${r.slug}`} className="register-row">
+              <span className="register-row__id">{r.id}</span>
+              <span className="register-row__main">
+                <span className="register-row__title">{r.title}</span>
+                <span className="register-row__problem">{r.problem}</span>
+                <span className="register-row__facts">
+                  {r.metrics.length > 0
+                    ? `${r.metrics.length} metrics, each with provenance`
+                    : `No number yet — ${r.wouldMeasure.length} stated measures`}
+                  {" · "}
+                  {r.exhibits.length} exhibit{r.exhibits.length > 1 ? "s" : ""}
                 </span>
-              </div>
-              <h2 className="mt-3 font-display text-2xl" style={{ color: "var(--ink)" }}>
-                {c.title}
-              </h2>
-              <p className="mt-1 text-sm" style={{ color: "var(--muted)" }}>
-                {c.kicker}
-              </p>
-              <p className="mt-4 line-clamp-3 text-[0.86rem] leading-relaxed" style={{ color: "var(--faint)" }}>
-                {c.insight}
-              </p>
-              <span className="mt-4 text-sm" style={{ color: "var(--coral-ink)" }}>
-                Read <span aria-hidden="true">→</span>
+              </span>
+              <span className="register-row__stamp">
+                <Stamp status={r.status} />
+                <span className="register-row__date">{r.timeframe}</span>
               </span>
             </Link>
-          </FadeIn>
+          </li>
         ))}
-      </div>
-
-      <FadeIn delay={0.1}>
-        <div className="mt-12 rounded-xl border p-6 text-center" style={{ borderColor: "var(--rule-soft)" }}>
-          <p className="text-sm" style={{ color: "var(--muted)" }}>
-            Prefer to see the decisions behind these, one at a time?
-          </p>
-          <Link href="/decisions" className="tap link link--accent mt-2 inline-flex text-sm">
-            Play the Decisions deck →
-          </Link>
-        </div>
-      </FadeIn>
+      </ol>
     </div>
   );
 }
