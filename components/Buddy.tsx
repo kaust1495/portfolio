@@ -145,10 +145,10 @@ export function Buddy() {
       ref={wrapRef}
       className="pointer-events-none fixed left-0 top-0 z-[65]"
       style={{ width: SIZE, height: SIZE, willChange: "transform" }}
-      aria-hidden="true"
     >
       {/* bubble */}
       <div
+        aria-hidden="true"
         className="pointer-events-none absolute bottom-full left-1/2 mb-1.5 w-max max-w-[190px] -translate-x-1/2 px-2.5 py-1 text-center"
         style={{
           background: "var(--sheet)",
@@ -172,7 +172,7 @@ export function Buddy() {
         style={{ width: SIZE, height: SIZE, transform: `scaleX(${flip})`, transition: "transform .3s var(--ease)" }}
         aria-label={parked ? "Let the little guy roam again" : "Park the little guy"}
       >
-        <svg viewBox="0 0 60 60" width={SIZE} height={SIZE} style={{ overflow: "visible" }}>
+        <svg viewBox="0 0 60 60" width={SIZE} height={SIZE} style={{ overflow: "visible" }} aria-hidden="true" focusable="false">
           {/* soft shadow puddle */}
           <ellipse cx="30" cy="56" rx="14" ry="3.5" fill="var(--ink)" opacity="0.08" />
 

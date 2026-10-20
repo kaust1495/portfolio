@@ -15,6 +15,10 @@ npm run lint
 npx tsc --noEmit # typecheck
 ```
 
+## Accessibility
+
+The mobile menu and ask-me panel keep keyboard focus inside while open, return focus to their launcher on close, and expose their interactive controls to assistive technology. The decorative Buddy artwork stays hidden from assistive technology; only its park/unpark button is announced.
+
 ## Editing content
 
 Almost everything lives in [`content/profile.ts`](content/profile.ts) — hero copy,

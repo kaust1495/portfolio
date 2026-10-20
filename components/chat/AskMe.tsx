@@ -39,6 +39,9 @@ export function AskMe() {
   const [asked, setAsked] = useState(0);
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const launcherRef = useRef<HTMLButtonElement>(null);
+  const wasOpen = useRef(false);
 
   useEffect(() => {
     if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
@@ -46,15 +49,47 @@ export function AskMe() {
 
   useEffect(() => {
     if (open) inputRef.current?.focus();
+    else if (wasOpen.current) launcherRef.current?.focus();
+    wasOpen.current = open;
   }, [open]);
 
+  // Keep keyboard focus inside the open panel, including its close launcher.
   useEffect(() => {
+    if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") {
+        setOpen(false);
+        return;
+      }
+      if (e.key !== "Tab") return;
+
+      const panelItems = Array.from(
+        dialogRef.current?.querySelectorAll<HTMLElement>(
+          "a[href], button:not([disabled]), input:not([disabled])",
+        ) ?? [],
+      ).filter((el) => el.offsetParent !== null);
+      const items = launcherRef.current ? [...panelItems, launcherRef.current] : panelItems;
+      if (!items.length) return;
+
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+      const focusIsInside = !!active && items.includes(active);
+
+      if (e.shiftKey && (!focusIsInside || active === first)) {
+        e.preventDefault();
+        last.focus();
+      } else if (e.shiftKey && active === last) {
+        e.preventDefault();
+        items[items.length - 2]?.focus();
+      } else if (!e.shiftKey && (!focusIsInside || active === last)) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [open]);
 
   const ask = useCallback((raw: string) => {
     const q = raw.trim();
@@ -79,6 +114,7 @@ export function AskMe() {
     <>
       {/* launcher */}
       <button
+        ref={launcherRef}
         onClick={() => setOpen((o) => !o)}
         data-doodle={open ? "go on, ask it something" : "ask me anything ↓"}
         aria-label={open ? "Close the ask-me panel" : "Open the ask-me panel"}
@@ -98,6 +134,7 @@ export function AskMe() {
 
       {open && (
         <div
+          ref={dialogRef}
           className="fixed bottom-[4.6rem] right-5 z-[70] flex w-[min(92vw,360px)] flex-col overflow-hidden border"
           style={{
             borderColor: "var(--rule-soft)",
@@ -107,6 +144,7 @@ export function AskMe() {
             maxHeight: "min(70vh, 520px)",
           }}
           role="dialog"
+          aria-modal="true"
           aria-label="Ask me anything about Kaustubh"
         >
           <div className="flex items-center justify-between border-b px-3 py-2" style={{ borderColor: "var(--rule-soft)" }}>

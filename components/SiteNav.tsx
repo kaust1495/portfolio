@@ -29,13 +29,37 @@ export function SiteNav() {
   // close on navigation
   useEffect(() => setOpen(false), [pathname]);
 
-  // escape closes; focus moves into the sheet; the page behind doesn't scroll
+  // Escape closes; focus moves into the sheet and stays there while it is open.
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setOpen(false);
         menuButtonRef.current?.focus();
+        return;
+      }
+      if (e.key !== "Tab") return;
+
+      const sheetItems = Array.from(
+        sheetRef.current?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])") ?? [],
+      );
+      const items = menuButtonRef.current ? [...sheetItems, menuButtonRef.current] : sheetItems;
+      if (!items.length) return;
+
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+      const focusIsInside = !!active && items.includes(active);
+
+      if (e.shiftKey && (!focusIsInside || active === first)) {
+        e.preventDefault();
+        last.focus();
+      } else if (e.shiftKey && active === last) {
+        e.preventDefault();
+        items[items.length - 2]?.focus();
+      } else if (!e.shiftKey && (!focusIsInside || active === last)) {
+        e.preventDefault();
+        first.focus();
       }
     };
     document.addEventListener("keydown", onKey);
