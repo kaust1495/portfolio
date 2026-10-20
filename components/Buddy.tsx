@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const IDLE = [
   "hey.",
@@ -12,10 +12,12 @@ const IDLE = [
 
 const SIZE = 58;
 const TRAIL = 46; // how far behind the cursor it hangs
+const STORAGE_KEY = "buddy-parked";
 
 /**
  * A small character that starts parked in the corner, out of the
  * reading column. Click it to let it roam and trail your cursor.
+ * A fixed Park button and Escape put it back; the choice is remembered.
  * Says something when you hover anything with a `data-doodle` attribute.
  */
 export function Buddy() {
@@ -28,6 +30,22 @@ export function Buddy() {
   const [flip, setFlip] = useState(1);
   const [eye, setEye] = useState({ x: 0, y: 0 });
 
+  const rememberParked = useCallback((value: boolean) => {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, String(value));
+    } catch {
+      // Private browsing can block storage; the in-page toggle still works.
+    }
+  }, []);
+
+  const setParkedMode = useCallback(
+    (value: boolean) => {
+      setParked(value);
+      rememberParked(value);
+    },
+    [rememberParked],
+  );
+
   // pointer target + rendered position live in refs — no re-render per frame
   const target = useRef({ x: 0, y: 0 });
   const pos = useRef({ x: 0, y: 0 });
@@ -39,7 +57,14 @@ export function Buddy() {
     const fine = window.matchMedia("(pointer: fine)").matches;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     setEnabled(fine);
+    let saved: string | null = null;
+    try {
+      saved = window.localStorage.getItem(STORAGE_KEY);
+    } catch {
+      saved = null;
+    }
     if (reduce) setParked(true);
+    else if (saved === "false") setParked(false);
     const startX = window.innerWidth - 120;
     const startY = window.innerHeight - 150;
     target.current = { x: startX, y: startY };
@@ -105,6 +130,16 @@ export function Buddy() {
     };
   }, [enabled, parked]);
 
+  // keyboard escape hatch while Buddy is roaming
+  useEffect(() => {
+    if (!enabled || parked) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setParkedMode(true);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [enabled, parked, setParkedMode]);
+
   // blink
   useEffect(() => {
     if (!enabled) return;
@@ -141,8 +176,33 @@ export function Buddy() {
   const happy = !!say;
 
   return (
-    <div
-      ref={wrapRef}
+    <>
+      {!parked && (
+        <button
+          type="button"
+          onClick={() => setParkedMode(true)}
+          className="tap fixed bottom-24 right-5 z-[66] h-11 items-center rounded-full border px-3 text-xs font-medium"
+          style={{
+            background: "var(--sheet)",
+            borderColor: "var(--rule)",
+            boxShadow: "var(--puff)",
+            color: "var(--muted)",
+            fontFamily: "var(--mono)",
+            letterSpacing: "0.04em",
+            transitionProperty: "background, color, box-shadow",
+            transitionDuration: "0.25s",
+            transitionTimingFunction: "var(--ease)",
+          }}
+          aria-label="Park Buddy"
+          aria-keyshortcuts="Escape"
+          title="Park Buddy (Esc)"
+        >
+          Park ×
+        </button>
+      )}
+
+      <div
+        ref={wrapRef}
       className="pointer-events-none fixed left-0 top-0 z-[65]"
       style={{ width: SIZE, height: SIZE, willChange: "transform" }}
     >
@@ -167,7 +227,7 @@ export function Buddy() {
       </div>
 
       <button
-        onClick={() => setParked((p) => !p)}
+        onClick={() => setParkedMode(!parked)}
         className="pointer-events-auto block"
         style={{ width: SIZE, height: SIZE, transform: `scaleX(${flip})`, transition: "transform .3s var(--ease)" }}
         aria-label={parked ? "Let the little guy roam again" : "Park the little guy"}
@@ -228,7 +288,8 @@ export function Buddy() {
           <path d="M13 34c-3 1-5 3-5 6" fill="none" stroke="var(--ink)" strokeWidth="1.8" strokeLinecap="round" />
           <path d="M47 34c3 1 5 3 5 6" fill="none" stroke="var(--ink)" strokeWidth="1.8" strokeLinecap="round" />
         </svg>
-      </button>
-    </div>
+        </button>
+      </div>
+    </>
   );
 }
