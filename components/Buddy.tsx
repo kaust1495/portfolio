@@ -14,14 +14,14 @@ const SIZE = 58;
 const TRAIL = 46; // how far behind the cursor it hangs
 
 /**
- * A small character that roams the whole site, trailing your cursor.
- * Click it to park it in the corner. Says something when you hover
- * anything with a `data-doodle` attribute.
+ * A small character that starts parked in the corner, out of the
+ * reading column. Click it to let it roam and trail your cursor.
+ * Says something when you hover anything with a `data-doodle` attribute.
  */
 export function Buddy() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [enabled, setEnabled] = useState(false);
-  const [parked, setParked] = useState(false);
+  const [parked, setParked] = useState(true);
   const [blink, setBlink] = useState(false);
   const [say, setSay] = useState<string | null>(null);
   const [idle, setIdle] = useState(0);

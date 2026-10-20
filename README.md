@@ -17,7 +17,7 @@ npx tsc --noEmit # typecheck
 
 ## Accessibility
 
-The mobile menu and ask-me panel keep keyboard focus inside while open, return focus to their launcher on close, and expose their interactive controls to assistive technology. On phones, Sound and Ask Me collapse into a compact two-button corner cluster so they do not cover the reading column. The decorative Buddy artwork stays hidden from assistive technology; only its park/unpark button is announced.
+The mobile menu and ask-me panel keep keyboard focus inside while open, return focus to their launcher on close, and expose their interactive controls to assistive technology. On phones, Sound and Ask Me collapse into a compact two-button corner cluster so they do not cover the reading column. On desktop, Buddy starts parked in the corner instead of covering content; visitors can still click it to let it roam. The decorative Buddy artwork stays hidden from assistive technology; only its park/unpark button is announced.
 
 ## Editing content
 
