@@ -15,6 +15,10 @@ npm run lint
 npx tsc --noEmit # typecheck
 ```
 
+## Design system
+
+The current preview direction is Product Teardown / Blueprint: warm paper with a measurement grid, Space Grotesk for reading and display, IBM Plex Mono for labels and controls, squared artifact frames, and restrained blueprint/orange annotations. Both fonts are served by `next/font` and are OFL-licensed.
+
 ## Accessibility
 
 The mobile menu and ask-me panel keep keyboard focus inside while open, return focus to their launcher on close, and expose their interactive controls to assistive technology. On phones, Sound and Ask Me collapse into a compact two-button corner cluster so they do not cover the reading column. On desktop, Buddy starts parked in the corner instead of covering content; visitors can still click it to let it roam. The decorative Buddy artwork stays hidden from assistive technology; only its park/unpark button is announced.

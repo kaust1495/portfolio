@@ -12,7 +12,7 @@ export function Home() {
   return (
     <div className="pb-24">
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="wrap grid items-center gap-10 pt-10 sm:pt-16 md:grid-cols-[1.15fr_0.85fr] md:gap-12 lg:gap-16">
+      <section className="wrap hero-blueprint grid items-center gap-10 md:grid-cols-[1.15fr_0.85fr] md:gap-12 lg:gap-16">
         <div>
           <span
             className="rise inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium"
@@ -28,11 +28,7 @@ export function Home() {
 
           <p
             className="rise mt-3 font-display text-[clamp(1.45rem,3.1vw,2.2rem)] italic leading-tight"
-            style={{
-              color: "var(--coral-ink)",
-              animationDelay: "70ms",
-              fontVariationSettings: '"opsz" 72, "SOFT" 80, "WONK" 1',
-            }}
+            style={{ color: "var(--coral-ink)", animationDelay: "70ms" }}
           >
             {hero.statement}
           </p>
@@ -67,16 +63,10 @@ export function Home() {
           </p>
         </div>
 
-        {/* portrait, softly framed */}
+        {/* portrait, annotated as a product artifact */}
         <div className="rise lg:justify-self-end" style={{ animationDelay: "90ms" }}>
           <div
-            className="relative mx-auto w-[220px] p-2.5 sm:w-[260px] lg:w-[300px]"
-            style={{
-              background: "var(--sheet)",
-              borderRadius: "var(--r-lg)",
-              boxShadow: "var(--shadow)",
-              border: "1px solid var(--rule-soft)",
-            }}
+            className="portrait-frame relative mx-auto w-[220px] p-2.5 sm:w-[260px] lg:w-[300px]"
             data-doodle="that's him"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -86,11 +76,11 @@ export function Home() {
               width={300}
               height={375}
               className="block w-full object-cover"
-              style={{ aspectRatio: "4 / 5", borderRadius: "calc(var(--r-lg) - 6px)" }}
+              style={{ aspectRatio: "4 / 5" }}
               fetchPriority="high"
             />
             <span
-              className="absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-3 py-1 text-xs font-medium"
+              className="blueprint-caption absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-1 font-medium"
               style={{ background: "var(--peach-soft)", color: "var(--ink-2)", boxShadow: "var(--shadow-sm)" }}
             >
               hi, that&rsquo;s me 👋
@@ -107,7 +97,7 @@ export function Home() {
               <span className="px-4 text-sm" style={{ color: "var(--faint)" }}>
                 {w}
               </span>
-              <span style={{ color: "var(--peach)" }}>✿</span>
+              <span className="font-mono" style={{ color: "var(--blueprint)" }}>{"//"}</span>
             </span>
           ))}
         </div>

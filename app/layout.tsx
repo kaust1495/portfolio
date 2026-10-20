@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Manrope } from "next/font/google";
+import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
 import { person, github } from "@/content/profile";
 import { siteTitle, siteDescription } from "@/lib/seo";
 import { CommandBar } from "@/components/CommandBar";
@@ -9,17 +9,16 @@ import { Buddy } from "@/components/Buddy";
 import { Hum } from "@/components/Hum";
 import "./globals.css";
 
-/* Display — Fraunces with the SOFT and WONK axes, normal style only. The
-   optical-size axis and the italic file were 270 KB between them; without
-   them Fraunces is 62 KB and keeps its drawn look. (BUILD-PLAN 0.7) */
-const display = Fraunces({
-  variable: "--font-display",
+/* Product Teardown / Blueprint — one grotesk for reading and display, one
+   mono for annotations and controls. Both are OFL-licensed and served by
+   next/font, so the preview adds no external font request. */
+const grotesk = Space_Grotesk({ variable: "--font-grotesk", subsets: ["latin"], display: "swap" });
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
   display: "swap",
-  axes: ["SOFT", "WONK"],
 });
-/* Body — Manrope. Monospace uses the system stack; no mono download. */
-const body = Manrope({ variable: "--font-body", subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(person.siteUrl),
@@ -63,7 +62,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   };
 
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} h-full antialiased`}>
+    <html lang="en" className={`${grotesk.variable} ${plexMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <a href="#main" className="skip">
           Skip to content

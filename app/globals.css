@@ -1,67 +1,65 @@
 @import "tailwindcss";
 
 /* ================================================================== *
- * Warm Ink — cream paper, warm ink, one loud coral.
- * Serif display doing the shouting so the colours don't have to.
+ * Product Teardown / Blueprint — warm paper, measurement grid,
+ * annotated product artifacts, hard edges, and open-source type.
  * ================================================================== */
 :root {
-  /* Surfaces */
-  --paper: #fdf9f4;
-  --paper-2: #f6f0e8;
-  --sheet: #fffdfa;
+  /* Product Teardown / Blueprint */
+  --paper: #f4f1ea;
+  --paper-2: #ebe7dd;
+  --sheet: #fffdf8;
 
-  /* Ink. Never #000 — it hurts. muted/faint are checked against the darkest
-     tint (--sky-soft), not just --paper: 5.40:1 and 4.85:1. */
-  --ink: #2b2621;
-  --ink-2: #4b4239;
-  --muted: #6b6054;
-  --faint: #736759;
+  /* Checked on --paper: muted 7.56:1, faint 5.14:1, coral-ink 5.96:1. */
+  --ink: #171713;
+  --ink-2: #3b3b34;
+  --muted: #4d4d45;
+  --faint: #66665d;
 
-  --rule-soft: #ece3d8;
-  --rule: #ddd1c2;
+  --rule-soft: #d8d4c8;
+  --rule: #171713;
 
-  /* --coral is 3.1:1 on paper — decoration and very large type ONLY.
-     --coral-ink is for text and filled buttons: 4.74:1 on the darkest tint,
-     5.13:1 on paper, 5.38:1 under white. */
-  --coral: #ef5f3c;
-  --coral-ink: #bf3d1e;
-  --coral-soft: #ffeee8;
-  --peach: #f4a58c;
-  --peach-soft: #fdefe8;
-  --sky: #4a93c9;
-  --sky-soft: #e8f2f9;
-  --sage: #5aa383;
+  --blueprint: #2457ff;
+  --blueprint-ink: #173aa9;
+  --blueprint-soft: #e9efff;
+  --coral: #ff4d00;
+  --coral-ink: #a33800;
+  --coral-soft: #fff0e8;
+  --peach: #ff7a3d;
+  --peach-soft: #fff0e8;
+  --sky: #2457ff;
+  --sky-soft: #e9efff;
+  --sage: #34835f;
   --sage-soft: #e9f4ee;
-  --butter: #e8ab3c;
-  --butter-soft: #fdf3e0;
+  --butter: #c78212;
+  --butter-soft: #fff4d9;
 
   /* Status */
-  --live: #4d9b78;
-  --review: #d2962f;
-  --void: #e0573a;
+  --live: #267452;
+  --review: #8a5c00;
+  --void: #b42318;
 
-  /* System monospace — no font download (BUILD-PLAN 0.7) */
-  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-body: var(--font-grotesk);
+  --font-display: var(--font-grotesk);
+  --mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  --r-sm: 8px;
-  --r: 14px;
-  --r-lg: 22px;
+  --r-sm: 2px;
+  --r: 4px;
+  --r-lg: 6px;
   --r-pill: 999px;
 
-  /* the "puffy" treatment: a long soft drop + a 1px white highlight inside
-     the top edge. It's what makes a flat button read as an object. */
-  --shadow-sm: 0 2px 8px -3px rgba(60, 44, 30, 0.12);
-  --shadow: 0 12px 30px -16px rgba(60, 44, 30, 0.24);
-  --shadow-lg: 0 28px 60px -30px rgba(60, 44, 30, 0.3);
-  --puff: 0 10px 22px -12px rgba(60, 44, 30, 0.32), inset 0 1.5px 0 0 rgba(255, 255, 255, 0.6);
-  --puff-lift: 0 18px 34px -14px rgba(60, 44, 30, 0.34), inset 0 1.5px 0 0 rgba(255, 255, 255, 0.6);
+  /* Blueprint objects use offset hard shadows instead of soft elevation. */
+  --shadow-sm: 4px 4px 0 rgba(23, 23, 19, 0.1);
+  --shadow: 8px 8px 0 rgba(23, 23, 19, 0.1);
+  --shadow-lg: 12px 12px 0 rgba(23, 23, 19, 0.14);
+  --puff: 4px 4px 0 var(--ink);
+  --puff-lift: 6px 6px 0 var(--ink);
 
   /* Minimum interactive target (WCAG 2.2 SC 2.5.8) */
   --tap: 44px;
 
   --ease: cubic-bezier(0.22, 0.68, 0.28, 1);
 }
-
 @theme inline {
   --color-paper: var(--paper);
   --color-paper-2: var(--paper-2);
@@ -96,29 +94,30 @@
     scroll-behavior: smooth;
   }
   body {
-    background: var(--paper);
+    background-color: var(--paper);
+    background-image:
+      linear-gradient(rgba(23, 23, 19, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(23, 23, 19, 0.055) 1px, transparent 1px);
+    background-size: 28px 28px;
     color: var(--ink);
     font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
     font-size: 1rem;
     line-height: 1.62;
-    letter-spacing: -0.006em;
+    letter-spacing: -0.01em;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     overflow-x: clip;
   }
   h1, h2, h3, h4 {
-    font-family: var(--font-display), ui-serif, Georgia, serif;
-    font-weight: 600;
-    line-height: 1.08;
-    letter-spacing: -0.018em;
-    /* SOFT rounds the terminals, WONK tilts the round letters. This is the
-       whole personality of the face — leaving them at 0 wastes the font. */
-    font-variation-settings: "SOFT" 40, "WONK" 1;
+    font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: -0.045em;
   }
   a { color: inherit; text-decoration: none; }
   button { font: inherit; color: inherit; cursor: pointer; background: none; border: none; }
   ::selection { background: var(--coral-soft); color: var(--ink); }
-  :focus-visible { outline: 2.5px solid var(--coral-ink); outline-offset: 3px; border-radius: 6px; }
+  :focus-visible { outline: 2.5px solid var(--blueprint); outline-offset: 3px; border-radius: 0; }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -131,15 +130,10 @@
 }
 
 /* ================================================================== *
- * Ambient — soft drifting pastel blobs. The "soothing" layer.
+ * Ambient — removed for the blueprint preview; the measurement grid is
+ * the background system.
  * ================================================================== */
-.ambient {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  overflow: hidden;
-}
+.ambient { display: none; }
 .blob {
   position: absolute;
   border-radius: 50%;
@@ -159,10 +153,9 @@
  * Type
  * ================================================================== */
 .font-display {
-  font-family: var(--font-display), ui-serif, Georgia, serif;
-  font-weight: 600;
-  letter-spacing: -0.018em;
-  font-variation-settings: "SOFT" 45, "WONK" 1;
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.045em;
 }
 .font-mono { font-family: var(--mono); }
 .font-hand { font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif; font-style: italic; }
@@ -176,24 +169,21 @@
   color: var(--muted);
 }
 
-/* The one genuinely large element on the page. Optical size cranked right
-   up so Fraunces switches to its display cut — tighter, more contrast. */
+/* The one genuinely large element on the page. */
 .display {
-  font-family: var(--font-display), ui-serif, Georgia, serif;
-  font-weight: 600;
-  line-height: 0.95;
-  letter-spacing: -0.025em;
-  font-size: clamp(3rem, 9vw, 6.4rem);
-  font-variation-settings: "SOFT" 55, "WONK" 1;
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+  font-size: clamp(2.8rem, 7.8vw, 5.6rem);
 }
-.display em { font-style: normal; font-variation-settings: "SOFT" 90, "WONK" 1; color: var(--coral-ink); }
+.display em { font-style: normal; color: var(--blueprint-ink); }
 .h2 {
-  font-family: var(--font-display), ui-serif, Georgia, serif;
-  font-weight: 600;
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
   font-size: clamp(1.75rem, 4vw, 2.7rem);
-  line-height: 1.05;
-  letter-spacing: -0.018em;
-  font-variation-settings: "SOFT" 45, "WONK" 1;
+  line-height: 1;
+  letter-spacing: -0.045em;
 }
 .kbd {
   font-family: var(--mono);
@@ -214,13 +204,76 @@
 .rule { height: 1px; background: var(--rule-soft); width: 100%; }
 .rule-bold { height: 1px; background: var(--rule); width: 100%; }
 
+.hero-blueprint {
+  position: relative;
+  margin-top: clamp(0.8rem, 2vw, 1.6rem);
+  border: 2px solid var(--ink);
+  background: var(--sheet);
+  box-shadow: 10px 10px 0 var(--blueprint);
+  padding-block: clamp(1.5rem, 4vw, 3rem);
+}
+.hero-blueprint::before {
+  content: "01 / PRODUCT THESIS / LIVE SYSTEM";
+  position: absolute;
+  top: -13px;
+  left: 20px;
+  background: var(--paper);
+  color: var(--blueprint-ink);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  padding: 6px 8px;
+  white-space: nowrap;
+}
+.portrait-frame {
+  position: relative;
+  background: var(--sheet);
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  box-shadow: 8px 8px 0 var(--coral);
+}
+.portrait-frame::after {
+  content: "SUBJECT / BUILDER";
+  position: absolute;
+  right: -19px;
+  top: 18px;
+  transform: rotate(90deg);
+  transform-origin: center;
+  background: var(--coral);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  padding: 6px 7px;
+  white-space: nowrap;
+}
+.blueprint-caption {
+  background: var(--paper) !important;
+  border: 1px solid var(--ink);
+  border-radius: 0 !important;
+  box-shadow: 3px 3px 0 rgba(23, 23, 19, 0.16) !important;
+  color: var(--ink) !important;
+  font-family: var(--mono);
+  font-size: 0.62rem !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+img[alt="Kaustubh Jain"] {
+  border-radius: 0 !important;
+  filter: contrast(1.04) saturate(0.92);
+}
+
 /* ================================================================== *
- * Surfaces — rounded, soft, tinted
+ * Surfaces — measured, squared, annotated
  * ================================================================== */
 .card {
   background: var(--sheet);
-  border: 1px solid var(--rule-soft);
-  border-radius: var(--r-lg);
+  border: 2px solid var(--ink);
+  border-radius: 0;
   box-shadow: var(--shadow-sm);
 }
 .tile {
@@ -230,16 +283,16 @@
   gap: 0.4rem;
   padding: 1.3rem 1.4rem;
   background: var(--sheet);
-  border: 1px solid var(--rule-soft);
-  border-radius: var(--r);
+  border: 2px solid var(--ink);
+  border-radius: 0;
   box-shadow: var(--shadow-sm);
   transition: transform 0.28s var(--ease), box-shadow 0.28s var(--ease), border-color 0.28s var(--ease);
 }
 .tile:hover,
 .tile:focus-visible {
-  transform: translateY(-3px);
+  transform: translate(-2px, -2px);
   box-shadow: var(--shadow);
-  border-color: var(--rule);
+  border-color: var(--ink);
 }
 .tile-row { flex-direction: column; }
 @media (min-width: 640px) {
@@ -248,10 +301,8 @@
 
 /* tints */
 .tint-coral { background: var(--coral-soft); }
-.tint-coral { background: var(--coral-soft); }
 .tint-peach { background: var(--peach-soft); }
 .tint-sky { background: var(--sky-soft); }
-.tint-sage { background: var(--sage-soft); }
 .tint-sage { background: var(--sage-soft); }
 .tint-butter { background: var(--butter-soft); }
 
@@ -275,29 +326,28 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45em;
-  padding: 0.68rem 1.15rem;
-  border-radius: var(--r-pill);
-  font-size: 0.9rem;
-  font-weight: 500;
-  border: 1px solid var(--rule);
+  padding: 0.68rem 1rem;
+  border-radius: 0;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 2px solid var(--ink);
   background: var(--sheet);
   color: var(--ink);
   box-shadow: var(--puff);
   transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), background 0.2s var(--ease);
 }
-.btn:hover { transform: translateY(-2px); box-shadow: var(--puff-lift); }
-.btn:active { transform: translateY(1px); box-shadow: var(--shadow-sm); }
+.btn:hover { transform: translate(-2px, -2px); box-shadow: var(--puff-lift); }
+.btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
 .btn--primary {
-  background: var(--coral-ink);
-  border-color: transparent;
+  background: var(--blueprint);
+  border-color: var(--ink);
   color: #fff;
-  box-shadow: 0 10px 22px -10px rgba(239, 95, 60, 0.65), inset 0 1.5px 0 0 rgba(255, 255, 255, 0.32);
 }
-.btn--primary:hover {
-  background: #b8391b;
-  box-shadow: 0 18px 32px -12px rgba(239, 95, 60, 0.7), inset 0 1.5px 0 0 rgba(255, 255, 255, 0.32);
-}
-.btn--sm { padding: 0.4rem 0.75rem; font-size: 0.78rem; box-shadow: var(--shadow-sm); }
+.btn--primary:hover { background: var(--blueprint-ink); }
+.btn--sm { padding: 0.4rem 0.75rem; font-size: 0.68rem; box-shadow: 3px 3px 0 var(--ink); }
 .btn--sm:hover { box-shadow: var(--puff); }
 
 .tag {
@@ -307,7 +357,8 @@
   text-transform: uppercase;
   color: var(--muted);
   background: var(--paper-2);
-  border-radius: var(--r-pill);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--r-sm);
   padding: 0.3rem 0.66rem;
   white-space: nowrap;
 }
@@ -325,7 +376,7 @@
 @keyframes rise { from { transform: translateY(16px); } to { transform: none; } }
 @media (prefers-reduced-motion: reduce) { .rise { animation: none; } }
 
-.ticker { display: flex; width: max-content; animation: ticker 44s linear infinite; }
+.ticker { display: flex; width: max-content; animation: ticker 44s linear infinite; font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.04em; }
 .ticker-wrap:hover .ticker { animation-play-state: paused; }
 @keyframes ticker { to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .ticker { animation: none; } }
@@ -335,13 +386,13 @@
  * ================================================================== */
 .card-face {
   background: var(--sheet);
-  border: 1px solid var(--rule-soft);
-  border-radius: var(--r-lg);
+  border: 2px solid var(--ink);
+  border-radius: 0;
   box-shadow: var(--shadow);
 }
 .choice-btn {
-  border: 1px solid var(--rule-soft);
-  border-radius: var(--r);
+  border: 2px solid var(--ink);
+  border-radius: 0;
   padding: 0.85rem 1.05rem;
   background: var(--sheet);
   transition: border-color 0.2s var(--ease), background 0.2s var(--ease), transform 0.18s var(--ease);
@@ -364,12 +415,12 @@
  * ================================================================== */
 [cmdk-overlay] { position: fixed; inset: 0; background: rgba(38, 35, 54, 0.28); backdrop-filter: blur(4px); z-index: 90; }
 [cmdk-dialog] { position: fixed; z-index: 91; top: 13vh; left: 50%; transform: translateX(-50%); width: min(92vw, 540px); }
-[cmdk-root] { background: var(--sheet); border: 1px solid var(--rule-soft); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-lg); }
+[cmdk-root] { background: var(--sheet); border: 2px solid var(--ink); border-radius: 0; overflow: hidden; box-shadow: var(--shadow-lg); }
 [cmdk-input] { width: 100%; padding: 1rem 1.2rem; background: transparent; border: none; border-bottom: 1px solid var(--rule-soft); color: var(--ink); font-size: 0.95rem; outline: none; }
 [cmdk-input]::placeholder { color: var(--faint); }
 [cmdk-list] { max-height: 340px; overflow: auto; padding: 0.4rem; scrollbar-width: thin; }
 [cmdk-item] { display: flex; align-items: center; gap: 0.65rem; padding: 0.62rem 0.75rem; border-radius: 10px; color: var(--muted); font-size: 0.88rem; cursor: pointer; content-visibility: auto; }
-[cmdk-item][data-selected="true"] { background: var(--coral-soft); color: var(--ink); }
+[cmdk-item][data-selected="true"] { background: var(--blueprint-soft); color: var(--ink); }
 [cmdk-item] svg { width: 14px; height: 14px; opacity: 0.7; }
 [cmdk-group-heading] { padding: 0.7rem 0.75rem 0.3rem; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); }
 [cmdk-empty] { padding: 1.4rem; text-align: center; color: var(--faint); font-size: 0.88rem; }
@@ -388,13 +439,30 @@
   padding-inline: 16px;
   background: var(--ink);
   color: var(--paper);
-  border-radius: var(--r-sm);
+  border-radius: 0;
   box-shadow: var(--shadow);
   transition: top 0.16s var(--ease);
 }
 .skip:focus { top: 16px; }
 /* the skip target shouldn't draw a ring once focus lands in it */
 #main:focus { outline: none; }
+
+@media (max-width: 640px) {
+  .hero-blueprint {
+    box-shadow: 6px 6px 0 var(--blueprint);
+    padding-block: 1.6rem;
+  }
+  .hero-blueprint::before {
+    left: 12px;
+    max-width: calc(100% - 24px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .portrait-frame::after {
+    right: -16px;
+    font-size: 0.54rem;
+  }
+}
 
 /* ================================================================== *
  * Minimum target size, 44x44 (WCAG 2.2 SC 2.5.8). Padding, never font
