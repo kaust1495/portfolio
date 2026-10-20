@@ -120,7 +120,7 @@ export const answers: Answer[] = [
     question: "Show me the fun stuff",
     suggest: true,
     answer:
-      "There's a Playground: Ship It (call features ship/defer/cut before the clock runs out), Bug Squash (thirty seconds, click the bugs), and a Decisions deck of twelve real calls I've made where you choose first and then see what I actually did.",
+      "There's a Playground: Bug Squash (thirty seconds, click the bugs), Ship It (call features ship, defer, or cut before the clock runs out), Pipeline Panic (route deploys without taking prod down), and a Decisions deck of twelve real calls I've made where you choose first and then see what I actually did.",
     link: { label: "Go to the Playground", href: "/playground" },
   },
   {

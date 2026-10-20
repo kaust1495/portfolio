@@ -90,6 +90,19 @@ export const labItems: LabItem[] = [
     cta: "Play",
   },
   {
+    id: "pipeline-panic",
+    name: "Pipeline Panic",
+    blurb:
+      "Deploys arrive with three signals: tested or not, staging or production, work hours or off-hours. Route each one without taking prod down.",
+    how:
+      "The first three cards are scripted practice for Approve, Test, and Hold. After that the deploy generator deals a balanced mix of safe staging, risky production, and after-hours calls, with uptime as the health bar.",
+    stack: ["React", "guided practice", "uptime model"],
+    tint: "tint-sky",
+    glyph: "▣",
+    href: "/playground",
+    cta: "Play",
+  },
+  {
     id: "decisions",
     name: "The decision deck",
     blurb:

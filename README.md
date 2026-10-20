@@ -23,6 +23,10 @@ The current preview direction is Product Teardown / Blueprint: warm paper with a
 
 The mobile menu and ask-me panel keep keyboard focus inside while open, return focus to their launcher on close, and expose their interactive controls to assistive technology. On phones, Sound and Ask Me collapse into a compact two-button corner cluster so they do not cover the reading column. On desktop, Buddy starts parked in the corner instead of covering content; visitors can still click it to let it roam. The decorative Buddy artwork stays hidden from assistive technology; only its park/unpark button is announced.
 
+## Playground games
+
+The Playground puts the active game before the Decisions deck so Start is visible on the first screen. Bug Squash uses a timestamp-based 30-second timer and shows the scoring legend before play. Ship It starts with three slower practice cards that cost no lives, shows a numeric countdown, and keeps feedback on screen long enough to read. Pipeline Panic starts with three scripted practice deploys that teach Approve, Test, and Hold; after that, off-hours production deploys are a real Hold case rather than decoration.
+
 ## Editing content
 
 Almost everything lives in [`content/profile.ts`](content/profile.ts) — hero copy,

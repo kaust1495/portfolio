@@ -25,6 +25,7 @@ export function BugSquash() {
   const comboRef = useRef(0);
   const timersRef = useRef<number[]>([]);
   const lastHitRef = useRef(0);
+  const endAtRef = useRef(0);
 
   useEffect(() => setBestScore(best.read()), []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -49,6 +50,7 @@ export function BugSquash() {
     scoreRef.current = 0;
     comboRef.current = 0;
     lastHitRef.current = 0;
+    endAtRef.current = performance.now() + ROUND * 1000;
     setScore(0);
     setCombo(0);
     setTime(ROUND);
@@ -57,23 +59,24 @@ export function BugSquash() {
     setStatus("playing");
   }, [clearTimers]);
 
-  // countdown
+  // Timestamp-based countdown. It keeps moving even if a 1s interval drifts.
   useEffect(() => {
     if (status !== "playing") return;
-    const t = window.setInterval(() => {
-      setTime((s) => {
-        if (s <= 1) {
-          window.clearInterval(t);
-          end();
-          return 0;
-        }
-        return s - 1;
-      });
-    }, 1000);
+    const tick = () => {
+      const remaining = Math.ceil((endAtRef.current - performance.now()) / 1000);
+      if (remaining <= 0) {
+        setTime(0);
+        end();
+      } else {
+        setTime(remaining);
+      }
+    };
+    tick();
+    const t = window.setInterval(tick, 200);
     return () => window.clearInterval(t);
   }, [status, end]);
 
-  // spawner — gets faster as the round goes on
+  // Spawner - gets faster as the round goes on.
   useEffect(() => {
     if (status !== "playing") return;
     let stop = false;
@@ -91,7 +94,7 @@ export function BugSquash() {
       };
       setBugs((b) => [...b, bug]);
 
-      // it escapes if you don't get it
+      // It escapes if you do not get it.
       const ttl = golden ? 1100 : Math.max(900, 1900 - elapsed * 28);
       const esc = window.setTimeout(() => {
         setBugs((b) => b.filter((x) => x.id !== bug.id));
@@ -106,7 +109,7 @@ export function BugSquash() {
       stop = true;
       window.clearInterval(loop);
     };
-    // re-running as `time` changes is what ramps the spawn rate
+    // Re-running as `time` changes is what ramps the spawn rate.
   }, [status, time]);
 
   const squash = useCallback((bug: Bug) => {
@@ -141,7 +144,15 @@ export function BugSquash() {
   return (
     <GameShell
       title="Bug Squash"
-      intro="Thirty seconds. Bugs crawl out, you click them. Gold ones are worth five times as much and don't hang around. Fast consecutive hits build a combo."
+      intro="Thirty seconds. Tap the bugs before they escape. Gold bugs are worth more."
+      coach={["Tap a bug before it escapes.", "Gold bugs are worth 50.", "Fast hits build a combo."]}
+      extra={(
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-mono text-[11px]" style={{ color: "var(--muted)" }}>
+          <span className="inline-flex items-center gap-1.5"><span className="block h-6 w-6"><BugArt golden={false} /></span>normal +10</span>
+          <span className="inline-flex items-center gap-1.5"><span className="block h-6 w-6"><BugArt golden /></span>gold +50</span>
+          <span>combo adds +2</span>
+        </div>
+      )}
       status={status}
       score={score}
       best={bestScore}
@@ -165,7 +176,7 @@ export function BugSquash() {
           <div className="absolute inset-x-0 top-9 z-10 mx-4 h-1" style={{ background: "var(--rule-soft)" }}>
             <div
               className="h-full"
-              style={{ width: `${(time / ROUND) * 100}%`, background: time <= 5 ? "var(--void)" : "var(--coral-ink)", transition: "width 1s linear" }}
+              style={{ width: `${(time / ROUND) * 100}%`, background: time <= 5 ? "var(--void)" : "var(--coral-ink)", transition: "width 0.2s linear" }}
             />
           </div>
 
@@ -201,6 +212,8 @@ export function BugSquash() {
           <style>{`
             @keyframes kj-splat { from { transform: translateY(0); opacity: 1 } to { transform: translateY(-26px); opacity: 0 } }
             @keyframes kj-wiggle { 0%,100% { transform: translate(0,0) } 25% { transform: translate(2px,-2px) } 50% { transform: translate(-2px,1px) } 75% { transform: translate(1px,2px) } }
+            .kj-motion { animation: kj-wiggle .5s ease-in-out infinite; }
+            @media (prefers-reduced-motion: reduce) { .kj-motion { animation: none; } }
           `}</style>
         </div>
       )}
@@ -211,7 +224,7 @@ export function BugSquash() {
 function BugArt({ golden }: { golden: boolean }) {
   const body = golden ? "#d9a300" : "var(--ink)";
   return (
-    <svg viewBox="0 0 40 40" width="100%" height="100%" style={{ animation: "kj-wiggle .5s ease-in-out infinite" }} aria-hidden="true">
+    <svg viewBox="0 0 40 40" width="100%" height="100%" className="kj-motion" aria-hidden="true">
       {/* legs */}
       <g stroke={body} strokeWidth="2" strokeLinecap="round">
         <path d="M13 14 5 9M13 20H4M13 26l-8 5M27 14l8-5M27 20h9M27 26l8 5" />

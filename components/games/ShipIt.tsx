@@ -5,6 +5,8 @@ import { features, shipItCopy, type Call } from "@/content/games";
 import { GameShell, useBest, type GameStatus } from "./GameShell";
 
 const BEST_KEY = "kj-shipit-best";
+const PRACTICE_CARDS = 3;
+const PRACTICE_TIME = 8;
 const START_TIME = 4.2;
 const MIN_TIME = 1.9;
 const RAMP = 0.14;
@@ -33,52 +35,59 @@ export function ShipIt() {
   const [combo, setCombo] = useState(0);
   const [deck, setDeck] = useState<typeof features>([]);
   const [idx, setIdx] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(START_TIME);
-  const [feedback, setFeedback] = useState<null | { ok: boolean; why: string; correct: Call }>(null);
+  const [turn, setTurn] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(PRACTICE_TIME);
+  const [feedback, setFeedback] = useState<null | { ok: boolean; why: string; correct: Call; practice: boolean }>(null);
 
   const rafRef = useRef<number | undefined>(undefined);
   const lastRef = useRef<number>(0);
   const answeredRef = useRef(false);
   const livesRef = useRef(3);
   const scoreRef = useRef(0);
+  const turnRef = useRef(0);
 
   useEffect(() => setBestScore(best.read()), []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const cardTime = useCallback(
-    (i: number) => Math.max(MIN_TIME, START_TIME - i * RAMP),
-    [],
-  );
+  const cardTime = useCallback((cardNumber: number) => {
+    if (cardNumber < PRACTICE_CARDS) return PRACTICE_TIME - cardNumber * 0.8;
+    return Math.max(MIN_TIME, START_TIME - (cardNumber - PRACTICE_CARDS) * RAMP);
+  }, []);
 
   const start = useCallback(() => {
     setDeck(shuffle(features));
     setIdx(0);
+    setTurn(0);
     setScore(0);
     setLives(3);
     setCombo(0);
     setFeedback(null);
-    setTimeLeft(START_TIME);
+    setTimeLeft(cardTime(0));
     answeredRef.current = false;
     livesRef.current = 3;
     scoreRef.current = 0;
+    turnRef.current = 0;
     lastRef.current = performance.now();
     setStatus("playing");
-  }, []);
+  }, [cardTime]);
 
   const nextCard = useCallback(() => {
     setFeedback(null);
     answeredRef.current = false;
-    setIdx((i) => {
-      const ni = i + 1;
-      if (ni >= deck.length) {
-        setDeck((d) => shuffle(d));
-        setTimeLeft(cardTime(0));
-        return 0;
-      }
-      setTimeLeft(cardTime(ni));
-      return ni;
-    });
+
+    const nextTurn = turnRef.current + 1;
+    turnRef.current = nextTurn;
+    setTurn(nextTurn);
+    setTimeLeft(cardTime(nextTurn));
+
+    const nextIdx = idx + 1;
+    if (nextIdx >= deck.length) {
+      setDeck(shuffle(deck));
+      setIdx(0);
+    } else {
+      setIdx(nextIdx);
+    }
     lastRef.current = performance.now();
-  }, [deck.length, cardTime]);
+  }, [deck, idx, cardTime]);
 
   const resolve = useCallback(
     (choice: Call | null) => {
@@ -86,6 +95,7 @@ export function ShipIt() {
       answeredRef.current = true;
       const card = deck[idx];
       if (!card) return;
+      const practice = turnRef.current < PRACTICE_CARDS;
       const ok = choice === card.call;
 
       if (ok) {
@@ -93,18 +103,22 @@ export function ShipIt() {
         scoreRef.current += gain;
         setScore(scoreRef.current);
         setCombo((c) => c + 1);
-        setFeedback({ ok: true, why: card.why, correct: card.call });
+        setFeedback({ ok: true, why: card.why, correct: card.call, practice });
       } else {
         setCombo(0);
-        livesRef.current -= 1;
-        setLives(livesRef.current);
+        if (!practice) {
+          livesRef.current -= 1;
+          setLives(livesRef.current);
+        }
         setFeedback({
           ok: false,
-          why: choice === null ? "Too slow — it hit the deadline." : card.why,
+          why: choice === null ? "Too slow - it hit the deadline." : card.why,
           correct: card.call,
+          practice,
         });
       }
 
+      const delay = practice ? (ok ? 1800 : 3000) : ok ? 2200 : 3400;
       window.setTimeout(() => {
         if (livesRef.current <= 0) {
           if (scoreRef.current > best.read()) {
@@ -115,12 +129,12 @@ export function ShipIt() {
         } else {
           nextCard();
         }
-      }, ok ? 850 : 1250);
+      }, delay);
     },
     [deck, idx, combo, status, nextCard, best],
   );
 
-  // timer loop
+  // Timer loop.
   useEffect(() => {
     if (status !== "playing") return;
     const tick = (now: number) => {
@@ -144,7 +158,7 @@ export function ShipIt() {
     };
   }, [status, resolve]);
 
-  // keyboard
+  // Keyboard.
   useEffect(() => {
     if (status !== "playing") return;
     const onKey = (e: KeyboardEvent) => {
@@ -158,7 +172,8 @@ export function ShipIt() {
   }, [status, resolve]);
 
   const card = deck[idx];
-  const total = cardTime(idx);
+  const practice = turn < PRACTICE_CARDS;
+  const total = cardTime(turn);
   const pct = Math.max(0, Math.min(1, timeLeft / total));
   const endMsg =
     score >= 180 ? shipItCopy.end.good : score >= 80 ? shipItCopy.end.mid : shipItCopy.end.low;
@@ -167,6 +182,12 @@ export function ShipIt() {
     <GameShell
       title="Ship It"
       intro={shipItCopy.intro}
+      coach={["Read the request.", "Ship, defer, or cut before time runs out.", "First three calls cost no lives."]}
+      extra={(
+        <p className="rounded-lg border px-3 py-2 font-mono text-[11px] leading-relaxed" style={{ borderColor: "var(--rule-soft)", color: "var(--muted)" }}>
+          Practice speed starts at 8 seconds. Full speed starts on call four.
+        </p>
+      )}
       status={status}
       score={score}
       best={bestScore}
@@ -176,16 +197,21 @@ export function ShipIt() {
     >
       {status === "playing" && card && (
         <div className="flex h-full flex-col p-4 sm:p-5">
-          {/* lives + combo */}
-          <div className="flex items-center justify-between">
-            <div className="flex gap-1.5">
-              {[0, 1, 2].map((n) => (
-                <span
-                  key={n}
-                  className="h-2 w-2 rounded-full"
-                  style={{ background: n < lives ? "var(--coral-ink)" : "var(--rule-soft)" }}
-                />
-              ))}
+          {/* Lives, turn, and combo */}
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div className="flex gap-1.5" aria-label={`${lives} lives left`}>
+                {[0, 1, 2].map((n) => (
+                  <span
+                    key={n}
+                    className="h-2 w-2 rounded-full"
+                    style={{ background: n < lives ? "var(--coral-ink)" : "var(--rule-soft)" }}
+                  />
+                ))}
+              </div>
+              <span className="font-mono text-[11px]" style={{ color: practice ? "var(--coral-ink)" : "var(--faint)" }}>
+                {practice ? `practice ${turn + 1}/${PRACTICE_CARDS} - no lives lost` : `call ${turn + 1}`}
+              </span>
             </div>
             {combo > 1 && (
               <span className="font-mono text-xs" style={{ color: "var(--coral-ink)" }}>
@@ -194,22 +220,27 @@ export function ShipIt() {
             )}
           </div>
 
-          {/* timer bar */}
-          <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full" style={{ background: "var(--rule-soft)" }}>
-            <div
-              className="h-full rounded-full"
-              style={{
-                width: `${pct * 100}%`,
-                background: pct > 0.4 ? "var(--coral-ink)" : "var(--void)",
-                transition: "width 0.08s linear",
-              }}
-            />
+          {/* Numeric timer plus bar */}
+          <div className="mt-3 flex items-center gap-3">
+            <div className="h-1.5 flex-1 overflow-hidden rounded-full" style={{ background: "var(--rule-soft)" }}>
+              <div
+                className="h-full rounded-full"
+                style={{
+                  width: `${pct * 100}%`,
+                  background: pct > 0.4 ? "var(--coral-ink)" : "var(--void)",
+                  transition: "width 0.08s linear",
+                }}
+              />
+            </div>
+            <span className="w-11 text-right font-mono text-xs" style={{ color: "var(--muted)" }} aria-live="off">
+              {Math.max(0, timeLeft).toFixed(1)}s
+            </span>
           </div>
 
-          {/* card */}
+          {/* Card */}
           <div className="flex flex-1 items-center justify-center">
             <div
-              key={idx}
+              key={`${turn}-${idx}`}
               className="w-full rounded-xl border p-5 text-center rise"
               style={{
                 borderColor: feedback ? (feedback.ok ? "var(--live)" : "var(--void)") : "var(--rule-soft)",
@@ -222,21 +253,25 @@ export function ShipIt() {
               <p className="font-display text-lg leading-snug sm:text-xl">{card.text}</p>
 
               <div aria-live="polite">
-              {feedback && (
-                <div className="mt-3">
-                  <p className="text-sm" style={{ color: feedback.ok ? "var(--live)" : "var(--void)" }}>
-                    {feedback.ok ? "Good call." : `Should've been ${feedback.correct}.`}
-                  </p>
-                  <p className="mt-1 text-xs leading-relaxed" style={{ color: "var(--muted)" }}>
-                    {feedback.why}
-                  </p>
-                </div>
-              )}
+                {feedback && (
+                  <div className="mt-3">
+                    <p className="text-sm" style={{ color: feedback.ok ? "var(--live)" : "var(--void)" }}>
+                      {feedback.ok
+                        ? feedback.practice
+                          ? "Good practice call."
+                          : "Good call."
+                        : `${feedback.practice ? "Practice call - no life lost. " : ""}Should've been ${feedback.correct}.`}
+                    </p>
+                    <p className="mt-1 text-xs leading-relaxed" style={{ color: "var(--muted)" }}>
+                      {feedback.why}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
 
-          {/* buttons */}
+          {/* Buttons */}
           <div className="grid grid-cols-3 gap-2">
             {calls.map((c) => (
               <button

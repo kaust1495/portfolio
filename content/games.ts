@@ -36,7 +36,7 @@ export const features: Feature[] = [
 ];
 
 export const shipItCopy = {
-  intro: "A feature request drops in. Call it before it hits the deadline line. S = ship · D = defer · C = cut.",
+  intro: "Read the request, then ship, defer, or cut before the countdown ends. The first three calls are practice and cost no lives.",
   end: {
     good: "That's a product sense. You cut the noise and shipped what moved.",
     mid: "Solid. The judgment calls are where the points are.",
@@ -72,12 +72,11 @@ export const deployLabels = [
 
 export const pipelineCopy = {
   intro:
-    "Deploys arrive. Approve the safe ones, Test the risky ones, Hold when you're not sure. An untested change to prod is how uptime dies.",
+    "Route each deploy before the countdown ends. The first three cards teach the three calls and cost no uptime.",
   rules: [
-    "Approve a tested, low-risk deploy → ships clean.",
-    "Approve an untested prod change → incident. Uptime drops.",
-    "Test → clears the risk, but the queue keeps moving.",
-    "Hold → buys time, but a full queue is its own failure.",
+    "Approve staging deploys and tested production changes during work hours.",
+    "Test every untested change that touches production.",
+    "Hold tested production changes marked off-hours.",
   ],
   end: {
     good: "That's the Helix thesis in a game: autonomy is fine, as long as a human set the rules it runs inside.",

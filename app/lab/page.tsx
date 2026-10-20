@@ -8,7 +8,7 @@ export const metadata: Metadata = routeMetadata({
   path: "/lab",
   title: "Lab",
   description:
-    "Seven small things Kaustubh Jain built for this site — a generative Web Audio soundtrack, a cursor-following character, a zero-backend chat lookup, three games and a live Hacker News feed — with notes on how each one works.",
+    "Eight small things Kaustubh Jain built for this site - a generative Web Audio soundtrack, a cursor-following character, a zero-backend chat lookup, three games, a decision deck, and a live Hacker News feed - with notes on how each one works.",
 });
 
 export default function LabPage() {
