@@ -55,12 +55,22 @@
   --puff: 4px 4px 0 var(--ink);
   --puff-lift: 6px 6px 0 var(--ink);
 
+  /* Comfortable reading sizes: 17px desktop copy, 16px mobile copy. */
+  --copy: 1.0625rem;
+  --copy-mobile: 1rem;
+  --caption: 0.875rem;
+
   /* Minimum interactive target (WCAG 2.2 SC 2.5.8) */
   --tap: 44px;
 
   --ease: cubic-bezier(0.22, 0.68, 0.28, 1);
 }
 @theme inline {
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.4;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.55;
+
   --color-paper: var(--paper);
   --color-paper-2: var(--paper-2);
   --color-sheet: var(--sheet);
@@ -101,8 +111,8 @@
     background-size: 28px 28px;
     color: var(--ink);
     font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
-    font-size: 1rem;
-    line-height: 1.62;
+    font-size: var(--copy);
+    line-height: 1.65;
     letter-spacing: -0.01em;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -162,7 +172,7 @@
 
 .label {
   font-family: var(--mono);
-  font-size: 0.66rem;
+  font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -187,7 +197,7 @@
 }
 .kbd {
   font-family: var(--mono);
-  font-size: 0.64rem;
+  font-size: 0.72rem;
   line-height: 1;
   padding: 0.32em 0.45em;
   border: 1px solid var(--rule);
@@ -220,7 +230,7 @@
   background: var(--paper);
   color: var(--blueprint-ink);
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   line-height: 1;
@@ -258,13 +268,37 @@
   box-shadow: 3px 3px 0 rgba(23, 23, 19, 0.16) !important;
   color: var(--ink) !important;
   font-family: var(--mono);
-  font-size: 0.62rem !important;
+  font-size: 0.72rem !important;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 img[alt="Kaustubh Jain"] {
   border-radius: 0 !important;
   filter: contrast(1.04) saturate(0.92);
+}
+
+/* Body copy intentionally beats Tailwind's smaller text utilities on
+ * content elements; buttons, tabs, and controls keep their own scale. */
+main p.text-sm,
+main dd.text-sm,
+main li > span.text-sm {
+  font-size: var(--copy);
+  line-height: 1.65;
+}
+main p.text-xs,
+main summary.text-xs {
+  font-size: var(--caption);
+  line-height: 1.55;
+}
+
+@media (max-width: 640px) {
+  body { font-size: var(--copy-mobile); line-height: 1.62; }
+  main p.text-sm,
+  main dd.text-sm,
+  main li > span.text-sm {
+    font-size: var(--copy-mobile);
+    line-height: 1.62;
+  }
 }
 
 /* ================================================================== *
@@ -329,7 +363,7 @@ img[alt="Kaustubh Jain"] {
   padding: 0.68rem 1rem;
   border-radius: 0;
   font-family: var(--mono);
-  font-size: 0.76rem;
+  font-size: 0.82rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -347,12 +381,12 @@ img[alt="Kaustubh Jain"] {
   color: #fff;
 }
 .btn--primary:hover { background: var(--blueprint-ink); }
-.btn--sm { padding: 0.4rem 0.75rem; font-size: 0.68rem; box-shadow: 3px 3px 0 var(--ink); }
+.btn--sm { padding: 0.4rem 0.75rem; font-size: 0.75rem; box-shadow: 3px 3px 0 var(--ink); }
 .btn--sm:hover { box-shadow: var(--puff); }
 
 .tag {
   font-family: var(--mono);
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--muted);
@@ -364,7 +398,7 @@ img[alt="Kaustubh Jain"] {
 }
 .index-num {
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   letter-spacing: 0.06em;
   color: var(--coral-ink);
 }
@@ -416,14 +450,14 @@ img[alt="Kaustubh Jain"] {
 [cmdk-overlay] { position: fixed; inset: 0; background: rgba(38, 35, 54, 0.28); backdrop-filter: blur(4px); z-index: 90; }
 [cmdk-dialog] { position: fixed; z-index: 91; top: 13vh; left: 50%; transform: translateX(-50%); width: min(92vw, 540px); }
 [cmdk-root] { background: var(--sheet); border: 2px solid var(--ink); border-radius: 0; overflow: hidden; box-shadow: var(--shadow-lg); }
-[cmdk-input] { width: 100%; padding: 1rem 1.2rem; background: transparent; border: none; border-bottom: 1px solid var(--rule-soft); color: var(--ink); font-size: 0.95rem; outline: none; }
+[cmdk-input] { width: 100%; padding: 1rem 1.2rem; background: transparent; border: none; border-bottom: 1px solid var(--rule-soft); color: var(--ink); font-size: 1rem; outline: none; }
 [cmdk-input]::placeholder { color: var(--faint); }
 [cmdk-list] { max-height: 340px; overflow: auto; padding: 0.4rem; scrollbar-width: thin; }
-[cmdk-item] { display: flex; align-items: center; gap: 0.65rem; padding: 0.62rem 0.75rem; border-radius: 10px; color: var(--muted); font-size: 0.88rem; cursor: pointer; content-visibility: auto; }
+[cmdk-item] { display: flex; align-items: center; gap: 0.65rem; padding: 0.62rem 0.75rem; border-radius: 10px; color: var(--muted); font-size: 0.9375rem; cursor: pointer; content-visibility: auto; }
 [cmdk-item][data-selected="true"] { background: var(--blueprint-soft); color: var(--ink); }
 [cmdk-item] svg { width: 14px; height: 14px; opacity: 0.7; }
-[cmdk-group-heading] { padding: 0.7rem 0.75rem 0.3rem; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); }
-[cmdk-empty] { padding: 1.4rem; text-align: center; color: var(--faint); font-size: 0.88rem; }
+[cmdk-group-heading] { padding: 0.7rem 0.75rem 0.3rem; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); }
+[cmdk-empty] { padding: 1.4rem; text-align: center; color: var(--faint); font-size: 0.9375rem; }
 
 /* ================================================================== *
  * Skip link — first focusable element on every page (BUILD-PLAN 0.6)

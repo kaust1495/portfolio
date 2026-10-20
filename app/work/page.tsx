@@ -39,7 +39,7 @@ export default function WorkPage() {
               <p className="mt-1 text-sm" style={{ color: "var(--muted)" }}>
                 {c.kicker}
               </p>
-              <p className="mt-4 line-clamp-3 text-[0.86rem] leading-relaxed" style={{ color: "var(--faint)" }}>
+              <p className="mt-4 line-clamp-3 text-sm leading-relaxed" style={{ color: "var(--faint)" }}>
                 {c.insight}
               </p>
               <span className="mt-4 text-sm" style={{ color: "var(--coral-ink)" }}>

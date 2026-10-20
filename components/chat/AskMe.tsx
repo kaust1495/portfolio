@@ -162,7 +162,7 @@ export function AskMe() {
             {msgs.map((m, i) => (
               <div key={i} className={m.role === "you" ? "flex justify-end" : ""}>
                 <div
-                  className="max-w-[86%] px-3 py-2 text-[0.85rem] leading-snug"
+                  className="max-w-[86%] px-3 py-2 text-sm leading-snug"
                   style={{
                     background: m.role === "you" ? "var(--coral-soft)" : "var(--paper-2)",
                     color: "var(--ink-2)",
@@ -194,7 +194,7 @@ export function AskMe() {
 
             {thinking && (
               <div
-                className="w-fit px-3 py-2 text-[0.85rem]"
+                className="w-fit px-3 py-2 text-sm"
                 style={{ background: "var(--paper-2)", color: "var(--faint)", borderRadius: "14px 14px 14px 4px" }}
               >
                 <span className="dots">···</span>
@@ -208,7 +208,7 @@ export function AskMe() {
                   <button
                     key={s.id}
                     onClick={() => ask(s.question)}
-                    className="rounded-full border px-2.5 py-1 text-[0.72rem] transition-colors hover:border-[var(--coral-ink)] hover:bg-[var(--coral-soft)] hover:text-[var(--ink)]"
+                    className="rounded-full border px-2.5 py-1 text-xs transition-colors hover:border-[var(--coral-ink)] hover:bg-[var(--coral-soft)] hover:text-[var(--ink)]"
                     style={{ borderColor: "var(--rule)", color: "var(--muted)" }}
                   >
                     {s.question}
@@ -220,7 +220,7 @@ export function AskMe() {
             {/* suggestion box after a few questions */}
             {asked >= 3 && !thinking && (
               <div className="border-t pt-3" style={{ borderColor: "var(--rule-soft)" }}>
-                <p className="text-[0.78rem]" style={{ color: "var(--muted)" }}>
+                <p className="text-sm" style={{ color: "var(--muted)" }}>
                   Didn&rsquo;t find what you came for?
                 </p>
                 <a
@@ -247,7 +247,7 @@ export function AskMe() {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type a question…"
               aria-label="Ask a question"
-              className="flex-1 rounded-full bg-transparent px-3 py-2 text-[0.85rem] outline-none focus-visible:bg-[var(--paper-2)]"
+              className="flex-1 rounded-full bg-transparent px-3 py-2 text-sm outline-none focus-visible:bg-[var(--paper-2)]"
             />
             <button
               type="submit"

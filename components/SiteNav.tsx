@@ -91,7 +91,7 @@ export function SiteNav() {
       <nav className="wrap flex items-center justify-between gap-3 py-2">
         <Link href="/" className="tap flex items-center gap-2.5 pr-2" aria-label={`${person.name} — home`}>
           <span
-            className="grid h-9 w-9 place-items-center rounded-md border text-[0.72rem]"
+            className="grid h-9 w-9 place-items-center rounded-md border text-xs"
             style={{ borderColor: "var(--rule-soft)", color: "var(--ink)", fontFamily: "var(--mono)" }}
           >
             {person.monogram}

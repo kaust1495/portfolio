@@ -108,7 +108,7 @@ export function GameShell({
                   <div className="grid w-full max-w-[440px] gap-2 text-left sm:grid-cols-3">
                     {coach.map((line, i) => (
                       <div key={line} className="rounded-lg border px-3 py-2" style={{ borderColor: "var(--rule-soft)", background: "var(--paper-2)" }}>
-                        <p className="font-mono text-[10px] uppercase tracking-[0.12em]" style={{ color: "var(--coral-ink)" }}>
+                        <p className="font-mono text-xs uppercase tracking-[0.12em]" style={{ color: "var(--coral-ink)" }}>
                           {String(i + 1).padStart(2, "0")}
                         </p>
                         <p className="mt-1 text-xs leading-snug" style={{ color: "var(--ink)" }}>

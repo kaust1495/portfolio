@@ -147,7 +147,7 @@ export function BugSquash() {
       intro="Thirty seconds. Tap the bugs before they escape. Gold bugs are worth more."
       coach={["Tap a bug before it escapes.", "Gold bugs are worth 50.", "Fast hits build a combo."]}
       extra={(
-        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-mono text-[11px]" style={{ color: "var(--muted)" }}>
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-mono text-xs" style={{ color: "var(--muted)" }}>
           <span className="inline-flex items-center gap-1.5"><span className="block h-6 w-6"><BugArt golden={false} /></span>normal +10</span>
           <span className="inline-flex items-center gap-1.5"><span className="block h-6 w-6"><BugArt golden /></span>gold +50</span>
           <span>combo adds +2</span>

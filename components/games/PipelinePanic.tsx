@@ -233,7 +233,7 @@ export function PipelinePanic() {
       intro={pipelineCopy.intro}
       coach={["Approve safe deploys.", "Test untested production changes.", "Hold after-hours production changes."]}
       extra={(
-        <div className="grid gap-1.5 text-left font-mono text-[11px] leading-snug" style={{ color: "var(--muted)" }}>
+        <div className="grid gap-1.5 text-left font-mono text-xs leading-snug" style={{ color: "var(--muted)" }}>
           <p><span style={{ color: "var(--live)" }}>Approve</span> staging, or tested prod during work hours.</p>
           <p><span style={{ color: "var(--coral-ink)" }}>Test</span> anything untested that touches prod.</p>
           <p><span style={{ color: "var(--review)" }}>Hold</span> tested prod changes marked off-hours.</p>

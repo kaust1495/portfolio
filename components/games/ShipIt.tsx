@@ -184,7 +184,7 @@ export function ShipIt() {
       intro={shipItCopy.intro}
       coach={["Read the request.", "Ship, defer, or cut before time runs out.", "First three calls cost no lives."]}
       extra={(
-        <p className="rounded-lg border px-3 py-2 font-mono text-[11px] leading-relaxed" style={{ borderColor: "var(--rule-soft)", color: "var(--muted)" }}>
+        <p className="rounded-lg border px-3 py-2 font-mono text-xs leading-relaxed" style={{ borderColor: "var(--rule-soft)", color: "var(--muted)" }}>
           Practice speed starts at 8 seconds. Full speed starts on call four.
         </p>
       )}
@@ -209,7 +209,7 @@ export function ShipIt() {
                   />
                 ))}
               </div>
-              <span className="font-mono text-[11px]" style={{ color: practice ? "var(--coral-ink)" : "var(--faint)" }}>
+              <span className="font-mono text-xs" style={{ color: practice ? "var(--coral-ink)" : "var(--faint)" }}>
                 {practice ? `practice ${turn + 1}/${PRACTICE_CARDS} - no lives lost` : `call ${turn + 1}`}
               </span>
             </div>
