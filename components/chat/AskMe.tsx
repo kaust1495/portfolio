@@ -82,6 +82,9 @@ export function AskMe() {
       } else if (e.shiftKey && active === last) {
         e.preventDefault();
         items[items.length - 2]?.focus();
+      } else if (!e.shiftKey && items.length > 1 && active === items[items.length - 2]) {
+        e.preventDefault();
+        last.focus();
       } else if (!e.shiftKey && (!focusIsInside || active === last)) {
         e.preventDefault();
         first.focus();
