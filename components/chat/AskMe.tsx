@@ -122,7 +122,7 @@ export function AskMe() {
         data-doodle={open ? "go on, ask it something" : "ask me anything ↓"}
         aria-label={open ? "Close the ask-me panel" : "Open the ask-me panel"}
         aria-expanded={open}
-        className="tap fixed bottom-5 right-5 z-[70] flex items-center gap-2 rounded-full px-4 py-2.5 text-xs font-medium"
+        className="tap fixed bottom-5 right-5 z-[70] flex h-11 w-11 items-center justify-center gap-2 rounded-full px-0 py-0 text-xs font-medium md:h-auto md:w-auto md:justify-start md:px-4 md:py-2.5"
         style={{
           background: open ? "var(--ink)" : "var(--coral-ink)",
           color: "#fff",
@@ -132,7 +132,8 @@ export function AskMe() {
           transitionTimingFunction: "var(--ease)",
         }}
       >
-        {open ? "close ✕" : "ask me anything"}
+        <span className="text-base md:hidden" aria-hidden="true">{open ? "×" : "?"}</span>
+        <span className="hidden md:inline">{open ? "close ✕" : "ask me anything"}</span>
       </button>
 
       {open && (

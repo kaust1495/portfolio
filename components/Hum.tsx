@@ -178,7 +178,7 @@ export function Hum() {
         if (on) setLevel(Array(BARS).fill(0.2));
         setOn(!on);
       }}
-      className="tap fixed bottom-5 left-5 z-[60] flex items-center gap-2.5 rounded-full px-3 py-2"
+      className="tap fixed bottom-5 left-auto right-[4.75rem] z-[60] flex h-11 w-11 items-center justify-center gap-2.5 rounded-full px-0 py-0 md:left-5 md:right-auto md:h-auto md:w-auto md:justify-start md:px-3 md:py-2"
       style={{
         background: on ? "var(--coral-ink)" : "var(--sheet)",
         color: on ? "#fff" : "var(--muted)",
@@ -209,7 +209,7 @@ export function Hum() {
           />
         ))}
       </span>
-      <span className="text-xs font-medium">{on ? "Hum" : "Sound"}</span>
+      <span className="hidden text-xs font-medium md:inline">{on ? "Hum" : "Sound"}</span>
     </button>
   );
 }
