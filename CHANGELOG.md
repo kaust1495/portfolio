@@ -2,6 +2,19 @@
 
 The register is meant to visibly evolve. Newest first.
 
+## Audit fixes — 2 Nov 2026 (branch `fix/audit-findings`)
+
+- **No third-party text on the homepage.** The live Hacker News headline is
+  gone; the Now strip mentions FirmQuote instead.
+- **Decision deck** resumes at the first unanswered card, so new or reordered
+  cards are never skipped.
+- **Unscoped claims removed**: "top percentile" (MUIF) until the exact wording
+  is confirmed, and the JSON-LD `worksFor` that named Bank of America as a
+  current employer.
+- **`check:meta`** now reads routes from the build manifest, so new pages are
+  checked automatically.
+- **Leaner**: unused `Magnetic` component and the `motion` dependency deleted.
+
 ## Phase 0 — blocking defects (unreleased, branch `phase-0-defects`)
 
 Fixed, each re-verified live before the fix and measured after:
