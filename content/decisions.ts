@@ -294,6 +294,6 @@ export const decisions: DecisionCard[] = [
     verdict:
       "Buy the optionality. The PGP at Masters' Union is a deliberate bet on range: manage a live portfolio, ship products, compete, and be around people doing all three of these jobs — then commit with evidence instead of a guess. The engineer-to-something transition is the point, and it's not finished.",
     outcome:
-      "In progress. Managing a top-percentile book in the Masters' Union Investment Fund, shipping side projects, and figuring out which of the three this becomes.",
+      "In progress. Managing a live book in the Masters' Union Investment Fund, shipping side projects, and figuring out which of the three this becomes.",
   },
 ];

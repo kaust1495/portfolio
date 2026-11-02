@@ -89,7 +89,7 @@ export const answers: Answer[] = [
     match: ["investing", "fund", "muif", "portfolio fund", "stocks", "markets", "vc", "venture"],
     question: "Do you invest?",
     answer:
-      "I run a live book in the Masters' Union Investment Fund, currently in the top percentile. Venture is one of the three paths I'm seriously considering — early-stage diligence is a good fit for someone who can actually read the technical claims in a pitch.",
+      "I run a live book in the Masters' Union Investment Fund. Venture is one of the three paths I'm seriously considering — early-stage diligence is a good fit for someone who can actually read the technical claims in a pitch.",
   },
   {
     id: "skills",
