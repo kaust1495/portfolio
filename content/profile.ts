@@ -27,17 +27,6 @@ export const hero = {
   location: "Gurugram, India · open to relocate",
 };
 
-// Short, first-person, meant to be edited often. Shown as a ticker on the console.
-export const status = {
-  updated: "September 2026",
-  items: [
-    "shipping v2 of this site, in public",
-    "running a top-percentile book in the Masters' Union Investment Fund",
-    "prototyping in the agentic-AI + legal space",
-    "in case competitions — Galderma, and others via Unstop",
-  ],
-};
-
 export type Destination = {
   id: string;
   label: string;
@@ -62,7 +51,7 @@ export const now = {
   heading: "Where I am now",
   body: [
     "I'm in the PGP in Technology & Business Management at Masters' Union in Gurugram — a deliberate pivot from writing the code to choosing what the code should do.",
-    "Day to day: managing a live portfolio in the top percentile of the Masters' Union Investment Fund, competing in case competitions (Galderma, and others through Unstop), and shipping side projects like FirstStep Legal AI.",
+    "Day to day: managing a live portfolio in the Masters' Union Investment Fund, competing in case competitions (Galderma, and others through Unstop), and shipping side projects like FirstStep Legal AI.",
     "The path here wasn't linear — civil engineering, then advanced computing at C-DAC, then three and a half years of infrastructure work at Bank of America. What I keep coming back to: the interesting problems sit between what's technically true and what's worth doing.",
   ],
   targets: [
@@ -214,7 +203,7 @@ export const beyond = {
   ],
   facts: [
     { k: "Education", v: "PGP TBM, Masters' Union · PGDAC, C-DAC · B.E. Civil, SPPU" },
-    { k: "Investing", v: "Masters' Union Investment Fund — managing a live portfolio, top percentile" },
+    { k: "Investing", v: "Masters' Union Investment Fund — managing a live portfolio" },
     { k: "Published", v: "Green-building retrofit study, JETIR Vol. 8 (2021)" },
     { k: "Recognition", v: "Four awards at Bank of America — Silver, Bronze, 2× High Five" },
     { k: "Languages", v: "English, Hindi, Marathi" },

@@ -58,7 +58,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       { "@type": "Organization", name: "Centre for Development of Advanced Computing (C-DAC)" },
       { "@type": "Organization", name: "Savitribai Phule Pune University" },
     ],
-    worksFor: { "@type": "Organization", name: "Bank of America (2023–2026)" },
   };
 
   return (

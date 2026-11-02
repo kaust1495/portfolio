@@ -11,19 +11,19 @@ import { join } from "node:path";
 
 const SITE = "https://kaustubhjain.vercel.app";
 const OUT = join(process.cwd(), ".next", "server", "app");
+const MANIFEST = join(process.cwd(), ".next", "prerender-manifest.json");
 
-const routes = [
-  ["/", "index.html"],
-  ["/work", "work.html"],
-  ["/about", "about.html"],
-  ["/lab", "lab.html"],
-  ["/playground", "playground.html"],
-  ["/decisions", "decisions.html"],
-  ["/work/firststep", "work/firststep.html"],
-  ["/work/helix", "work/helix.html"],
-  ["/work/subpoena-migration", "work/subpoena-migration.html"],
-  ["/work/platform-automation", "work/platform-automation.html"],
-];
+if (!existsSync(MANIFEST)) {
+  console.error("✗ .next/prerender-manifest.json missing — run `next build` first");
+  process.exit(1);
+}
+
+// Every prerendered page from the build itself, so a new route is checked without editing this file.
+// Image, robots and sitemap routes have no .html file and drop out; /_not-found is internal.
+const routes = Object.keys(JSON.parse(readFileSync(MANIFEST, "utf8")).routes)
+  .filter((path) => !path.startsWith("/_"))
+  .map((path) => [path, path === "/" ? "index.html" : `${path.slice(1)}.html`])
+  .filter(([, file]) => existsSync(join(OUT, file)));
 
 const attr = (html, re) => html.match(re)?.[1] ?? null;
 const strip = (u) => (u ? u.replace(/\/$/, "") : u);

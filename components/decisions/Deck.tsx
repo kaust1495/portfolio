@@ -27,14 +27,10 @@ export function Deck() {
       const s = JSON.parse(raw);
       if (s?.answers && typeof s.answers === "object") {
         setAnswers(s.answers);
-        const answered = Object.keys(s.answers).length;
-        if (answered >= decisions.length) {
-          setDone(true);
-        } else {
-          const at = Math.min(answered, decisions.length - 1);
-          setI(at);
-          if (s.answers[decisions[at]?.id]) setPhase("revealed");
-        }
+        // resume at the first unanswered card, so added or reordered cards are never skipped
+        const at = decisions.findIndex((d) => !s.answers[d.id]);
+        if (at === -1) setDone(true);
+        else setI(at);
       }
     } catch {}
   }, []);
