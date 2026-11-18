@@ -28,14 +28,14 @@ export default function LabPage() {
         {labItems.map((item, i) => (
           <FadeIn key={item.id} delay={0.04 + i * 0.03} as="article">
             <div className={`tile h-full ${item.tint}`} data-doodle={item.name.toLowerCase()}>
-              <div className="flex items-baseline justify-between gap-3">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
                 <h2 className="text-lg leading-snug">
                   <span aria-hidden="true" style={{ color: "var(--coral-ink)" }}>
                     {item.glyph}
                   </span>{" "}
                   {item.name}
                 </h2>
-                {item.ambient ? <span className="tag">live on every page</span> : null}
+                {item.ambient ? <span className="tag shrink-0">live on every page</span> : null}
               </div>
 
               <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "var(--ink-2)" }}>

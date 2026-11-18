@@ -42,7 +42,7 @@ export default function WorkPage() {
               <p className="mt-4 line-clamp-3 text-sm leading-relaxed" style={{ color: "var(--faint)" }}>
                 {c.insight}
               </p>
-              <span className="mt-4 text-sm" style={{ color: "var(--coral-ink)" }}>
+              <span className="mt-auto pt-4 text-sm" style={{ color: "var(--coral-ink)" }}>
                 Read <span aria-hidden="true">→</span>
               </span>
             </Link>
@@ -51,7 +51,7 @@ export default function WorkPage() {
       </div>
 
       <FadeIn delay={0.1}>
-        <div className="mt-12 rounded-xl border p-6 text-center" style={{ borderColor: "var(--rule-soft)" }}>
+        <div className="mt-12 border p-6 text-center" style={{ borderColor: "var(--rule-soft)" }}>
           <p className="text-sm" style={{ color: "var(--muted)" }}>
             Prefer to see the decisions behind these, one at a time?
           </p>

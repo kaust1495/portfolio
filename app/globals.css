@@ -63,7 +63,7 @@
   /* Minimum interactive target (WCAG 2.2 SC 2.5.8) */
   --tap: 44px;
 
-  --ease: cubic-bezier(0.22, 0.68, 0.28, 1);
+  --ease: cubic-bezier(0.23, 1, 0.32, 1);
 }
 @theme inline {
   --text-xs: 0.8125rem;
@@ -123,7 +123,9 @@
     font-weight: 700;
     line-height: 1.02;
     letter-spacing: -0.045em;
+    text-wrap: balance;
   }
+  main p { text-wrap: pretty; }
   a { color: inherit; text-decoration: none; }
   button { font: inherit; color: inherit; cursor: pointer; background: none; border: none; }
   ::selection { background: var(--coral-soft); color: var(--ink); }
@@ -320,13 +322,17 @@ main summary.text-xs {
   border: 2px solid var(--ink);
   border-radius: 0;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.28s var(--ease), box-shadow 0.28s var(--ease), border-color 0.28s var(--ease);
+  transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease), border-color 0.18s var(--ease);
 }
 .tile:hover,
 .tile:focus-visible {
   transform: translate(-2px, -2px);
   box-shadow: var(--shadow);
   border-color: var(--ink);
+}
+.tile:active {
+  transform: none;
+  box-shadow: var(--shadow-sm);
 }
 .tile-row { flex-direction: column; }
 @media (min-width: 640px) {
@@ -351,7 +357,7 @@ main summary.text-xs {
   border-radius: 2px;
   transform: scaleX(0);
   transform-origin: right;
-  transition: transform 0.34s var(--ease);
+  transition: transform 0.22s var(--ease);
 }
 .link:hover::after, .link:focus-visible::after { transform: scaleX(1); transform-origin: left; }
 .link--accent { color: var(--coral-ink); }
@@ -450,7 +456,7 @@ main summary.text-xs {
 [cmdk-overlay] { position: fixed; inset: 0; background: rgba(38, 35, 54, 0.28); backdrop-filter: blur(4px); z-index: 90; }
 [cmdk-dialog] { position: fixed; z-index: 91; top: 13vh; left: 50%; transform: translateX(-50%); width: min(92vw, 540px); }
 [cmdk-root] { background: var(--sheet); border: 2px solid var(--ink); border-radius: 0; overflow: hidden; box-shadow: var(--shadow-lg); }
-[cmdk-input] { width: 100%; padding: 1rem 1.2rem; background: transparent; border: none; border-bottom: 1px solid var(--rule-soft); color: var(--ink); font-size: 1rem; outline: none; }
+[cmdk-input] { width: 100%; padding: 1rem 1.2rem; background: transparent; border: none; border-bottom: 1px solid var(--rule-soft); color: var(--ink); font-size: 1rem; outline: none; caret-color: var(--blueprint); }
 [cmdk-input]::placeholder { color: var(--faint); }
 [cmdk-list] { max-height: 340px; overflow: auto; padding: 0.4rem; scrollbar-width: thin; }
 [cmdk-item] { display: flex; align-items: center; gap: 0.65rem; padding: 0.62rem 0.75rem; border-radius: 10px; color: var(--muted); font-size: 0.9375rem; cursor: pointer; content-visibility: auto; }
