@@ -43,7 +43,7 @@ export default function WorkPage() {
                 {c.insight}
               </p>
               <span className="mt-auto pt-4 text-sm" style={{ color: "var(--coral-ink)" }}>
-                Read <span aria-hidden="true">→</span>
+                Read <span className="arr" aria-hidden="true">→</span>
               </span>
             </Link>
           </FadeIn>
@@ -56,7 +56,7 @@ export default function WorkPage() {
             Prefer to see the decisions behind these, one at a time?
           </p>
           <Link href="/decisions" className="tap link link--accent mt-2 inline-flex text-sm">
-            Play the Decisions deck →
+            Play the Decisions deck <span className="arr" aria-hidden="true">→</span>
           </Link>
         </div>
       </FadeIn>
