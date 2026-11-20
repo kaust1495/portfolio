@@ -42,7 +42,7 @@ export function Home() {
 
           <div className="rise mt-8 flex flex-wrap items-center gap-2.5" style={{ animationDelay: "150ms" }}>
             <Link href="/work" className="btn btn--primary" data-doodle="four builds. start with FirstStep.">
-              See the work →
+              See the work <span className="arr" aria-hidden="true">→</span>
             </Link>
             <a
               href={person.resumeHref}
@@ -51,10 +51,10 @@ export function Home() {
               className="btn"
               data-doodle="one page. no fluff."
             >
-              Résumé ↗
+              Résumé <span className="arr" aria-hidden="true">↗</span>
             </a>
             <Link href="/playground" className="btn" data-doodle="30 seconds of bug squashing?">
-              Playground ↗
+              Playground <span className="arr" aria-hidden="true">↗</span>
             </Link>
           </div>
 
@@ -144,7 +144,7 @@ export function Home() {
               </p>
             </div>
             <span className="shrink-0 text-sm font-medium" style={{ color: "var(--coral-ink)" }}>
-              Read →
+              Read <span className="arr" aria-hidden="true">→</span>
             </span>
           </Link>
         </FadeIn>
@@ -162,7 +162,7 @@ export function Home() {
                   {c.kicker}
                 </p>
                 <span className="mt-auto pt-3 text-sm font-medium" style={{ color: "var(--coral-ink)" }}>
-                  Read →
+                  Read <span className="arr" aria-hidden="true">→</span>
                 </span>
               </Link>
             </FadeIn>
