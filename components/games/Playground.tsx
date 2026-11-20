@@ -54,7 +54,7 @@ export function Playground() {
           </p>
         </div>
         <span className="shrink-0 text-sm" style={{ color: "var(--coral-ink)" }}>
-          Open →
+          Open <span className="arr" aria-hidden="true">→</span>
         </span>
       </Link>
     </div>
