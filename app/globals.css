@@ -362,6 +362,15 @@ main summary.text-xs {
 .link:hover::after, .link:focus-visible::after { transform: scaleX(1); transform-origin: left; }
 .link--accent { color: var(--coral-ink); }
 
+/* Arrow micro-interaction: CTAs nudge their arrow on hover (physical, small). */
+.arr { display: inline-block; transition: transform 0.18s var(--ease); }
+.btn:hover .arr, .btn:focus-visible .arr,
+.tile:hover .arr, .tile:focus-visible .arr,
+.link:hover .arr, .link:focus-visible .arr {
+  transform: translateX(3px);
+}
+@media (hover: none) { .arr { transition: none; } }
+
 .btn {
   display: inline-flex;
   align-items: center;
