@@ -45,7 +45,7 @@ export default function LabPage() {
               <details className="mt-3">
                 <summary
                   className="cursor-pointer text-xs font-medium"
-                  style={{ color: "var(--coral-ink)" }}
+                  style={{ color: "var(--coral-ink)", paddingBlock: "0.8rem" }}
                 >
                   How it works
                 </summary>
@@ -64,7 +64,7 @@ export default function LabPage() {
 
               {item.href ? (
                 <Link href={item.href} className="tap link mt-3 text-sm font-medium" style={{ color: "var(--coral-ink)" }}>
-                  {item.cta} →
+                  {item.cta} <span className="arr" aria-hidden="true">→</span>
                 </Link>
               ) : (
                 <p className="mt-3 text-xs" style={{ color: "var(--faint)" }}>
