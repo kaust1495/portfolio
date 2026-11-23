@@ -44,6 +44,16 @@ components/     Nav, Hero, Marquee, Now, Work, Principles, Beyond, Contact, Foot
 content/        profile.ts  ← single source of truth for copy
 ```
 
+## FirstStep product flow (23 Nov 2026)
+
+The FirstStep case study adds an optional three-step flow to `/work/firststep`, after the insight and before the existing work section. It uses the existing case-study claims only, labels the diagram illustrative, and keeps the legal-information boundary visible. It does not replace genuine product footage or generate a legal answer.
+
+Motion starts only on request, stops after one six-second run, pauses outside the view or when the page is hidden, and respects reduced-motion preferences. All text remains readable without JavaScript. Steps are ordinary keyboard-usable buttons. No new runtime package, remote asset, video, font, likeness processing or tracking is introduced. The hero, photo and other case studies are unchanged.
+
+The persistent-scene and time-indexed-marker pattern is adapted from Bang Motion's MIT starter, not a global installation of its plugin. See `THIRD_PARTY_NOTICES.md`. The drawing/art repositories and paid Vox Director route are not needed for this Blueprint portfolio change.
+
+Live case study: https://kaustubhjain.vercel.app/work/firststep .
+
 ## Deploy
 
 Connected to GitHub → Vercel. Every push to the default branch deploys automatically.
