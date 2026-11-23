@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { caseStudies } from "@/content/profile";
 import { routeMetadata } from "@/lib/seo";
 import { FadeIn } from "@/components/FadeIn";
+import { CaseFlow } from "@/components/work/CaseFlow";
 
 export function generateStaticParams() {
   return caseStudies.map((c) => ({ slug: c.id }));
@@ -76,6 +77,8 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
           <p className="label mb-2">The insight</p>
           <p className="font-display text-[1.35rem] leading-snug">{c.insight}</p>
         </FadeIn>
+
+        {c.id === "firststep" ? <CaseFlow /> : null}
 
         <FadeIn>
           <p className="label mb-3">What I did</p>
