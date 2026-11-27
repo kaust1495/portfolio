@@ -103,19 +103,6 @@ export const labItems: LabItem[] = [
     cta: "Play",
   },
   {
-    id: "decisions",
-    name: "The decision deck",
-    blurb:
-      "Twelve calls I genuinely had to make. You pick first, then I show you what I picked and what happened next.",
-    how:
-      "Three card types — prioritise, invest, branch — with the branch cards carrying a different consequence for each path. You commit before you see my answer, which is the only way this kind of thing is worth anything.",
-    stack: ["12 cards", "real outcomes"],
-    tint: "tint-coral",
-    glyph: "❋",
-    href: "/decisions",
-    cta: "Open the deck",
-  },
-  {
     id: "pulse",
     name: "Tech pulse",
     blurb: "The top story on Hacker News right now, live on my homepage. Not a screenshot, not cached copy.",

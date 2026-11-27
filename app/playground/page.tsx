@@ -7,7 +7,7 @@ export const metadata: Metadata = routeMetadata({
   path: "/playground",
   title: "Playground",
   description:
-    "A decision deck and three small games about making product calls under pressure - Bug Squash, Ship It, and Pipeline Panic. Built by Kaustubh Jain.",
+    "Three small games about making product calls under pressure - Bug Squash, Ship It, and Pipeline Panic. Built by Kaustubh Jain.",
 });
 
 export default function PlaygroundPage() {

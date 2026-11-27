@@ -50,16 +50,6 @@ export default function WorkPage() {
         ))}
       </div>
 
-      <FadeIn delay={0.1}>
-        <div className="mt-12 border p-6 text-center" style={{ borderColor: "var(--rule-soft)" }}>
-          <p className="text-sm" style={{ color: "var(--muted)" }}>
-            Prefer to see the decisions behind these, one at a time?
-          </p>
-          <Link href="/decisions" className="tap link link--accent mt-2 inline-flex text-sm">
-            Play the Decisions deck <span className="arr" aria-hidden="true">→</span>
-          </Link>
-        </div>
-      </FadeIn>
     </div>
   );
 }

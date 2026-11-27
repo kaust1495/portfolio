@@ -116,9 +116,6 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
 
       <FadeIn>
         <div className="mt-16 flex flex-col gap-3 border-t pt-8 sm:flex-row sm:items-center sm:justify-between" style={{ borderColor: "var(--rule-soft)" }}>
-          <Link href="/decisions" className="tap text-sm link" style={{ color: "var(--muted)" }}>
-            Play the Decisions deck
-          </Link>
           <Link href={`/work/${nextCase.id}`} className="tap link link--accent text-sm">
             Next: {nextCase.title} <span aria-hidden="true">→</span>
           </Link>

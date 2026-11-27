@@ -120,16 +120,16 @@ export const answers: Answer[] = [
     question: "Show me the fun stuff",
     suggest: true,
     answer:
-      "There's a Playground: Bug Squash (thirty seconds, click the bugs), Ship It (call features ship, defer, or cut before the clock runs out), Pipeline Panic (route deploys without taking prod down), and a Decisions deck of twelve real calls I've made where you choose first and then see what I actually did.",
+      "There's a Playground: Bug Squash (thirty seconds, click the bugs), Ship It (call features ship, defer, or cut before the clock runs out), and Pipeline Panic (route deploys without taking prod down).",
     link: { label: "Go to the Playground", href: "/playground" },
   },
   {
     id: "decisions",
-    match: ["decisions", "deck", "judgment", "calls", "how do you decide", "prioritize", "prioritise"],
+    match: ["decisions", "judgment", "calls", "how do you decide", "prioritize", "prioritise"],
     question: "How do you make decisions?",
     answer:
-      "Best way to find out is to make a few yourself. The Decisions deck has twelve real calls from my work — product prioritization, a couple of investment ones, and one you make on-call. You choose, then you see the call I made and what happened.",
-    link: { label: "Play the deck", href: "/decisions" },
+      "The four chapters are the honest answer: each walks through a real build - the situation, what I did, and what it led to. The map on the home page shows how they connect.",
+    link: { label: "Explore the map", href: "/#work" },
   },
   {
     id: "location",
@@ -142,7 +142,7 @@ export const answers: Answer[] = [
     match: ["site", "website", "this", "built this", "how did you build", "nextjs", "made"],
     question: "How was this site built?",
     answer:
-      "Next.js, TypeScript and Tailwind, deployed on Vercel, no site builder. The games, the decision deck and this chat are all hand-built. The 'tech pulse' on the homepage pulls the top Hacker News story live, so it's different every visit.",
+      "Next.js, TypeScript and Tailwind, deployed on Vercel, no site builder. The games and this chat are all hand-built. The 'tech pulse' on the homepage pulls the top Hacker News story live, so it's different every visit.",
     link: { label: "Source on GitHub", href: "https://github.com/kaust1495" },
   },
   {

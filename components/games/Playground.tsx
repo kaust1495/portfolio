@@ -43,20 +43,6 @@ export function Playground() {
       </p>
 
       {tab === "bug-squash" ? <BugSquash /> : tab === "ship-it" ? <ShipIt /> : <PipelinePanic />}
-
-      <Link href="/decisions" className="tile tile-row mt-6">
-        <div>
-          <p className="font-display text-xl" style={{ color: "var(--ink)" }}>
-            Decisions deck
-          </p>
-          <p className="mt-1 text-sm" style={{ color: "var(--muted)" }}>
-            The slow version - 12 real calls, with the reasoning. You choose, then see what I did.
-          </p>
-        </div>
-        <span className="shrink-0 text-sm" style={{ color: "var(--coral-ink)" }}>
-          Open <span className="arr" aria-hidden="true">→</span>
-        </span>
-      </Link>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useHideOnScrollDown, hideStyle } from "./useHideOnScroll";
 
 /**
  * Hum — a generative ambient soundtrack.
@@ -26,6 +27,8 @@ const BARS = 5;
 
 export function Hum() {
   const [on, setOn] = useState(false);
+  // stays visible while playing so the stop control is never lost
+  const hidden = useHideOnScrollDown(!on);
   const [level, setLevel] = useState<number[]>(() => Array(BARS).fill(0.2));
 
   const ctxRef = useRef<AudioContext | null>(null);
@@ -180,13 +183,14 @@ export function Hum() {
       }}
       className="tap fixed bottom-[4.75rem] left-auto right-5 z-[60] flex h-11 w-11 items-center justify-center gap-2.5 rounded-full px-0 py-0 md:bottom-5 md:left-5 md:right-auto md:h-auto md:w-auto md:justify-start md:px-3 md:py-2"
       style={{
-        background: on ? "var(--coral-ink)" : "var(--sheet)",
-        color: on ? "#fff" : "var(--muted)",
+        background: on ? "var(--amber)" : "var(--sheet)",
+        color: on ? "var(--amber-deep)" : "var(--muted)",
         border: `1px solid ${on ? "transparent" : "var(--rule)"}`,
         boxShadow: "var(--puff)",
-        transitionProperty: "background, color, box-shadow",
+        transitionProperty: "background, color, box-shadow, transform, opacity",
         transitionDuration: "0.3s",
         transitionTimingFunction: "var(--ease)",
+        ...hideStyle(hidden),
       }}
       aria-pressed={on}
       aria-label={on ? "Stop the ambient soundtrack" : "Play a generative ambient soundtrack"}

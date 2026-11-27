@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { answers, fallback, greeting, type Answer } from "@/content/answers";
 import { person } from "@/content/profile";
+import { useHideOnScrollDown, hideStyle } from "../useHideOnScroll";
 
 type Msg =
   | { role: "bot"; text: string; link?: { label: string; href: string } }
@@ -33,6 +34,8 @@ const suggestions = answers.filter((a) => a.suggest);
 
 export function AskMe() {
   const [open, setOpen] = useState(false);
+  // stays visible while the panel is open
+  const hidden = useHideOnScrollDown(!open);
   const [msgs, setMsgs] = useState<Msg[]>([{ role: "bot", text: greeting }]);
   const [input, setInput] = useState("");
   const [thinking, setThinking] = useState(false);
@@ -124,12 +127,13 @@ export function AskMe() {
         aria-expanded={open}
         className="tap fixed bottom-5 right-5 z-[70] flex h-11 w-11 items-center justify-center gap-2 rounded-full px-0 py-0 text-xs font-medium md:h-auto md:w-auto md:justify-start md:px-4 md:py-2.5"
         style={{
-          background: open ? "var(--ink)" : "var(--coral-ink)",
-          color: "#fff",
+          background: open ? "var(--ink)" : "var(--amber)",
+          color: open ? "var(--paper)" : "var(--amber-deep)",
           boxShadow: "var(--puff)",
-          transitionProperty: "background, box-shadow, transform",
+          transitionProperty: "background, box-shadow, transform, opacity",
           transitionDuration: "0.25s",
           transitionTimingFunction: "var(--ease)",
+          ...hideStyle(hidden),
         }}
       >
         <span className="text-base md:hidden" aria-hidden="true">{open ? "×" : "?"}</span>
@@ -253,7 +257,7 @@ export function AskMe() {
               type="submit"
               aria-label="Send question"
               className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-sm"
-              style={{ background: "var(--coral-ink)", color: "#fff", boxShadow: "var(--shadow-sm)" }}
+              style={{ background: "var(--amber)", color: "var(--amber-deep)", boxShadow: "var(--shadow-sm)" }}
             >
               ↑
             </button>

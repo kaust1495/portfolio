@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
+import { Fraunces, IBM_Plex_Mono } from "next/font/google";
 import { person, github } from "@/content/profile";
 import { siteTitle, siteDescription } from "@/lib/seo";
 import { CommandBar } from "@/components/CommandBar";
@@ -9,10 +9,17 @@ import { Buddy } from "@/components/Buddy";
 import { Hum } from "@/components/Hum";
 import "./globals.css";
 
-/* Product Teardown / Blueprint — one grotesk for reading and display, one
-   mono for annotations and controls. Both are OFL-licensed and served by
-   next/font, so the preview adds no external font request. */
-const grotesk = Space_Grotesk({ variable: "--font-grotesk", subsets: ["latin"], display: "swap" });
+/* Four Chapters / cinematic — Fraunces for display and reading (old-style
+   serif with optical sizing), IBM Plex Mono for director's-note annotations.
+   Both are OFL-licensed and served by next/font, so the preview adds no
+   external font request. */
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  axes: ["opsz", "SOFT", "WONK"],
+  display: "swap",
+});
 const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
   subsets: ["latin"],
@@ -61,16 +68,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   };
 
   return (
-    <html lang="en" className={`${grotesk.variable} ${plexMono.variable} h-full antialiased`}>
+    <html lang="en" className={`${fraunces.variable} ${plexMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <a href="#main" className="skip">
           Skip to content
         </a>
-        <div className="ambient" aria-hidden="true">
-          <span className="blob blob-a" />
-          <span className="blob blob-b" />
-          <span className="blob blob-c" />
-        </div>
+        <div id="nav-sentinel" aria-hidden="true" className="absolute top-0 h-[17px] w-px" />
         <SiteNav />
         <main id="main" tabIndex={-1} className="flex-1">
           {children}

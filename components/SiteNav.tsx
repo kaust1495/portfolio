@@ -7,8 +7,6 @@ import { person } from "@/content/profile";
 
 const destinations = [
   { href: "/work", label: "Work" },
-  { href: "/lab", label: "Lab" },
-  { href: "/playground", label: "Playground" },
   { href: "/about", label: "About" },
 ];
 
@@ -19,11 +17,17 @@ export function SiteNav() {
   const sheetRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
+  // Scroll state via IntersectionObserver on a sentinel at the page top:
+  // no per-frame scroll work. While the sentinel is in view we are at the top.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const sentinel = document.getElementById("nav-sentinel");
+    if (!sentinel || !("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setScrolled(!entry.isIntersecting),
+      { threshold: 0 }
+    );
+    io.observe(sentinel);
+    return () => io.disconnect();
   }, []);
 
   // close on navigation
@@ -179,16 +183,6 @@ export function SiteNav() {
                 </Link>
               </li>
             ))}
-            <li>
-              <Link
-                href="/decisions"
-                className="flex items-center justify-between border-b text-lg"
-                style={{ minHeight: 56, borderColor: "var(--rule-soft)", color: "var(--ink)" }}
-              >
-                Decisions
-                <span aria-hidden="true" style={{ color: "var(--faint)" }}>→</span>
-              </Link>
-            </li>
             <li>
               <a
                 href={person.resumeHref}
